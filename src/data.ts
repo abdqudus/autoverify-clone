@@ -96,41 +96,53 @@ export const lineData = [
     sale: 0,
   },
 ];
-export type SideBarItems = { src: string; text: string; isActive: boolean };
+export type SideBarItems = {
+  src: string;
+  text: string;
+  isActive: boolean;
+  hasDropDown: boolean;
+};
 export const sideBarItems: SideBarItems[] = [
   {
     src: "/home.svg",
     text: "Dashboard",
     isActive: true,
+    hasDropDown: false,
   },
   {
     src: "/products.png",
     text: "Products",
     isActive: false,
+    hasDropDown: true,
   },
   {
     src: "/customer.png",
     text: "Customers",
     isActive: false,
+    hasDropDown: false,
   },
   {
     src: "/codebases.png",
     text: "Code bases",
     isActive: false,
+    hasDropDown: true,
   },
   {
     src: "/codebases.png",
     text: "Marketing",
     isActive: false,
+    hasDropDown: true,
   },
   {
     src: "/codebases.png",
     text: "Ebay",
     isActive: false,
+    hasDropDown: true,
   },
   {
     src: "/settings.png",
     text: "Settings",
     isActive: false,
+    hasDropDown: false,
   },
 ];
