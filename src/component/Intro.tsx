@@ -30,7 +30,7 @@ const Intro = () => {
         <button className="max-w-[204px] px-4 shadow-login-shadow font-bold text-[15px] leading-[22.5px] text-center h-[39px] mt-3 rounded-[5px] bg-[#0076C8] text-white">
           Proceed to Signin
         </button>
-        <p className="ml-auto mt-4 text-[#474B4D] text-[.875rem] tracking-wider leading-[21px]">
+        <p className="ml-auto mt-4 sm:hidden text-[#474B4D] text-[.875rem] tracking-wider leading-[21px]">
           Don't have an account yet?{" "}
           <a href="#" className="text-[#044E82] font-semibold">
             Register
@@ -40,7 +40,7 @@ const Intro = () => {
           <img src="/square-dot.svg" alt="" />
         </div>
       </form>
-      <div className="img-wrapper-small rounded-md  ">
+      <div className=" bg-dark-bg md:bg-light-bg md:rounded-full rounded-md  ">
         <div className="relative ">
           <div className="absolute right-2 md:right-1/2 top-8 sm:-top-10">
             <img src="/square-dot.svg" alt="" />

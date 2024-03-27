@@ -2,10 +2,10 @@ const Footer = () => {
   return (
     <div className="overflow-hidden mt-[20rem]">
       <footer className="mt-[10rem]  relative bg-[#4A99D3] px-12 py-12 ">
-        <div className="absolute -z-10 -top-[40%] -left-20 sm:left-0">
+        <div className="absolute w-[30%] sm:w-auto-z-10 -top-[30%] -left-0">
           <img src="/Group 81.png" alt="" />
         </div>
-        <div className="absolute  -z-10 -top-[40%] -right-20 sm:right-0">
+        <div className="absolute w-[30%] sm:w-auto -z-10 -top-[30%] -right-0 ">
           <img src="/Group 82.png" alt="" />
         </div>
         <p className="font-bold text-[2.125rem] text-center leading-[35.29px] mb-5 text-white">
@@ -14,7 +14,7 @@ const Footer = () => {
         <p className="font-bold font-inter text-[.625rem] text-center my-6 text-white">
           Subscribe to our newsletter and be the first to know about our updates
         </p>
-        <form className="flex gap-4 items-center justify-center my-6">
+        <form className="flex flex-wrap gap-4 items-center justify-center my-6">
           <input
             type="text"
             placeholder="Email Address"
