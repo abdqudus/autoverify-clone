@@ -2,7 +2,6 @@ type Props = {
   bg: string;
   border: string;
 };
-//  green
 const ProductDetailExtenstion = ({ bg, border }: Props) => {
   return (
     <div className="mt-[30px] justify-self-end  lg:mt-4 md:flex gap-4 lg:flex-col items-start justify-between">

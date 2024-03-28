@@ -23,9 +23,9 @@ const QuantitySold = () => {
             <p className="basis-[71.25px] bg-[#B5E4CA] font-open-sans font-normal text-[#555555]  text-[.875rem] leading-[14px] flex justify-center items-center">
               date to
             </p>
-            <p className="flex-grow font-open-sans font-normal text-[#555555]  text-[.875rem] pl-3 flex  items-center">
+            <div className="flex-grow font-open-sans font-normal text-[#555555]  text-[.875rem] pl-3 flex  items-center">
               <p>24-02-2024</p>
-            </p>
+            </div>
           </div>
 
           <div className=" lgs:shadow-card-shadow lgs:justify-self-end lgs:bg-white w-[113.36px] self-end h-[30px] border-[#CCCCCC] border lgs:border-2 rounded-[3px] flex items-center justify-center font-normal text-[#333333] text-[.75rem] leading-[18px]">

@@ -21,6 +21,7 @@ export default {
         graph: "4px 4px 18px 0px #DADDE8D9",
         "product-shadow": "0px 1px 1px rgba(0, 0, 0, 0.05)",
       },
+
       gridTemplateColumns: {
         "3/2": "3fr 2fr",
         "3/1": "3fr 1fr",
@@ -36,6 +37,18 @@ export default {
           "linear-gradient(180deg, #e9e9e9, rgba(255, 255, 255, 1) 58%)",
         "light-bg":
           "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
+      },
+      keyframes: {
+        "slide-in": {
+          "100%": { width: "60%" },
+        },
+        "slide-out": {
+          "100%": { width: "0%" },
+        },
+      },
+      animation: {
+        "slide-in": "slide-in .5s ease-out 150ms forwards",
+        "slide-out": "slide-out .5s ease-out 150ms forwards",
       },
     },
   },
