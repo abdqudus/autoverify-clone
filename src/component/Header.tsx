@@ -1,8 +1,22 @@
-const Header = () => {
+//
+
+import { Dispatch, SetStateAction, SyntheticEvent } from "react";
+type Props = { setIsHamburgerOpened: Dispatch<SetStateAction<boolean>> };
+
+const Header = ({ setIsHamburgerOpened }: Props) => {
+  const handleHamburgerClick = (e: SyntheticEvent) => {
+    e.stopPropagation();
+    setIsHamburgerOpened((prev: boolean) => !prev);
+  };
+
   return (
     <header>
       <nav className="px-4 py-6 lg:pl-16 sm:pr-8 flex lg:shadow-nav-shadow items-center justify-between ">
-        <img src="/hamburger.png" className="lg:hidden" />
+        <img
+          onClick={handleHamburgerClick}
+          src="/hamburger.png"
+          className="lg:hidden"
+        />
         <h3 className="text-[2.5rem] lg:pl-16 leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>

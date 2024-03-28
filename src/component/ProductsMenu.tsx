@@ -1,16 +1,18 @@
-import { useState } from "react";
-import { SideBarItems } from "../data";
-
-const ProductsMenu = ({ text, isActive, src }: SideBarItems) => {
-  type ExpandedSection = string;
-  const [expandedSection, setExpandedSection] = useState<ExpandedSection>("");
+import { MenuType } from "../types/type";
+import DropDown from "./DropDown";
+const ProductsMenu = ({ state, dispatch, menu }: MenuType) => {
+  const { text, src, isActive, dropDownItems } = menu;
+  const { expandedSection } = state;
   const handleExpansion = () => {
-    expandedSection == text ? setExpandedSection("") : setExpandedSection(text);
+    dispatch({
+      type: "SET_EXPANDED_SECTION",
+      payload: expandedSection == text ? "" : text,
+    });
   };
   return (
     <div
       onClick={handleExpansion}
-      className={`transition-[height] overflow-hidden relative ${
+      className={`transition-[height] border-gray-500 overflow-hidden relative ${
         expandedSection == text ? "h-[162px]" : "h-[48px]"
       }`}
     >
@@ -32,17 +34,7 @@ const ProductsMenu = ({ text, isActive, src }: SideBarItems) => {
           </span>
         </div>
       </div>
-      <div className="font-inter absolute left-[30px] font-semibold text-[#6F767E] text-[.9375rem]">
-        <p className="leading-6 py-[6px] px-4 border border-red-500 border-collapse">
-          All Products
-        </p>
-        <p className="leading-6 py-[6px] px-4 border border-red-500 border-collapse">
-          Create New
-        </p>
-        <p className="leading-6 py-[6px] px-4 border border-red-500 border-collapse">
-          Payments Methods
-        </p>
-      </div>
+      <DropDown dropDownItems={dropDownItems} />
     </div>
   );
 };

@@ -1,12 +1,4 @@
-import { ReactNode } from "react";
-type Props = {
-  header: string;
-  subheader: string;
-  children: ReactNode;
-  font?: string;
-  additionalHeader?: ReactNode;
-  pFont?: string;
-};
+import { DashBoardWrapperProps } from "../types/type";
 
 const DashBoardSubRoutesWrapper = ({
   header,
@@ -15,7 +7,7 @@ const DashBoardSubRoutesWrapper = ({
   font,
   additionalHeader,
   pFont,
-}: Props) => {
+}: DashBoardWrapperProps) => {
   const headerFont = font ? font : "font-inter";
   const parFont = pFont ? pFont : "";
   return (

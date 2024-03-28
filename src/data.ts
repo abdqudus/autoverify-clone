@@ -2,14 +2,8 @@ import Money from "/money-tag 1.png";
 import Income from "/Group.png";
 import Expense from "/001-medical.png";
 import Savings from "/003-saving.png";
-//
-type Card = {
-  img: string;
-  text: string;
-  amount: string;
-  bg: string;
-};
-type GraphData = { name: string; sale: number; fill: string };
+import { Card, GraphData, SideBarItems } from "./types/type";
+
 export const cards: Card[] = [
   {
     img: Money,
@@ -96,53 +90,78 @@ export const lineData = [
     sale: 0,
   },
 ];
-export type SideBarItems = {
-  src: string;
-  text: string;
-  isActive: boolean;
-  hasDropDown: boolean;
-};
+
 export const sideBarItems: SideBarItems[] = [
   {
     src: "/home.svg",
     text: "Dashboard",
     isActive: true,
     hasDropDown: false,
+    dropDownItems: [],
   },
   {
     src: "/products.png",
     text: "Products",
     isActive: false,
     hasDropDown: true,
+    dropDownItems: [
+      { text: "All Products", route: "products" },
+      { text: "Create New", route: "new-products" },
+      { text: "Payments Methods", route: "payment-method" },
+    ],
   },
   {
     src: "/customer.png",
     text: "Customers",
     isActive: false,
-    hasDropDown: false,
+    hasDropDown: true,
+    dropDownItems: [
+      { text: "Search", route: "/" },
+      { text: "New Transaction", route: "/" },
+      { text: "List of Transaction", route: "/" },
+      { text: "History Export", route: "/" },
+      { text: "Complaints", route: "/" },
+      { text: "List of Complaints", route: "/" },
+      { text: "Reply Template", route: "/" },
+      { text: "Sales Statistics", route: "/" },
+      { text: "Sales Blacklists", route: "/" },
+      { text: "Sales Settings", route: "/" },
+    ],
+    newHeight: "h-[428px]",
   },
   {
     src: "/codebases.png",
     text: "Code bases",
     isActive: false,
     hasDropDown: true,
+    dropDownItems: [
+      { text: "Search Code", route: "/" },
+      { text: "Refunds", route: "/" },
+      { text: "Payout", route: "/" },
+      { text: "Statements", route: "/" },
+    ],
+    newHeight: "h-[200px]",
+    // 48 200
   },
   {
     src: "/codebases.png",
     text: "Marketing",
     isActive: false,
-    hasDropDown: true,
+    hasDropDown: false,
+    dropDownItems: [],
   },
   {
     src: "/codebases.png",
     text: "Ebay",
     isActive: false,
-    hasDropDown: true,
+    hasDropDown: false,
+    dropDownItems: [],
   },
   {
     src: "/settings.png",
     text: "Settings",
     isActive: false,
     hasDropDown: false,
+    dropDownItems: [],
   },
 ];
