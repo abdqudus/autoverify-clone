@@ -105,9 +105,9 @@ export const sideBarItems: SideBarItems[] = [
     isActive: false,
     hasDropDown: true,
     dropDownItems: [
-      { text: "All Products", route: "products" },
-      { text: "Create New", route: "new-products" },
-      { text: "Payments Methods", route: "payment-method" },
+      { text: "All Products", route: "products/all-products" },
+      { text: "Create New", route: "products/new-products" },
+      { text: "Payments Methods", route: "products/payment-method" },
     ],
   },
   {
@@ -116,9 +116,9 @@ export const sideBarItems: SideBarItems[] = [
     isActive: false,
     hasDropDown: true,
     dropDownItems: [
-      { text: "Search", route: "/" },
-      { text: "New Transaction", route: "/" },
-      { text: "List of Transaction", route: "/" },
+      { text: "Search", route: "customers/search" },
+      { text: "New Transaction", route: "customers/new-transaction" },
+      { text: "List of Transaction", route: "customers/transactions" },
       { text: "History Export", route: "/" },
       { text: "Complaints", route: "/" },
       { text: "List of Complaints", route: "/" },
@@ -165,3 +165,4 @@ export const sideBarItems: SideBarItems[] = [
     dropDownItems: [],
   },
 ];
+export const searchUserData = [];

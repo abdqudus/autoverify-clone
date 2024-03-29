@@ -1,22 +1,40 @@
-//
+import { useRef } from "react";
+import HambugerItems from "./HambugerItems";
+import { closeHamburger, handleHamburgerClick } from "../utils/hambuger";
+import UseHamburgerContext from "../contexts/UseHamburgerContext";
 
-import { Dispatch, SetStateAction, SyntheticEvent } from "react";
-type Props = { setIsHamburgerOpened: Dispatch<SetStateAction<boolean>> };
-
-const Header = ({ setIsHamburgerOpened }: Props) => {
-  const handleHamburgerClick = (e: SyntheticEvent) => {
-    e.stopPropagation();
-    setIsHamburgerOpened((prev: boolean) => !prev);
-  };
-
+const Header = () => {
+  const { dispatch } = UseHamburgerContext();
+  const inputRef = useRef<HTMLInputElement | null>(null);
+  const divRef = useRef<HTMLDivElement | null>(null);
   return (
     <header>
-      <nav className="px-4 py-6 lg:pl-16 sm:pr-8 flex lg:shadow-nav-shadow items-center justify-between ">
-        <img
-          onClick={handleHamburgerClick}
-          src="/hamburger.png"
-          className="lg:hidden"
+      <nav className="px-4 relative py-6 lg:pl-16 sm:pr-8 flex lg:shadow-nav-shadow items-center justify-between ">
+        <label
+          onClick={(e) => {
+            handleHamburgerClick(e, divRef, inputRef);
+            dispatch!({ type: "SET_REFS", refs: [inputRef, divRef] });
+          }}
+          className="peer hamburger-label block "
+          htmlFor="humburger"
+        >
+          <input
+            ref={inputRef}
+            className="sr-only"
+            type="checkbox"
+            name=""
+            id="hamburger"
+          />
+          <img src="/hamburger.png" className="lg:hidden" />
+        </label>
+        <HambugerItems
+          inputRef={inputRef}
+          closeHamburger={(e) => {
+            closeHamburger(divRef, inputRef, e);
+          }}
+          ref={divRef}
         />
+
         <h3 className="text-[2.5rem] lg:pl-16 leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>

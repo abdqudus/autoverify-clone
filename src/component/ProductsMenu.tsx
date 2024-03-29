@@ -1,22 +1,24 @@
+import UseHamburgerContext from "../contexts/UseHamburgerContext";
 import { MenuType } from "../types/type";
 import DropDown from "./DropDown";
-const ProductsMenu = ({ state, dispatch, menu }: MenuType) => {
+const ProductsMenu = ({ menu }: MenuType) => {
+  const { state, dispatch } = UseHamburgerContext();
   const { text, src, isActive, dropDownItems } = menu;
   const { expandedSection } = state;
   const handleExpansion = () => {
-    dispatch({
+    dispatch!({
       type: "SET_EXPANDED_SECTION",
       payload: expandedSection == text ? "" : text,
     });
   };
   return (
     <div
-      onClick={handleExpansion}
       className={`transition-[height] border-gray-500 overflow-hidden relative ${
         expandedSection == text ? "h-[162px]" : "h-[48px]"
       }`}
     >
       <div
+        onClick={handleExpansion}
         className={`flex px-4 gap-4 text-[.9375rem] ${
           isActive ? "text-[#2D60FF]" : "text-[#6F767E]"
         }  font-semibold h-[48px] py-[12px] items-center`}

@@ -9,3 +9,7 @@
     font-family: "Poppins", sans-serif;
   }
 }
+.parent:has(.activated) {
+  height: 100vh;
+  overflow: hidden;
+}
