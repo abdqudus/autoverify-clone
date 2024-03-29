@@ -1,4 +1,4 @@
-import { Dispatch, ReactNode } from "react";
+import { MutableRefObject, ReactNode } from "react";
 
 export type Card = {
   img: string;
@@ -18,13 +18,17 @@ export type SideBarItems = {
 export type MenuType = {
   menu: SideBarItems;
   children?: ReactNode;
-  dispatch: Dispatch<ExpandAction>;
-  state: { expandedSection: string };
 };
 export type ES = {
-  expandedSection: string;
+  expandedSection?: string;
+  isSideBarOpen: boolean;
+  refs?: { inputRef: InputRef | null; divRef: DivRef | null };
 };
-export type ExpandAction = { type: "SET_EXPANDED_SECTION"; payload: string };
+export type ExpandAction = {
+  type: "SET_EXPANDED_SECTION" | "CLOSE_SIDEBAR" | "SET_REFS";
+  payload?: string;
+  refs?: [InputRef, DivRef];
+};
 export type DashBoardWrapperProps = {
   header: string;
   subheader: string;
@@ -33,3 +37,12 @@ export type DashBoardWrapperProps = {
   additionalHeader?: ReactNode;
   pFont?: string;
 };
+
+export type HS = {
+  isHamburgerOpened: boolean;
+};
+export type HamburgerAction = {
+  type: "TOGGLE_HAMBURGER" | "REMOVE_STYLE" | "SLIDE_OUT";
+};
+export type DivRef = MutableRefObject<HTMLDivElement | null>;
+export type InputRef = MutableRefObject<HTMLInputElement | null>;

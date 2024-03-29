@@ -11,7 +11,7 @@ const DashBoardSubRoutesWrapper = ({
   const headerFont = font ? font : "font-inter";
   const parFont = pFont ? pFont : "";
   return (
-    <div className="rounded-[6px] shadow-dashboard px-4 py-3">
+    <div className="rounded-[6px]  px-4 py-3">
       <header className={`${headerFont} break-words`}>
         <h3 className="font-semibold text-[#343C6A] vsm:text-[1rem] text-[1.375rem] leading-[33px]">
           {header}

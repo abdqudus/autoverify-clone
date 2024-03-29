@@ -1,11 +1,15 @@
 import { Link } from "react-router-dom";
 import { MenuType } from "../types/type";
+import UseHamburgerContext from "../contexts/UseHamburgerContext";
+import { closeSideBar } from "../utils/hambuger";
 
-const Menu = ({ menu, children, state, dispatch }: MenuType) => {
+const Menu = ({ menu, children }: MenuType) => {
+  const { state, dispatch } = UseHamburgerContext();
+  const { refs } = state;
   const { text, hasDropDown, src, isActive, newHeight } = menu;
   const { expandedSection } = state;
   const handleExpansion = () => {
-    dispatch({
+    dispatch!({
       type: "SET_EXPANDED_SECTION",
       payload: expandedSection == text ? "" : text,
     });
@@ -17,9 +21,9 @@ const Menu = ({ menu, children, state, dispatch }: MenuType) => {
         className={`transition-[height]  overflow-hidden relative  ${
           isText ? newHeight : "h-[48px]"
         }`}
-        onClick={handleExpansion}
       >
         <div
+          onClick={handleExpansion}
           className={`flex px-4 gap-4 text-[.9375rem] ${
             isActive ? "text-[#2D60FF]" : "text-[#6F767E]"
           }  font-semibold py-[12px] items-center`}
@@ -35,7 +39,7 @@ const Menu = ({ menu, children, state, dispatch }: MenuType) => {
     );
   }
   return (
-    <div>
+    <div onClick={() => closeSideBar(refs!.divRef!, refs!.inputRef!)}>
       <Link to="/">
         <div
           className={`flex px-4 gap-4 text-[.9375rem] ${

@@ -38,18 +38,6 @@ export default {
         "light-bg":
           "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
       },
-      keyframes: {
-        "slide-in": {
-          "100%": { width: "60%" },
-        },
-        "slide-out": {
-          "100%": { width: "0%" },
-        },
-      },
-      animation: {
-        "slide-in": "slide-in .5s ease-out 150ms forwards",
-        "slide-out": "slide-out .5s ease-out 150ms forwards",
-      },
     },
   },
   plugins: [],

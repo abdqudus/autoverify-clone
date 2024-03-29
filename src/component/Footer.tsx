@@ -1,6 +1,6 @@
 const Footer = () => {
   return (
-    <div className="overflow-hidden mt-[20rem]">
+    <div className="overflow-hidden mt-[10rem]">
       <footer className="mt-[10rem]  relative bg-[#4A99D3] px-12 py-12 ">
         <div className="absolute w-[30%] sm:w-auto-z-10 -top-[30%] -left-0">
           <img src="/Group 81.png" alt="" />

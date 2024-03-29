@@ -8,49 +8,39 @@ import AllProducts from "./component/AllProducts";
 import NewProduct from "./component/NewProduct";
 import PaymentMethods from "./component/PaymentMethods";
 import ProductDetails from "./component/ProductDetails";
-import HambugerItems from "./component/HambugerItems";
-import { useReducer, useState } from "react";
+import Search from "./component/Search";
+import NewTransaction from "./component/NewTransaction";
+import ListOfTransactions from "./component/ListOfTransactions";
 
 const App = () => {
-  type HS = { isHamburgerOpened: boolean };
-  type HamburgerAction = { type: "TOGGLE_HMBURGER" };
-  const initialState: HS = {
-    isHamburgerOpened: false,
-  };
-  const reducer = (state: HS, action: HamburgerAction): ES => {
-    switch (action.type) {
-      case "TOGGLE_HMBURGER":
-        return { isHamburgerOpened: !state.isHamburgerOpened };
-      default:
-        return state;
-    }
-  };
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [isHamburgerOpened, setIsHamburgerOpened] = useState<boolean>(false);
   return (
     <BrowserRouter>
-      <div
-        className={`relative h-svh ${
-          isHamburgerOpened ? "overflow-y-hidden" : ""
-        }`}
-      >
-        <Header setIsHamburgerOpened={setIsHamburgerOpened} />
+      <div className="parent sm:pr-6">
+        <Header />
         <Routes>
           <Route path="/" element={<MainInterface />}>
             <Route index element={<MainDashboard />} />
-            <Route path="products" element={<AllProducts />}>
+            <Route path="products/all-products" element={<AllProducts />}>
               <Route path=":id" element={<ProductDetails />} />
             </Route>
-            <Route path="new-products" element={<NewProduct />} />
-            <Route path="payment-method" element={<PaymentMethods />} />
+            <Route path="products/new-products" element={<NewProduct />} />
+            <Route
+              path="products/payment-method"
+              element={<PaymentMethods />}
+            />
+            <Route path="customers/search" element={<Search />} />
+            <Route
+              path="customers/transactions"
+              element={<ListOfTransactions />}
+            />
+            <Route
+              path="customers/new-transaction"
+              element={<NewTransaction />}
+            />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
         <Footer />
-        <HambugerItems
-          setIsHamburgerOpened={setIsHamburgerOpened}
-          isHamburgerOpened={isHamburgerOpened}
-        />
       </div>
     </BrowserRouter>
   );
