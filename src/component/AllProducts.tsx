@@ -3,13 +3,6 @@ import DashBoardSubRoutesWrapper from "./DashBoardSubRoutesWrapper";
 const AllProducts = () => {
   return (
     <DashBoardSubRoutesWrapper header="Dashboard/Products" subheader="Products">
-      {/* <div className="rounded-[6px] shadow-dashboard px-4 py-3"> */}
-      {/* <h3 className="font-inter font-semibold lg:text-[1.375rem] leading-[26.63px] text-[#343C6A]">
-        Dashboard/Products
-      </h3>
-      <p className="leading-[30.8px] text-[#2980B9] mt-2 text-[1.75rem] font-open-sans font-normal">
-        Products
-      </p> */}
       <div className="border border-[#DDDDDD]  mt-8 p-3">
         <div className="flex gap-2 flex-wrap">
           <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">

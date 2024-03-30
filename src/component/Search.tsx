@@ -72,7 +72,7 @@ const Search = () => {
             <label htmlFor="customer_login">
               <span className="flex  items-center gap-1">
                 <img src="/ebay.png" alt="" />
-                <span>auction number</span>
+                <span>customer login</span>
               </span>
             </label>
             <input
