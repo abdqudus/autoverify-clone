@@ -11,6 +11,8 @@ import ProductDetails from "./component/ProductDetails";
 import Search from "./component/Search";
 import NewTransaction from "./component/NewTransaction";
 import ListOfTransactions from "./component/ListOfTransactions";
+import HistoryProduct from "./component/HistoryProduct";
+import SearchComplaint from "./component/SearchComplaint";
 
 const App = () => {
   return (
@@ -30,12 +32,20 @@ const App = () => {
             />
             <Route path="customers/search" element={<Search />} />
             <Route
+              path="customers/new-transaction"
+              element={<NewTransaction />}
+            />
+            <Route
               path="customers/transactions"
               element={<ListOfTransactions />}
             />
             <Route
-              path="customers/new-transaction"
-              element={<NewTransaction />}
+              path="customers/history-product"
+              element={<HistoryProduct />}
+            />
+            <Route
+              path="customers/complaints/search"
+              element={<SearchComplaint />}
             />
           </Route>
           <Route path="/login" element={<Login />} />
