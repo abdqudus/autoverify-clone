@@ -64,14 +64,16 @@ const SearchComplaint = () => {
             <span>view all complaints</span>
           </button>
         </div>
-        <div className="bg-[#F5F5F5] mt-4 p-4 px-6 border border-[#E3E3E3] rounded-[4px]">
-          <h3 className="text-[#333333] mb-3 font-open-sans text-[1.125rem] leading-[19.8px]">
-            What is this?
-          </h3>
-          <p className="text-[#333333] text-sm  leading-[22.4px]">
-            <span className="font-bold">Complaints</span> may be reported by
-            your clients, for example. If your product does not work.
-          </p>
+        <div className="mt-8 md:flex ">
+          <div className="bg-[#F5F5F5] ml-auto md:w-[247px] p-4 px-6 border border-[#E3E3E3] rounded-[4px]">
+            <h3 className="text-[#333333] mb-3 font-open-sans text-[1.125rem] leading-[19.8px]">
+              What is this?
+            </h3>
+            <p className="text-[#333333] text-sm  leading-[22.4px]">
+              <span className="font-bold">Complaints</span> may be reported by
+              your clients, for example. If your product does not work.
+            </p>
+          </div>
         </div>
       </div>
     </DashBoardSubRoutesWrapper>
