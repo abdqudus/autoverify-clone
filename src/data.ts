@@ -121,13 +121,23 @@ export const sideBarItems: SideBarItems[] = [
       { text: "List of Transaction", route: "customers/transactions" },
       { text: "History Export", route: "customers/history-product" },
       { text: "Complaints", route: "customers/complaints/search" },
-      { text: "List of Complaints", route: "/" },
-      { text: "Reply Template", route: "/" },
+      { text: "List of Complaints", route: "customers/list-of-complaints" },
+      {
+        text: "Reply Templates",
+        route: "customers/complaints/reply-templates",
+      },
       { text: "Sales Statistics", route: "/" },
-      { text: "Sales Blacklists", route: "/" },
-      { text: "Sales Settings", route: "/" },
+      { text: "Sales Blacklist", route: "customers/complaints/blacklist" },
+      { text: "Sales Settings", route: "customers/sales-settings" },
     ],
     newHeight: "h-[428px]",
+  },
+  {
+    src: "/store.png",
+    text: "Store",
+    isActive: false,
+    hasDropDown: false,
+    dropDownItems: [],
   },
   {
     src: "/codebases.png",
@@ -135,9 +145,9 @@ export const sideBarItems: SideBarItems[] = [
     isActive: false,
     hasDropDown: true,
     dropDownItems: [
-      { text: "Search Code", route: "/" },
-      { text: "Refunds", route: "/" },
-      { text: "Payout", route: "/" },
+      { text: "Search Code", route: "codebase/search-codes" },
+      { text: "New Base Codes", route: "codebase/new-base-code" },
+      { text: "Code List", route: "codebase/code-list" },
       { text: "Statements", route: "/" },
     ],
     newHeight: "h-[200px]",
@@ -165,4 +175,27 @@ export const sideBarItems: SideBarItems[] = [
     dropDownItems: [],
   },
 ];
-export const searchUserData = [];
+export const productsTable = [
+  {
+    id: "1045683",
+    status: "active",
+    customer: "@domenica",
+    amount: "1,00PLN",
+    date: "23/03/2024",
+  },
+  {
+    id: "1045685",
+    status: "pending",
+    customer: "@janiya",
+    amount: "1,00PLN",
+    date: "23/03/2024",
+  },
+  {
+    id: "1045684",
+    status: "active",
+    customer: "@ether",
+    amount: "1,00PLN",
+    date: "23/03/2024",
+  },
+];
+export const productsTableHeader = ["ID", "Product Namne", "Price", "Status"];

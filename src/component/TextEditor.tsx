@@ -73,7 +73,6 @@ export function TextEditor(props: EditorProps) {
             <Toolbar></Toolbar>
           </Editor>
         </EditorProvider>
-        <div className="h-[37px] bg-dark-bg border border-[#9E9E9E]"></div>
       </div>
       <div className="hidden vsm:block lg:min-h-[300px]">
         <EditorProvider>
@@ -105,7 +104,6 @@ export function TextEditor(props: EditorProps) {
             </Toolbar>
           </Editor>
         </EditorProvider>
-        <div className="h-[37px] bg-dark-bg border border-[#9E9E9E]"></div>
       </div>
     </div>
   );
