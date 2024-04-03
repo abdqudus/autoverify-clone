@@ -20,6 +20,7 @@ export default {
         dashboard: "0px 4px 4px 0px rgba(0, 0, 0, 0.25)",
         graph: "4px 4px 18px 0px #DADDE8D9",
         "product-shadow": "0px 1px 1px rgba(0, 0, 0, 0.05)",
+        "campaign-header": "3px 2px 10px 0 rgba(0, 0, 0, 0.1)",
       },
 
       gridTemplateColumns: {
@@ -27,6 +28,7 @@ export default {
         "3/1": "3fr 1fr",
         "home-grid": "244px 1fr",
         resp: "repeat(auto-fit, minmax(155px, 1fr));",
+        "resp-grid": "repeat(auto-fit, minmax(225px, 1fr))",
       },
       backgroundImage: {
         "mobile-bg":

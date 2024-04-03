@@ -98,6 +98,7 @@ export const sideBarItems: SideBarItems[] = [
     isActive: true,
     hasDropDown: false,
     dropDownItems: [],
+    linkTo: "/",
   },
   {
     src: "/products.png",
@@ -148,24 +149,49 @@ export const sideBarItems: SideBarItems[] = [
       { text: "Search Code", route: "codebase/search-codes" },
       { text: "New Base Codes", route: "codebase/new-base-code" },
       { text: "Code List", route: "codebase/code-list" },
-      { text: "Statements", route: "/" },
+      { text: "Export Code", route: "codebase/export-code" },
     ],
     newHeight: "h-[200px]",
-    // 48 200
   },
   {
     src: "/codebases.png",
     text: "Marketing",
     isActive: false,
-    hasDropDown: false,
-    dropDownItems: [],
+    hasDropDown: true,
+    dropDownItems: [
+      { text: "New Email Campaign", route: "marketing/new-email-campaign" },
+      {
+        text: "List Of Email Campaign",
+        route: "marketing/list-of-email-campaign",
+      },
+      { text: "New Shipment", route: "marketing/new-shipment" },
+      {
+        text: "List Of Automatic Shipment",
+        route: "marketing/list-of-automatic-shipment",
+      },
+    ],
+    newHeight: "h-[215px]",
   },
   {
     src: "/codebases.png",
     text: "Ebay",
     isActive: false,
-    hasDropDown: false,
-    dropDownItems: [],
+    hasDropDown: true,
+    dropDownItems: [
+      {
+        text: "Connected Accounts",
+        route: "ebay/connected-accounts",
+      },
+      {
+        text: "Automatic Monitoring",
+        route: "ebay/automatic-monitoring",
+      },
+      {
+        text: "Ebay Configurations",
+        route: "ebay/configurations",
+      },
+    ],
+    newHeight: "h-[150px]",
   },
   {
     src: "/settings.png",
@@ -173,6 +199,7 @@ export const sideBarItems: SideBarItems[] = [
     isActive: false,
     hasDropDown: false,
     dropDownItems: [],
+    linkTo: "settings/layout",
   },
 ];
 export const productsTable = [

@@ -23,7 +23,7 @@ const ListOfComplaints = () => {
             </p>
           </div>
         </div>
-        <div className="max-w-full border border-[#DDDDDD] bg-[#F4F4F480] md:min-h-[406px]  overflow-x-scroll md:overflow-hidden mt-3">
+        <div className="max-w-full border border-[#DDDDDD] bg-[#F4F4F480]  overflow-x-scroll md:overflow-hidden mt-3">
           <table className="min-w-[550px] w-full">
             <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
               <tr>

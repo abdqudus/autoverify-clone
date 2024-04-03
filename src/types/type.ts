@@ -14,6 +14,7 @@ export type SideBarItems = {
   hasDropDown: boolean;
   dropDownItems: { text: string; route: string }[];
   newHeight?: string;
+  linkTo?: string;
 };
 export type MenuType = {
   menu: SideBarItems;
