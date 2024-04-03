@@ -6,7 +6,7 @@ import { closeSideBar } from "../utils/hambuger";
 const Menu = ({ menu, children }: MenuType) => {
   const { state, dispatch } = UseHamburgerContext();
   const { refs } = state;
-  const { text, hasDropDown, src, isActive, newHeight } = menu;
+  const { text, hasDropDown, src, isActive, newHeight, linkTo } = menu;
   const { expandedSection } = state;
   const handleExpansion = () => {
     dispatch!({
@@ -40,7 +40,7 @@ const Menu = ({ menu, children }: MenuType) => {
   }
   return (
     <div onClick={() => closeSideBar(refs!.divRef!, refs!.inputRef!)}>
-      <Link to="/">
+      <Link to={linkTo!}>
         <div
           className={`flex px-4 gap-4 text-[.9375rem] ${
             isActive ? "text-[#2D60FF]" : "text-[#6F767E]"

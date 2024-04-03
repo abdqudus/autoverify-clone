@@ -20,6 +20,15 @@ import SalesSettings from "./component/SalesSettings";
 import SearchCodes from "./component/SearchCodes";
 import NewBaseCodes from "./component/NewBaseCodes";
 import CodeList from "./component/CodeList";
+import ExportCode from "./component/ExportCode";
+import NewEmailCampaign from "./component/NewEmailCampaign";
+import ListOfEmailCampaign from "./component/ListOfEmailCampaign";
+import NewShipment from "./component/NewShipment";
+import ListOfAutomaticShipment from "./component/ListOfAutomaticShipment";
+import ConnectedAccounts from "./component/ConnectedAccounts";
+import AutomaticMonitoring from "./component/AutomaticMonitoring";
+import EbayConfiguration from "./component/EbayConfiguration";
+import SettingsLayout from "./component/SettingsLayout";
 
 const App = () => {
   return (
@@ -73,6 +82,31 @@ const App = () => {
             <Route path="codebase/search-codes" element={<SearchCodes />} />
             <Route path="codebase/new-base-code" element={<NewBaseCodes />} />
             <Route path="codebase/code-list" element={<CodeList />} />
+            <Route path="codebase/export-code" element={<ExportCode />} />
+            <Route path="settings/layout" element={<SettingsLayout />} />
+
+            <Route
+              path="marketing/new-email-campaign"
+              element={<NewEmailCampaign />}
+            />
+            <Route path="marketing/new-shipment" element={<NewShipment />} />
+            <Route
+              path="marketing/list-of-automatic-shipment"
+              element={<ListOfAutomaticShipment />}
+            />
+            <Route
+              path="marketing/list-of-email-campaign"
+              element={<ListOfEmailCampaign />}
+            />
+            <Route
+              path="ebay/connected-accounts"
+              element={<ConnectedAccounts />}
+            />
+            <Route
+              path="ebay/automatic-monitoring"
+              element={<AutomaticMonitoring />}
+            />
+            <Route path="ebay/configurations" element={<EbayConfiguration />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
