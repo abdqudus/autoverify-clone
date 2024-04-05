@@ -1,7 +1,10 @@
+import { Dispatch, SetStateAction } from "react";
 import LayoutNavigations from "./LayoutNavigations";
 import SettingsWrapper from "./SettingsWrapper";
-
-const LayoutList = () => {
+type Props = {
+  setIsNewSetting: Dispatch<SetStateAction<boolean>>;
+};
+const LayoutList = ({ setIsNewSetting }: Props) => {
   return (
     <div className="mt-6 ">
       <SettingsWrapper>
@@ -114,7 +117,10 @@ const LayoutList = () => {
             </div>
           </div>
           <div className="btn mt-12">
-            <button className="h-[34px] md:w-[230px] w-full border border-[#3276B1] bg-[#428BCA] rounded-[4px] text-sm leading-5 font-open-sans text-white">
+            <button
+              onClick={() => setIsNewSetting(true)}
+              className="h-[34px] md:w-[230px] w-full border border-[#3276B1] bg-[#428BCA] rounded-[4px] text-sm leading-5 font-open-sans text-white"
+            >
               New settings template
             </button>
           </div>

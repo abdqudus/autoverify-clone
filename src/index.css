@@ -13,3 +13,7 @@
   height: 100vh;
   overflow: hidden;
 }
+
+.pre {
+  width: calc(100% - 66.08px);
+}

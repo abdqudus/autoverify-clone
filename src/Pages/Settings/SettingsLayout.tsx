@@ -1,0 +1,22 @@
+import { useState } from "react";
+import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import LayoutList from "../../component/LayoutList";
+import NewSettingsLayOut from "../../component/NewSettingsLayOut";
+
+const SettingsLayout = () => {
+  const [isNewSettings, setIsNewSetting] = useState<boolean>(false);
+  return (
+    <DashBoardSubRoutesWrapper
+      header="Dashboard/Settings /Layout"
+      subheader="Layout"
+    >
+      {isNewSettings ? (
+        <NewSettingsLayOut />
+      ) : (
+        <LayoutList setIsNewSetting={setIsNewSetting} />
+      )}
+    </DashBoardSubRoutesWrapper>
+  );
+};
+
+export default SettingsLayout;

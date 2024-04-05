@@ -1,6 +1,6 @@
 import Cards from "./Cards";
 import DashBoardSubRoutesWrapper from "./DashBoardSubRoutesWrapper";
-import Statistics from "./Statistics";
+import Statistics from "../Pages/Customers/Statistics";
 
 const MainDashboard = () => {
   return (

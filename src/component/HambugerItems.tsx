@@ -11,7 +11,7 @@ const HambugerItems = forwardRef<HTMLDivElement, HamburgerProps>(
       <div
         ref={ref}
         id="hamburger-container"
-        className=" bg-black group peer-has-[:checked]:w-[100vw] w-[0vw] transition-[width] !duration-500 z-50 hambuger-menu lg:hidden h-screen left-0  bg-opacity-50 fixed inset-0 "
+        className=" bg-black group peer-has-[:checked]:w-[100vw] w-[0vw] transition-[width] !duration-500 z-50 hambuger-menu lgs:hidden h-screen left-0  bg-opacity-50 fixed inset-0 "
         onClick={(e) => closeHamburger(e)}
       >
         <div

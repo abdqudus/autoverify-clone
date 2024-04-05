@@ -39,6 +39,7 @@ export default {
           "linear-gradient(180deg, #e9e9e9, rgba(255, 255, 255, 1) 58%)",
         "light-bg":
           "linear-gradient(180deg, rgba(255, 255, 255, 0.3), transparent)",
+        "text-area": "linear-gradient(180deg, #FDFDFD 0%, #DDDDDD 100%)",
       },
     },
   },

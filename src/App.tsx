@@ -1,34 +1,42 @@
 import Login from "./Pages/Login";
 import MainInterface from "./Pages/MainInterface";
-import Footer from "./component/Footer";
-import Header from "./component/Header";
+import Footer from "./component/Footer.tsx";
+import Header from "./component/Header.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import MainDashboard from "./component/MainDashboard";
-import AllProducts from "./component/AllProducts";
-import NewProduct from "./component/NewProduct";
-import PaymentMethods from "./component/PaymentMethods";
-import ProductDetails from "./component/ProductDetails";
-import Search from "./component/Search";
-import NewTransaction from "./component/NewTransaction";
-import ListOfTransactions from "./component/ListOfTransactions";
-import HistoryProduct from "./component/HistoryProduct";
-import SearchComplaint from "./component/SearchComplaint";
-import ListOfComplaints from "./component/ListOfComplaints";
-import ReplyTemplate from "./component/ReplyTemplate";
-import SalesBlacklist from "./component/SalesBlacklist";
-import SalesSettings from "./component/SalesSettings";
-import SearchCodes from "./component/SearchCodes";
-import NewBaseCodes from "./component/NewBaseCodes";
-import CodeList from "./component/CodeList";
-import ExportCode from "./component/ExportCode";
-import NewEmailCampaign from "./component/NewEmailCampaign";
-import ListOfEmailCampaign from "./component/ListOfEmailCampaign";
-import NewShipment from "./component/NewShipment";
-import ListOfAutomaticShipment from "./component/ListOfAutomaticShipment";
-import ConnectedAccounts from "./component/ConnectedAccounts";
-import AutomaticMonitoring from "./component/AutomaticMonitoring";
-import EbayConfiguration from "./component/EbayConfiguration";
-import SettingsLayout from "./component/SettingsLayout";
+import MainDashboard from "./component/MainDashboard.tsx";
+import AllProducts from "./Pages/Products/AllProducts";
+import NewProduct from "./Pages/Products/NewProduct";
+import PaymentMethods from "./Pages/Products/PaymentMethods";
+import ProductDetails from "./component/ProductDetails.tsx";
+import Search from "./Pages/Customers/Search";
+import NewTransaction from "./Pages/Customers/NewTransaction";
+import ListOfTransactions from "./Pages/Customers/ListOfTransactions";
+import HistoryExport from "./Pages/Customers/HistoryExport.tsx";
+import SearchComplaint from "./Pages/Customers/SearchComplaint.tsx";
+import ListOfComplaints from "./Pages/Customers/ListOfComplaints.tsx";
+import ReplyTemplate from "./Pages/Customers/ReplyTemplate.tsx";
+import SalesBlacklist from "./Pages/Customers/SalesBlacklist.tsx";
+import SalesSettings from "./Pages/Customers/SalesSettings.tsx";
+import SearchCodes from "./Pages/Codebases/SearchCodes.tsx";
+import NewBaseCodes from "./Pages/Codebases/NewBaseCodes.tsx";
+import CodeList from "./Pages/Codebases/CodeList.tsx";
+import ExportCode from "./Pages/Codebases/ExportCode.tsx";
+import NewEmailCampaign from "./Pages/Marketing/NewEmailCampaign.tsx";
+import ListOfEmailCampaign from "./Pages/Marketing/ListOfEmailCampaign.tsx";
+import NewShipment from "./Pages/Marketing/NewShipment.tsx";
+import ListOfAutomaticShipment from "./Pages/Marketing/ListOfAutomaticShipment.tsx";
+import ConnectedAccounts from "./Pages/Ebay/ConnectedAccounts.tsx";
+import AutomaticMonitoring from "./Pages/Ebay/AutomaticMonitoring.tsx";
+import Configuration from "./Pages/Ebay/Configuration.tsx";
+import SettingsLayout from "./Pages/Settings/SettingsLayout.tsx";
+import GeneralSettings from "./Pages/Settings/GeneralSettings.tsx";
+import PersonalisedMessages from "./Pages/Settings/PersonalisedMessages.tsx";
+import ChangePassword from "./Pages/Settings/ChangePassword.tsx";
+import PagePersonalization from "./Pages/Settings/PagePersonalization.tsx";
+import TwoFaAuthentication from "./Pages/Settings/TwoFaAuthentication.tsx";
+import PaymentHistory from "./Pages/Settings/PaymentHistory.tsx";
+import Notification from "./Pages/Settings/Notification.tsx";
+import API from "./Pages/Settings/API.tsx";
 
 const App = () => {
   return (
@@ -57,7 +65,7 @@ const App = () => {
             />
             <Route
               path="customers/history-product"
-              element={<HistoryProduct />}
+              element={<HistoryExport />}
             />
             <Route
               path="customers/complaints/search"
@@ -83,7 +91,34 @@ const App = () => {
             <Route path="codebase/new-base-code" element={<NewBaseCodes />} />
             <Route path="codebase/code-list" element={<CodeList />} />
             <Route path="codebase/export-code" element={<ExportCode />} />
+
             <Route path="settings/layout" element={<SettingsLayout />} />
+            <Route
+              path="settings/personalised-messages"
+              element={<PersonalisedMessages />}
+            />
+            <Route
+              path="settings/two-fa-auth"
+              element={<TwoFaAuthentication />}
+            />
+            <Route
+              path="settings/payment-history"
+              element={<PaymentHistory />}
+            />
+            <Route
+              path="settings/page-personalization"
+              element={<PagePersonalization />}
+            />
+            <Route
+              path="settings/change-password"
+              element={<ChangePassword />}
+            />
+            <Route
+              path="settings/general-settings"
+              element={<GeneralSettings />}
+            />
+            <Route path="settings/notifications" element={<Notification />} />
+            <Route path="settings/api" element={<API />} />
 
             <Route
               path="marketing/new-email-campaign"
@@ -106,7 +141,7 @@ const App = () => {
               path="ebay/automatic-monitoring"
               element={<AutomaticMonitoring />}
             />
-            <Route path="ebay/configurations" element={<EbayConfiguration />} />
+            <Route path="ebay/configurations" element={<Configuration />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

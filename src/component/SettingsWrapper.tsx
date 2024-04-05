@@ -1,8 +1,11 @@
 import { ReactNode } from "react";
-
-const SettingsWrapper = ({ children }: { children: ReactNode }) => {
+type Props = {
+  children: ReactNode;
+  style?: string;
+};
+const SettingsWrapper = ({ children }: Props) => {
   return (
-    <div className="mt-4 md:grid md:grid-cols-[250px_1fr] gap-6">
+    <div className={`md:grid md:grid-cols-[250px_1fr] gap-6 overflow-hidden`}>
       {children}
     </div>
   );

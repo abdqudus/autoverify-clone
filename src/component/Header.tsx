@@ -25,7 +25,7 @@ const Header = () => {
             name=""
             id="hamburger"
           />
-          <img src="/hamburger.png" className="lg:hidden" />
+          <img src="/hamburger.png" className="lgs:hidden" />
         </label>
         <HambugerItems
           inputRef={inputRef}
@@ -38,7 +38,7 @@ const Header = () => {
         <h3 className="text-[2.5rem] lg:pl-16 leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>
-        <div className="lg:flex hidden gap-2 items-center">
+        <div className="lgs:flex hidden gap-2 items-center">
           <img src="/__before.png" alt="" />
           <p className="text-[1.2rem] text-[#323232]">EN</p>
           <img src="/lang-picker-arrow.svg.png" alt="" />

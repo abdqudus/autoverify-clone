@@ -1,14 +1,18 @@
 import Input from "./Input";
 import LayoutNavigations from "./LayoutNavigations";
+import SettingsWrapper from "./SettingsWrapper";
 import { TextEditor } from "./TextEditor";
 
 const NewSettingsLayOut = () => {
   return (
     <div className="mt-6">
-      <div>
+      <SettingsWrapper>
         <LayoutNavigations />
         <div>
-          <div className="mt-6">
+          <div className="mt-6 md:mt-0">
+            <h2 className="text-[#2980B9] font-open-sans text-[1.11625rem] leading-[19.8px] mb-3">
+              New layout
+            </h2>
             <h3 className="text-[#333333] font-open-sans text-[1.11625rem] leading-[19.8px]">
               Configuration template
             </h3>
@@ -26,7 +30,9 @@ const NewSettingsLayOut = () => {
             <Input id="" />
           </div>
           <div className="mt-4">
-            <h4 className="font-bold text-sm mt-2">E-mail to response</h4>
+            <h4 className="font-bold text-sm mt-2 md:mt-6">
+              E-mail to response
+            </h4>
             <p className=" text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
               Messages with codes are sent from kontakt@automater.pl but we also
               add header respond to. Submit your e-mail on which you would like
@@ -40,9 +46,9 @@ const NewSettingsLayOut = () => {
             <Input id="" />
           </div>
         </div>
-      </div>
-      <div>
-        <div>
+      </SettingsWrapper>
+      <SettingsWrapper>
+        <div className="md:col-start-2">
           <div className="mt-4">
             <h4 className="font-bold text-sm mt-2">
               Message content sent by eBay message (only for eBay auctions)
@@ -65,10 +71,14 @@ const NewSettingsLayOut = () => {
               you can use <span className="font-bold">tags</span> , which will
               be exchanged e.g. [CODE] for code.
             </p>
+
             <TextEditor />
+            <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[100.25px] rounded-[4px] text-white">
+              Save layout
+            </button>
           </div>
         </div>
-        <div className="tags bg-[#F5F5F5] mt-6 border border-[#E3E3E3] p-4">
+        <div className="tags md:col-start-1 md:row-start-1 md:row-end-2 bg-[#F5F5F5] mt-6 border border-[#E3E3E3] p-4">
           <h3 className="text-[#333333] font-open-sans text-[1.11625rem] leading-[19.8px]">
             Tags in message
           </h3>
@@ -127,7 +137,7 @@ const NewSettingsLayOut = () => {
             tag will display the file directly in the message.
           </p>
         </div>
-      </div>
+      </SettingsWrapper>
     </div>
   );
 };

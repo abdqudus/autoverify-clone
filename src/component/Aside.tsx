@@ -1,4 +1,4 @@
-import { sideBarItems } from "../data";
+import { sideBarItems } from "../Data/sidebar-data";
 import DropDown from "./DropDown";
 import Menu from "./Menu";
 import ProductsMenu from "./ProductsMenu";
