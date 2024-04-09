@@ -37,6 +37,10 @@ import TwoFaAuthentication from "./Pages/Settings/TwoFaAuthentication.tsx";
 import PaymentHistory from "./Pages/Settings/PaymentHistory.tsx";
 import Notification from "./Pages/Settings/Notification.tsx";
 import API from "./Pages/Settings/API.tsx";
+import StoreConfiguration from "./Pages/Store/StoreConfiguration.tsx";
+import NewPaymentMethod from "./Pages/Store/NewPaymentMethod.tsx";
+import StorePaymentMethods from "./Pages/Store/StorePaymentMethods.tsx";
+import ProductsInGrid from "./Pages/Store/ProductsInGrid.tsx";
 
 const App = () => {
   return (
@@ -79,6 +83,7 @@ const App = () => {
               path="customers/complaints/reply-templates"
               element={<ReplyTemplate />}
             />
+
             <Route
               path="customers/complaints/blacklist"
               element={<SalesBlacklist />}
@@ -117,6 +122,18 @@ const App = () => {
               path="settings/general-settings"
               element={<GeneralSettings />}
             />
+            {/* <Route path="store/payment-methods" element={<PaymentMethods />} /> */}
+            <Route
+              path="store/payment-methods"
+              element={<StorePaymentMethods />}
+            />
+            <Route path="store/add-new-method" element={<NewPaymentMethod />} />
+            <Route
+              path="store/configuration"
+              element={<StoreConfiguration />}
+            />
+            <Route path="store/products" element={<ProductsInGrid />} />
+
             <Route path="settings/notifications" element={<Notification />} />
             <Route path="settings/api" element={<API />} />
 

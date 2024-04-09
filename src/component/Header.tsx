@@ -8,14 +8,16 @@ const Header = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const divRef = useRef<HTMLDivElement | null>(null);
   return (
+    // lg:pl-16
+    // px-4
     <header>
-      <nav className="px-4 relative py-6 lg:pl-16 sm:pr-8 flex lg:shadow-nav-shadow items-center justify-between ">
+      <nav className="border px-4 lg:px-12  relative py-6  flex lg:shadow-nav-shadow items-center justify-between ">
         <label
           onClick={(e) => {
             handleHamburgerClick(e, divRef, inputRef);
             dispatch!({ type: "SET_REFS", refs: [inputRef, divRef] });
           }}
-          className="peer hamburger-label block "
+          className="peer hamburger-label lg:hidden block "
           htmlFor="humburger"
         >
           <input
@@ -35,13 +37,25 @@ const Header = () => {
           ref={divRef}
         />
 
-        <h3 className="text-[2.5rem] lg:pl-16 leading-[41.52px] font-bold text-center text-[#4A99D3]">
+        <h3 className="text-[2.5rem]  leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>
-        <div className="lgs:flex hidden gap-2 items-center">
-          <img src="/__before.png" alt="" />
-          <p className="text-[1.2rem] text-[#323232]">EN</p>
-          <img src="/lang-picker-arrow.svg.png" alt="" />
+        <div className="lgs:flex hidden justify-between gap-6 items-center">
+          <div className="flex gap-4">
+            <p className="text-[#999999] text-[.8125rem] font-poppins leading-5">
+              20 credits left
+            </p>
+            <p className="text-[#999999] text-[.8125rem] font-poppins leading-5">
+              My account{" "}
+            </p>
+            <p className="text-[#999999] text-[.8125rem] font-poppins leading-5">
+              Log out
+            </p>
+          </div>
+          <div className="flex gap-2 items-center">
+            <p className="text-[1.2rem] text-[#323232]">EN</p>
+            <img src="/lang-picker-arrow.svg.png" alt="" />
+          </div>
         </div>
         <img src="/dp.png" alt="profile_picture" className="lg:hidden" />
       </nav>

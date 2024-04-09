@@ -29,6 +29,7 @@ export default {
         "home-grid": "244px 1fr",
         resp: "repeat(auto-fit, minmax(155px, 1fr));",
         "resp-grid": "repeat(auto-fit, minmax(225px, 1fr))",
+        card: "repeat(auto-fill, minmax(308px, 1fr))",
       },
       backgroundImage: {
         "mobile-bg":

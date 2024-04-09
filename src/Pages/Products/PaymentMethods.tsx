@@ -49,12 +49,7 @@ const PaymentMethods = () => {
             >
               account active
             </label>
-            <input
-              type="radio"
-              id="acct-active"
-              name="account-activity"
-              //   className=" border border-[#CCCCCC] w-full"
-            />
+            <input type="radio" id="acct-active" name="account-activity" />
           </div>
           <div className="flex items-center gap-2">
             <label
