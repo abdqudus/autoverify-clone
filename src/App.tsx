@@ -41,6 +41,7 @@ import StoreConfiguration from "./Pages/Store/StoreConfiguration.tsx";
 import NewPaymentMethod from "./Pages/Store/NewPaymentMethod.tsx";
 import StorePaymentMethods from "./Pages/Store/StorePaymentMethods.tsx";
 import ProductsInGrid from "./Pages/Store/ProductsInGrid.tsx";
+import SalesStatistics from "./Pages/Codebases/SalesStatistics.tsx";
 
 const App = () => {
   return (
@@ -59,6 +60,10 @@ const App = () => {
               element={<PaymentMethods />}
             />
             <Route path="customers/search" element={<Search />} />
+            <Route
+              path="customers/complaints/sales-statistics"
+              element={<SalesStatistics />}
+            />
             <Route
               path="customers/new-transaction"
               element={<NewTransaction />}

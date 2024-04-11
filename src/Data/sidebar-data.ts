@@ -39,7 +39,10 @@ export const sideBarItems: SideBarItems[] = [
         text: "Reply Templates",
         route: "customers/complaints/reply-templates",
       },
-      { text: "Sales Statistics", route: "/a" },
+      {
+        text: "Sales Statistics",
+        route: "customers/complaints/sales-statistics",
+      },
       { text: "Sales Blacklist", route: "customers/complaints/blacklist" },
       { text: "Sales Settings", route: "customers/sales-settings" },
     ],
