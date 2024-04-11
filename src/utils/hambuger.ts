@@ -45,13 +45,11 @@ export const reducer = (state: ES, action: ExpandAction): ES => {
       return state;
   }
 };
-export const closeSideBar = (
-  divRef: DivRef,
-  inputRef: InputRef
-  // e: SyntheticEvent
-) => {
-  divRef.current?.classList.remove("activated");
-  setTimeout(() => {
-    inputRef.current!.checked = false;
-  }, 250);
+export const closeSideBar = (divRef: DivRef, inputRef: InputRef) => {
+  if (divRef && inputRef) {
+    divRef.current!.classList.remove("activated");
+    setTimeout(() => {
+      inputRef.current!.checked = false;
+    }, 250);
+  }
 };

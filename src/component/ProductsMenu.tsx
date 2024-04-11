@@ -3,7 +3,7 @@ import { MenuType } from "../types/type";
 import DropDown from "./DropDown";
 const ProductsMenu = ({ menu }: MenuType) => {
   const { state, dispatch } = UseHamburgerContext();
-  const { text, src, isActive, dropDownItems } = menu;
+  const { text, src, dropDownItems, srcActive } = menu;
   const { expandedSection } = state;
   const handleExpansion = () => {
     dispatch!({
@@ -13,17 +13,20 @@ const ProductsMenu = ({ menu }: MenuType) => {
   };
   return (
     <div
-      className={`transition-[height] border-gray-500 overflow-hidden relative ${
+      className={`transition-[height] group border-gray-500 overflow-hidden relative ${
         expandedSection == text ? "h-[162px]" : "h-[48px]"
       }`}
     >
       <div
         onClick={handleExpansion}
-        className={`flex px-4 gap-4 text-[.9375rem] ${
-          isActive ? "text-[#2D60FF]" : "text-[#6F767E]"
-        }  font-semibold h-[48px] py-[12px] items-center`}
+        className={`flex px-4 gap-4 text-[.9375rem] group-has-[.active]:text-[#2D60FF]  text-[#6F767E] font-semibold h-[48px] py-[12px] items-center`}
       >
-        <img src={src} alt="" />
+        <img src={src} alt="" className="group-has-[.active]:hidden" />
+        <img
+          src={srcActive}
+          alt=""
+          className="group-has-[.active]:block hidden"
+        />
         <div className="flex justify-between flex-grow items-center">
           <p className="leading-6">{text}</p>
           <span className="flex items-center gap-2">
@@ -31,7 +34,13 @@ const ProductsMenu = ({ menu }: MenuType) => {
               <img src="/add icon.png" alt="" />
             </span>
             <span className="w-6 h-6 items-center justify-center flex">
-              <img src="/arrow-down.png" alt="" />
+              <img
+                src="/arrow-down.png"
+                alt=""
+                className={`${
+                  expandedSection === text ? "rotate-180" : "rotate-0"
+                } transition`}
+              />
             </span>
           </span>
         </div>

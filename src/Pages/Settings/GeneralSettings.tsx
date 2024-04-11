@@ -30,14 +30,12 @@ const GeneralSettings = () => {
                 );
               }
               return (
-                <>
-                  <Select
-                    style="text-sm text-[#333333]"
-                    options={options!}
-                    text={text}
-                    key={text}
-                  />
-                </>
+                <Select
+                  style="text-sm text-[#333333]"
+                  options={options!}
+                  text={text}
+                  key={text}
+                />
               );
             })}
             <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">

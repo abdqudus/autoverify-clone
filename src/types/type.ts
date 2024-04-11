@@ -8,6 +8,7 @@ export type Card = {
 };
 export type GraphData = { name: string; sale: number; fill: string };
 export type SideBarItems = {
+  srcActive: string;
   src: string;
   text: string;
   isActive: boolean;

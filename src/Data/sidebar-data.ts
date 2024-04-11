@@ -2,7 +2,8 @@ import { SideBarItems } from "../types/type";
 
 export const sideBarItems: SideBarItems[] = [
   {
-    src: "/home.svg",
+    src: "/home.png",
+    srcActive: "/home.svg",
     text: "Dashboard",
     isActive: true,
     hasDropDown: false,
@@ -10,6 +11,7 @@ export const sideBarItems: SideBarItems[] = [
     linkTo: "/",
   },
   {
+    srcActive: "/products-blue.png",
     src: "/products.png",
     text: "Products",
     isActive: false,
@@ -22,6 +24,7 @@ export const sideBarItems: SideBarItems[] = [
   },
   {
     src: "/customer.png",
+    srcActive: "/customers.svg",
     text: "Customers",
     isActive: false,
     hasDropDown: true,
@@ -36,7 +39,7 @@ export const sideBarItems: SideBarItems[] = [
         text: "Reply Templates",
         route: "customers/complaints/reply-templates",
       },
-      { text: "Sales Statistics", route: "/" },
+      { text: "Sales Statistics", route: "/a" },
       { text: "Sales Blacklist", route: "customers/complaints/blacklist" },
       { text: "Sales Settings", route: "customers/sales-settings" },
     ],
@@ -44,6 +47,7 @@ export const sideBarItems: SideBarItems[] = [
   },
   {
     src: "/store.png",
+    srcActive: "/store.svg",
     text: "Store",
     isActive: false,
     hasDropDown: false,
@@ -52,6 +56,7 @@ export const sideBarItems: SideBarItems[] = [
   },
   {
     src: "/codebases.png",
+    srcActive: "/codebases.svg",
     text: "Code bases",
     isActive: false,
     hasDropDown: true,
@@ -65,6 +70,7 @@ export const sideBarItems: SideBarItems[] = [
   },
   {
     src: "/codebases.png",
+    srcActive: "/codebases.svg",
     text: "Marketing",
     isActive: false,
     hasDropDown: true,
@@ -83,6 +89,7 @@ export const sideBarItems: SideBarItems[] = [
     newHeight: "h-[215px]",
   },
   {
+    srcActive: "/codebases.svg",
     src: "/codebases.png",
     text: "Ebay",
     isActive: false,
@@ -104,6 +111,7 @@ export const sideBarItems: SideBarItems[] = [
     newHeight: "h-[150px]",
   },
   {
+    srcActive: "/settings.svg",
     src: "/settings.png",
     text: "Settings",
     isActive: false,

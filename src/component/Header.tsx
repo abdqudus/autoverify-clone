@@ -8,8 +8,6 @@ const Header = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const divRef = useRef<HTMLDivElement | null>(null);
   return (
-    // lg:pl-16
-    // px-4
     <header>
       <nav className="border px-4 lg:px-12  relative py-6  flex lg:shadow-nav-shadow items-center justify-between ">
         <label

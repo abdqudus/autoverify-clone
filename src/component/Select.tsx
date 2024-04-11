@@ -14,7 +14,7 @@ const Select = ({
         className={`border ${style} h-[34px] border-[#CCCCCC] mt-2  w-full`}
       >
         {options.map((option) => (
-          <option className="" value={option}>
+          <option key={option} className="" value={option}>
             {option}
           </option>
         ))}
