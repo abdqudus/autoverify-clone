@@ -25,9 +25,14 @@ export type ES = {
   expandedSection?: string;
   isSideBarOpen: boolean;
   refs?: { inputRef: InputRef | null; divRef: DivRef | null };
+  collapsedMenu: string;
 };
 export type ExpandAction = {
-  type: "SET_EXPANDED_SECTION" | "CLOSE_SIDEBAR" | "SET_REFS";
+  type:
+    | "SET_EXPANDED_SECTION"
+    | "CLOSE_SIDEBAR"
+    | "SET_REFS"
+    | "COLLAPSED_MENU";
   payload?: string;
   refs?: [InputRef, DivRef];
 };

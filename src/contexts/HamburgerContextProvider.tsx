@@ -6,6 +6,7 @@ const initialState: ES = {
   expandedSection: "",
   isSideBarOpen: false,
   refs: { inputRef: null, divRef: null },
+  collapsedMenu: "",
 };
 export const HamburgerContext = createContext<ES>(initialState);
 export const DispatchContext = createContext<Dispatch<ExpandAction> | null>(

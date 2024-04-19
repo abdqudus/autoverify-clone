@@ -16,7 +16,7 @@ const HambugerItems = forwardRef<HTMLDivElement, HamburgerProps>(
       >
         <div
           className="
-        bg-[#d7eaf7] group-[.activated]:w-[80vw] h-full w-0 transition-[width] !duration-500 overflow-hidden absolute left-0 top-0"
+        bg-[#d7eaf7] group-[.activated]:w-[80vw] min-h-full w-0 transition-[width] !duration-500 overflow-hidden absolute left-0 top-0"
         >
           <Aside style="block py-6" />
         </div>

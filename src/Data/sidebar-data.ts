@@ -18,8 +18,8 @@ export const sideBarItems: SideBarItems[] = [
     hasDropDown: true,
     dropDownItems: [
       { text: "All Products", route: "products/all-products" },
-      { text: "Create New", route: "products/new-products" },
-      { text: "Payments Methods", route: "products/payment-method" },
+      { text: "Create New", route: "products/new-product" },
+      { text: "Payments Methods", route: "products/payment-methods" },
     ],
   },
   {

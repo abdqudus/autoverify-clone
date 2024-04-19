@@ -1,4 +1,4 @@
-import { SyntheticEvent } from "react";
+import { Dispatch, SyntheticEvent } from "react";
 import { DivRef, ES, ExpandAction, InputRef } from "../types/type";
 
 export const handleHamburgerClick = (
@@ -19,7 +19,6 @@ export const closeHamburger = (
   e: SyntheticEvent
 ) => {
   const target = e.target as HTMLDivElement | HTMLParagraphElement;
-  console.dir(target.parentElement);
 
   if (target.id !== "hamburger-container") return;
 
@@ -41,6 +40,10 @@ export const reducer = (state: ES, action: ExpandAction): ES => {
         refs: { inputRef: action.refs![0], divRef: action.refs![1] },
       };
     }
+    case "COLLAPSED_MENU": {
+      return { ...state, collapsedMenu: action.payload! };
+    }
+
     default:
       return state;
   }
@@ -51,5 +54,16 @@ export const closeSideBar = (divRef: DivRef, inputRef: InputRef) => {
     setTimeout(() => {
       inputRef.current!.checked = false;
     }, 250);
+  }
+};
+export const handleDispatch = (
+  istoggled: boolean,
+  dispatch: Dispatch<ExpandAction> | null,
+  text: string
+) => {
+  if (istoggled) {
+    dispatch!({ type: "COLLAPSED_MENU", payload: "" });
+  } else {
+    dispatch!({ type: "COLLAPSED_MENU", payload: text });
   }
 };

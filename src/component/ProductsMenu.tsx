@@ -19,13 +19,13 @@ const ProductsMenu = ({ menu }: MenuType) => {
     >
       <div
         onClick={handleExpansion}
-        className={`flex px-4 gap-4 text-[.9375rem] group-has-[.active]:text-[#2D60FF]  text-[#6F767E] font-semibold h-[48px] py-[12px] items-center`}
+        className={`flex px-4 gap-4 text-[.9375rem] sm:group-has-[.active]:text-[#2D60FF]  text-[#6F767E] font-semibold h-[48px] py-[12px] items-center`}
       >
-        <img src={src} alt="" className="group-has-[.active]:hidden" />
+        <img src={src} alt="" className="sm:group-has-[.active]:hidden" />
         <img
           src={srcActive}
           alt=""
-          className="group-has-[.active]:block hidden"
+          className="sm:group-has-[.active]:block hidden"
         />
         <div className="flex justify-between flex-grow items-center">
           <p className="leading-6">{text}</p>
