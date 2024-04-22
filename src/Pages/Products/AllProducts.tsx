@@ -1,10 +1,11 @@
+import { Link, NavLink } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 
 const AllProducts = () => {
   return (
     <DashBoardSubRoutesWrapper header="Dashboard/Products" subheader="Products">
       <div className="border border-[#DDDDDD]  mt-8 p-3">
-        <div className="flex gap-2 flex-wrap">
+        <div className="flex gap-2 flex-wrap mt-4">
           <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
             show
           </p>
@@ -32,7 +33,8 @@ const AllProducts = () => {
             className="rounded-[4px] max-w-full border border-[#CCCCCC]"
           />
         </div>
-        <div className="max-w-full bg-[#F4F4F480] md:min-h-[406px] md:shadow-card-shadow overflow-x-scroll md:overflow-hidden mt-3">
+
+        <div className="max-w-full bg-[#F4F4F480] md:min-h-[406px] md:shadow-card-shadow overflow-x-scroll md:overflow-hidden mt-6">
           <table className="min-w-[550px] w-full">
             <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
               <tr>
@@ -51,7 +53,12 @@ const AllProducts = () => {
                   <img src="/double-triangle.png" alt="" />
                   <p>ID</p>
                 </th>
-                <th className="border-r  md:border-r-0 ">Product Name</th>
+                <th className="border-r  md:border-r-0 ">
+                  <div className="flex px-2 items-center gap-2 ">
+                    <img src="/double-triangle.png" alt="" />
+                    <p>Product name</p>
+                  </div>
+                </th>
                 <th className="border-r  md:border-r-0 ">Price</th>
                 <th className="border-r  md:border-r-0 ">Status</th>
                 <th></th>
@@ -70,7 +77,9 @@ const AllProducts = () => {
                     className="sr-only"
                   />
                 </td>
-                <td>1045683</td>
+                <td>
+                  <Link to="1045683">1045683</Link>
+                </td>
                 <td>Osteen</td>
                 <td>1,00PLN</td>
                 <td className="">
@@ -223,9 +232,11 @@ const AllProducts = () => {
         </div>
       </div>
       <div className="md:flex justify-between md:py-8">
-        <button className="font-poppins my-8 md:my-0 rounded-[4px] text-[.75rem] text-white font-normal leading-5 flex justify-center items-center w-full md:w-[219px] h-[34px] bg-[#428BCA]">
-          New product
-        </button>
+        <NavLink to="/products/new-product">
+          <button className="font-poppins my-8 md:my-0 rounded-[4px] text-[.75rem] text-white font-normal leading-5 flex justify-center items-center w-full md:w-[219px] h-[34px] bg-[#428BCA]">
+            New product
+          </button>
+        </NavLink>
         <div className="min-h-[246.53px] md:w-[368px] shadow-product-shadow font-poppins font-normal text-[#333333] rounded-[4px] border border-[#E3E3E3] p-[10px] bg-[#F5F5F5]">
           <p className="text-[.875rem]  leading-[19.8px]">Products</p>
           <p className="my-5 text-[.75rem] leading-[22.4px]">

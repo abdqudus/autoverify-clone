@@ -1,7 +1,6 @@
 import Login from "./Pages/Login";
 import MainInterface from "./Pages/MainInterface";
 import Footer from "./component/Footer.tsx";
-import Header from "./component/Header.tsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import MainDashboard from "./component/MainDashboard.tsx";
 import AllProducts from "./Pages/Products/AllProducts";
@@ -46,12 +45,12 @@ import SalesStatistics from "./Pages/Codebases/SalesStatistics.tsx";
 const App = () => {
   return (
     <BrowserRouter>
-      <div className="parent">
-        <Header />
+      <div className="parent bg-mobile-bg sm:bg-desktop-bg">
         <Routes>
           <Route path="/" element={<MainInterface />}>
             <Route index element={<MainDashboard />} />
-            <Route path="products/all-products" element={<AllProducts />}>
+            <Route path="products/all-products">
+              <Route index element={<AllProducts />} />
               <Route path=":id" element={<ProductDetails />} />
             </Route>
             <Route path="products/new-product" element={<NewProduct />} />

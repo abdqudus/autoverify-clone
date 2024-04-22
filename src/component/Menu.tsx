@@ -55,14 +55,14 @@ const Menu = ({ menu, children }: MenuType) => {
           className={`flex px-4 gap-4 text-[.9375rem] 
          font-semibold h-[48px] py-[12px] items-center`}
         >
-          <img src={src} alt="" className="sm:group-has-[.active]:hidden" />
+          <img src={src} alt="" className="sm:group-[.active]:hidden" />
           <img
             src={srcActive}
             alt=""
-            className="hidden sm:group-has-[.active]:block"
+            className="hidden sm:group-[.active]:block"
           />
 
-          <p className="leading-6 sm:group-has-[.active]:text-[#2D60FF] text-[#6F767E]">
+          <p className="leading-6 sm:group-[.active]:text-[#2D60FF] text-[#6F767E]">
             {text}
           </p>
         </div>
