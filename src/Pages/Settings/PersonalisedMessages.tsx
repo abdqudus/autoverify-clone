@@ -6,7 +6,7 @@ import SettingsWrapper from "../../component/SettingsWrapper";
 const PersonalisedMessages = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Personalized Messages"
+      header="Settings /Personalized Messages"
       subheader="Personalized Messages"
     >
       <div className="mt-6">

@@ -5,7 +5,7 @@ import { TextEditor } from "../../component/TextEditor";
 const NewEmailCampaign = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Marketing/New Email
+      header="Marketing/New Email
    campaign"
       subheader="New e-mail campaign"
     >

@@ -32,7 +32,7 @@ export const sideBarItems: SideBarItems[] = [
       { text: "Search", route: "customers/search" },
       { text: "New Transaction", route: "customers/new-transaction" },
       { text: "List of Transaction", route: "customers/transactions" },
-      { text: "History Export", route: "customers/history-product" },
+      { text: "History Export", route: "customers/history-export" },
       { text: "Complaints", route: "customers/complaints/search" },
       { text: "List of Complaints", route: "customers/list-of-complaints" },
       {
@@ -41,9 +41,9 @@ export const sideBarItems: SideBarItems[] = [
       },
       {
         text: "Sales Statistics",
-        route: "customers/complaints/sales-statistics",
+        route: "customers/sales-statistics",
       },
-      { text: "Sales Blacklist", route: "customers/complaints/blacklist" },
+      { text: "Sales Blacklist", route: "customers/blacklist" },
       { text: "Sales Settings", route: "customers/sales-settings" },
     ],
     newHeight: "h-[428px]",

@@ -60,7 +60,7 @@ const App = () => {
             />
             <Route path="customers/search" element={<Search />} />
             <Route
-              path="customers/complaints/sales-statistics"
+              path="customers/sales-statistics"
               element={<SalesStatistics />}
             />
             <Route
@@ -72,7 +72,7 @@ const App = () => {
               element={<ListOfTransactions />}
             />
             <Route
-              path="customers/history-product"
+              path="customers/history-export"
               element={<HistoryExport />}
             />
             <Route
@@ -89,7 +89,7 @@ const App = () => {
             />
 
             <Route
-              path="customers/complaints/blacklist"
+              path="customers/blacklist"
               element={<SalesBlacklist />}
             />
             <Route

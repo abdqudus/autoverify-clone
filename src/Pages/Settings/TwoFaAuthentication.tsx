@@ -6,7 +6,7 @@ import SettingsWrapper from "../../component/SettingsWrapper";
 const TwoFaAuthentication = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Two Factor Authentication"
+      header="Settings /Two Factor Authentication"
       subheader="Two-factor Authentication (2FA)"
     >
       <div className="mt-6">

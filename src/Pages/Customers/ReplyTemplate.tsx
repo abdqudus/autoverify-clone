@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const ReplyTemplate = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Customers/Complaints/Reply Templates"
+      header="Customers/Complaints/Reply Templates"
       subheader="Reply Templates"
     >
       <div className="mt-6">

@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const Configuration = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Ebay/Configuration"
+      header="Ebay/Configuration"
       subheader="Ebay Configuration"
     >
       <div className="mt-6">

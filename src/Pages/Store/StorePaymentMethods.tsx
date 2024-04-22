@@ -5,7 +5,7 @@ const StorePaymentMethods = () => {
   return (
     <DashBoardSubRoutesWrapper
       subheader="Payment Method in store"
-      header="Dashboard/Store/Payment Methods"
+      header="Store/Payment Methods"
     >
       <div className="mt-6">
         <div className="mt-4">

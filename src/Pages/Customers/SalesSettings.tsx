@@ -4,7 +4,7 @@ import { TextEditor } from "../../component/TextEditor";
 const SalesSettings = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Customers/Sales Settings"
+      header="Customers/Sales Settings"
       subheader="Sales Settings"
     >
       <div className="mt-6">

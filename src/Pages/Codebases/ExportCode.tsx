@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const ExportCode = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Code Base/Export Code"
+      header="Code Base/Export Code"
       subheader="Export of code bases"
     >
       <div className="mt-6">

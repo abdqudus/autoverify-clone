@@ -6,7 +6,7 @@ import StoreNav from "../../component/StoreNav";
 const NewPaymentMethod = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Store/New Payment Method"
+      header="Store/New Payment Method"
       subheader="New Payment Method"
     >
       <div className="mt-6">

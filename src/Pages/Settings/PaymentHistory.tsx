@@ -12,7 +12,7 @@ import Table from "../../component/Table";
 const PaymentHistory = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Payment History"
+      header="Settings /Payment History"
       subheader="Payment History"
     >
       <div className="mt-6 text-[#333333]">

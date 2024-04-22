@@ -5,7 +5,7 @@ const SalesStatistics = () => {
   return (
     <DashBoardSubRoutesWrapper
       subheader="Sales Statistics"
-      header="Dashboard/Customers/Complaints/Sales Statistics"
+      header="Customers/Sales Statistics"
     >
       <div className="mt-6">
         <Statistics />

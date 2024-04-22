@@ -4,7 +4,7 @@ import MarketingNav from "../../component/MarketingNav";
 const ListOfAutomaticShipment = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Marketing/List of Automaitc Shipment"
+      header="Marketing/List of Automaitc Shipment"
       subheader="List of Automatic Shipment"
     >
       <div className="mt-6">

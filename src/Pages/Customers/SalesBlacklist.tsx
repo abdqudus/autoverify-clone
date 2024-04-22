@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const SalesBlacklist = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Customers/Complaints/Blacklist"
+      header="Customers/Blacklist"
       subheader="Blacklist"
     >
       <div className="mb-6">

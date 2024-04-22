@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const SearchCodes = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Code Base/Search Codes"
+      header="Code Base/Search Codes"
       subheader="Search Codes"
     >
       <div className="mt-6">

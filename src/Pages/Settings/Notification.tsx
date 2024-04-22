@@ -8,7 +8,7 @@ import Table from "../../component/Table";
 const Notification = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Notification"
+      header="Settings /Notification"
       subheader="Notification"
     >
       <div className="mt-6 text-[#333333]">

@@ -5,7 +5,7 @@ import { TextEditor } from "../../component/TextEditor";
 const StoreConfiguration = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Store/Configuration"
+      header="Store/Configuration"
       subheader="Store Configuration"
     >
       <div className="mt-6">

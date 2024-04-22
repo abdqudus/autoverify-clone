@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const CodeList = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Code Base/Code List"
+      header="Code Base/Code List"
       subheader="Code List"
     >
       <div className="mt-6">

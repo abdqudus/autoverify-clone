@@ -6,7 +6,7 @@ import Checkbox from "../../component/Checkbox";
 
 const API = () => {
   return (
-    <DashBoardSubRoutesWrapper header="Dashboard/Settings /API" subheader="API">
+    <DashBoardSubRoutesWrapper header="Settings /API" subheader="API">
       <div className="mt-6 text-[#333333]">
         <SettingsWrapper>
           <LayoutNavigations />

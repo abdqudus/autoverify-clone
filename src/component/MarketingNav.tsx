@@ -31,7 +31,7 @@ const MarketingNav = () => {
       <div className="group">
         <NavLink to="/marketing/new-shipment">
           <p className="text-sm leading-[21px]  cursor-pointer flex items-center gap-1 text-[#1E1E1E]">
-            <span> New Shipmwent</span>
+            <span> New Shipment</span>
             <img
               src="/arrow-down.png"
               className="group-has-[.active]:block hidden"

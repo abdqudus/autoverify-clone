@@ -3,7 +3,7 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 const ConnectedAccounts = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Ebay/Connected accounts"
+      header="Ebay/Connected accounts"
       subheader="Connected Accounts"
     >
       <div className="mt-6">

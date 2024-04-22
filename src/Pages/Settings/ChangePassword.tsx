@@ -6,7 +6,7 @@ import SettingsWrapper from "../../component/SettingsWrapper";
 const ChangePassword = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Change Password"
+      header="Settings /Change Password"
       subheader="Change Password"
     >
       <div className="mt-6">

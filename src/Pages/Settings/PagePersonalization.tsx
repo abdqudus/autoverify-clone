@@ -7,7 +7,7 @@ import TransactionCard from "../../component/TransactionCard";
 const PagePersonalization = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /Page Personalization"
+      header="Settings /Page Personalization"
       subheader="Page Personalization"
     >
       <div className="mt-6">

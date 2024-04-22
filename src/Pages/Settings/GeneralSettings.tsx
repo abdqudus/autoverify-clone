@@ -8,7 +8,7 @@ import SettingsWrapper from "../../component/SettingsWrapper";
 const GeneralSettings = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Settings /General Settings"
+      header="Settings /General Settings"
       subheader="General Settings"
     >
       <div className="mt-6">

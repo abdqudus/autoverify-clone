@@ -5,7 +5,7 @@ import StoreNav from "../../component/StoreNav";
 const ProductsInGrid = () => {
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Store/Products in Grid"
+      header="Store/Products in Grid"
       subheader="Store Name: Chelsie Haley "
     >
       <div className="mt-6">
