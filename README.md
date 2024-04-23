@@ -1,11 +1,26 @@
-# How to run this project locally
+# Automater Project Documentation
 
-### Steps
+### How to run this project locally
 
 - Fork or download the repository
 - Navigate to the root folder
 - Run "npm i" to install all dependencies used in the project
 - Run npm run dev to start the project in dev mode (The project will most likely run on port 5173)
+
+### Project Structure
+
+- The project was built using React for the UI, Typescript for type safety,  and Tailwind for styling.
+- At the root of the folder is a "public" folder. This folder contains all the images used in the project.
+- Also, there is a "src" folder. This folder contains all the logic and UI of the app.
+- Within the src folder, there are numerous folders; component, contexts, pages, e.t.c.
+- The component folder contains code pieces that is used within a route or another component, examples include Header component, and Footer component.
+- The contexts folder contains the logic for React Context used in the project.
+- Data folder contains all the hardcoded data used in the project.
+- Pages contains all the navigatable routes. Each page is made up of different components.
+- types is a folder for all types used in the project.
+- utils folder is a collection of different utility functions used in the project.
+- App.tsx is the entry point into the app. It contains the setup of all the routes used in the project.
+
 
 ### Routes
 
