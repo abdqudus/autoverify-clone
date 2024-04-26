@@ -1,7 +1,13 @@
 import { Link, NavLink } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import useGetProducts from "../../customHooks/useGetProducts";
+import { Products } from "../../types/type";
+import Spinner from "../../component/Spinner";
+// import Spinner from "../../component/Spinner";
 
 const AllProducts = () => {
+  const { data, isPending } = useGetProducts();
+  console.log(data);
   return (
     <DashBoardSubRoutesWrapper header="Dashboard/Products" subheader="Products">
       <div className="border border-[#DDDDDD]  mt-8 p-3">
@@ -65,134 +71,49 @@ const AllProducts = () => {
               </tr>
             </thead>
             <tbody>
-              <tr className="h-[48px] text-center ">
-                <td className="pl-2">
-                  <label htmlFor="check-1045683">
-                    <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
-                  </label>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id="check-1045683"
-                    className="sr-only"
-                  />
-                </td>
-                <td>
-                  <Link to="1045683">1045683</Link>
-                </td>
-                <td>Osteen</td>
-                <td>1,00PLN</td>
-                <td className="">
-                  <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                    active
-                  </button>
-                </td>
-                <td>
-                  <div className="flex px-4 items-center">
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]">
-                      Edit
+              {/* {products.length >= 0 && <Spinner />} */}
+              {data.map((p: Products) => (
+                <tr className="h-[48px] text-center ">
+                  <td className="pl-2">
+                    <label htmlFor={`check-${p.id}`}>
+                      <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
+                    </label>
+                    <input
+                      type="checkbox"
+                      name=""
+                      id="check-1045683"
+                      className="sr-only"
+                    />
+                  </td>
+                  <td>
+                    <Link to="1045683">{p.id}</Link>
+                  </td>
+                  <td>{p.name}</td>
+                  <td>{p.price}</td>
+                  <td className="">
+                    <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
+                      {p.is_active ? "active" : "inactive"}
                     </button>
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]">
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[48px] text-center md:bg-[#fcfcfc]">
-                <td className="pl-2">
-                  <label htmlFor="check-1045683">
-                    <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
-                  </label>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id="check-1045683"
-                    className="sr-only"
-                  />
-                </td>
-                <td>1045683</td>
-                <td>Osteen</td>
-                <td>1,00PLN</td>
-                <td className="">
-                  <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                    active
-                  </button>
-                </td>
-                <td>
-                  <div className="flex px-4 items-center">
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]">
-                      Edit
-                    </button>
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]">
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[48px] text-center ">
-                <td className="pl-2">
-                  <label htmlFor="check-1045683">
-                    <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
-                  </label>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id="check-1045683"
-                    className="sr-only"
-                  />
-                </td>
-                <td>1045683</td>
-                <td>Osteen</td>
-                <td>1,00PLN</td>
-                <td className="">
-                  <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                    active
-                  </button>
-                </td>
-                <td>
-                  <div className="flex px-4 items-center">
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]">
-                      Edit
-                    </button>
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]">
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
-              <tr className="h-[48px] text-center md:bg-[#fcfcfc]">
-                <td className="pl-2">
-                  <label htmlFor="check-1045683">
-                    <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
-                  </label>
-                  <input
-                    type="checkbox"
-                    name=""
-                    id="check-1045683"
-                    className="sr-only"
-                  />
-                </td>
-                <td>1045683</td>
-                <td>Osteen</td>
-                <td>1,00PLN</td>
-                <td className="">
-                  <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                    active
-                  </button>
-                </td>
-                <td>
-                  <div className="flex px-4 items-center">
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]">
-                      Edit
-                    </button>
-                    <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]">
-                      Delete
-                    </button>
-                  </div>
-                </td>
-              </tr>
+                  </td>
+                  <td>
+                    <div className="flex px-4 items-center">
+                      <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]">
+                        Edit
+                      </button>
+                      <button className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]">
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
+          {isPending && (
+            <div className="flex mt-4 justify-center items-center">
+              <Spinner />
+            </div>
+          )}
         </div>
         <div className="mt-3 font-poppins font-normal pb-3 flex flex-col  gap-3">
           <p className="text-[.875rem] leading-[22.4px] text-[#333333]">

@@ -42,133 +42,137 @@ import StorePaymentMethods from "./Pages/Store/StorePaymentMethods.tsx";
 import ProductsInGrid from "./Pages/Store/ProductsInGrid.tsx";
 import SalesStatistics from "./Pages/Codebases/SalesStatistics.tsx";
 
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const App = () => {
+  const queryClient = new QueryClient();
   return (
-    <BrowserRouter>
-      <div className="parent bg-mobile-bg sm:bg-desktop-bg">
-        <Routes>
-          <Route path="/" element={<MainInterface />}>
-            <Route index element={<MainDashboard />} />
-            <Route path="products/all-products">
-              <Route index element={<AllProducts />} />
-              <Route path=":id" element={<ProductDetails />} />
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <div className="parent bg-mobile-bg sm:bg-desktop-bg">
+          <Routes>
+            <Route path="/" element={<MainInterface />}>
+              <Route index element={<MainDashboard />} />
+              <Route path="products/all-products">
+                <Route index element={<AllProducts />} />
+                <Route path=":id" element={<ProductDetails />} />
+              </Route>
+              <Route path="products/new-product" element={<NewProduct />} />
+              <Route
+                path="products/payment-methods"
+                element={<PaymentMethods />}
+              />
+              <Route path="customers/search" element={<Search />} />
+              <Route
+                path="customers/sales-statistics"
+                element={<SalesStatistics />}
+              />
+              <Route
+                path="customers/new-transaction"
+                element={<NewTransaction />}
+              />
+              <Route
+                path="customers/transactions"
+                element={<ListOfTransactions />}
+              />
+              <Route
+                path="customers/history-export"
+                element={<HistoryExport />}
+              />
+              <Route
+                path="customers/complaints/search"
+                element={<SearchComplaint />}
+              />
+              <Route
+                path="customers/list-of-complaints"
+                element={<ListOfComplaints />}
+              />
+              <Route
+                path="customers/complaints/reply-templates"
+                element={<ReplyTemplate />}
+              />
+
+              <Route path="customers/blacklist" element={<SalesBlacklist />} />
+              <Route
+                path="customers/sales-settings"
+                element={<SalesSettings />}
+              />
+              <Route path="codebase/search-codes" element={<SearchCodes />} />
+              <Route path="codebase/new-base-code" element={<NewBaseCodes />} />
+              <Route path="codebase/code-list" element={<CodeList />} />
+              <Route path="codebase/export-code" element={<ExportCode />} />
+
+              <Route path="settings/layout" element={<SettingsLayout />} />
+              <Route
+                path="settings/personalised-messages"
+                element={<PersonalisedMessages />}
+              />
+              <Route
+                path="settings/two-fa-auth"
+                element={<TwoFaAuthentication />}
+              />
+              <Route
+                path="settings/payment-history"
+                element={<PaymentHistory />}
+              />
+              <Route
+                path="settings/page-personalization"
+                element={<PagePersonalization />}
+              />
+              <Route
+                path="settings/change-password"
+                element={<ChangePassword />}
+              />
+              <Route
+                path="settings/general-settings"
+                element={<GeneralSettings />}
+              />
+              {/* <Route path="store/payment-methods" element={<PaymentMethods />} /> */}
+              <Route
+                path="store/payment-methods"
+                element={<StorePaymentMethods />}
+              />
+              <Route
+                path="store/add-new-method"
+                element={<NewPaymentMethod />}
+              />
+              <Route
+                path="store/configuration"
+                element={<StoreConfiguration />}
+              />
+              <Route path="store/products" element={<ProductsInGrid />} />
+
+              <Route path="settings/notifications" element={<Notification />} />
+              <Route path="settings/api" element={<API />} />
+
+              <Route
+                path="marketing/new-email-campaign"
+                element={<NewEmailCampaign />}
+              />
+              <Route path="marketing/new-shipment" element={<NewShipment />} />
+              <Route
+                path="marketing/list-of-automatic-shipment"
+                element={<ListOfAutomaticShipment />}
+              />
+              <Route
+                path="marketing/list-of-email-campaign"
+                element={<ListOfEmailCampaign />}
+              />
+              <Route
+                path="ebay/connected-accounts"
+                element={<ConnectedAccounts />}
+              />
+              <Route
+                path="ebay/automatic-monitoring"
+                element={<AutomaticMonitoring />}
+              />
+              <Route path="ebay/configurations" element={<Configuration />} />
             </Route>
-            <Route path="products/new-product" element={<NewProduct />} />
-            <Route
-              path="products/payment-methods"
-              element={<PaymentMethods />}
-            />
-            <Route path="customers/search" element={<Search />} />
-            <Route
-              path="customers/sales-statistics"
-              element={<SalesStatistics />}
-            />
-            <Route
-              path="customers/new-transaction"
-              element={<NewTransaction />}
-            />
-            <Route
-              path="customers/transactions"
-              element={<ListOfTransactions />}
-            />
-            <Route
-              path="customers/history-export"
-              element={<HistoryExport />}
-            />
-            <Route
-              path="customers/complaints/search"
-              element={<SearchComplaint />}
-            />
-            <Route
-              path="customers/list-of-complaints"
-              element={<ListOfComplaints />}
-            />
-            <Route
-              path="customers/complaints/reply-templates"
-              element={<ReplyTemplate />}
-            />
-
-            <Route
-              path="customers/blacklist"
-              element={<SalesBlacklist />}
-            />
-            <Route
-              path="customers/sales-settings"
-              element={<SalesSettings />}
-            />
-            <Route path="codebase/search-codes" element={<SearchCodes />} />
-            <Route path="codebase/new-base-code" element={<NewBaseCodes />} />
-            <Route path="codebase/code-list" element={<CodeList />} />
-            <Route path="codebase/export-code" element={<ExportCode />} />
-
-            <Route path="settings/layout" element={<SettingsLayout />} />
-            <Route
-              path="settings/personalised-messages"
-              element={<PersonalisedMessages />}
-            />
-            <Route
-              path="settings/two-fa-auth"
-              element={<TwoFaAuthentication />}
-            />
-            <Route
-              path="settings/payment-history"
-              element={<PaymentHistory />}
-            />
-            <Route
-              path="settings/page-personalization"
-              element={<PagePersonalization />}
-            />
-            <Route
-              path="settings/change-password"
-              element={<ChangePassword />}
-            />
-            <Route
-              path="settings/general-settings"
-              element={<GeneralSettings />}
-            />
-            {/* <Route path="store/payment-methods" element={<PaymentMethods />} /> */}
-            <Route
-              path="store/payment-methods"
-              element={<StorePaymentMethods />}
-            />
-            <Route path="store/add-new-method" element={<NewPaymentMethod />} />
-            <Route
-              path="store/configuration"
-              element={<StoreConfiguration />}
-            />
-            <Route path="store/products" element={<ProductsInGrid />} />
-
-            <Route path="settings/notifications" element={<Notification />} />
-            <Route path="settings/api" element={<API />} />
-
-            <Route
-              path="marketing/new-email-campaign"
-              element={<NewEmailCampaign />}
-            />
-            <Route path="marketing/new-shipment" element={<NewShipment />} />
-            <Route
-              path="marketing/list-of-automatic-shipment"
-              element={<ListOfAutomaticShipment />}
-            />
-            <Route
-              path="marketing/list-of-email-campaign"
-              element={<ListOfEmailCampaign />}
-            />
-            <Route
-              path="ebay/connected-accounts"
-              element={<ConnectedAccounts />}
-            />
-            <Route
-              path="ebay/automatic-monitoring"
-              element={<AutomaticMonitoring />}
-            />
-            <Route path="ebay/configurations" element={<Configuration />} />
-          </Route>
-          <Route path="/login" element={<Login />} />
-        </Routes>
-        <Footer />
-      </div>
-    </BrowserRouter>
+            <Route path="/login" element={<Login />} />
+          </Routes>
+          <Footer />
+        </div>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 };
 
