@@ -6,10 +6,7 @@ import NewSettingsLayOut from "../../component/NewSettingsLayOut";
 const SettingsLayout = () => {
   const [isNewSettings, setIsNewSetting] = useState<boolean>(false);
   return (
-    <DashBoardSubRoutesWrapper
-      header="Settings /Layout"
-      subheader="Layout"
-    >
+    <DashBoardSubRoutesWrapper header="Settings /Layout" subheader="Layout">
       {isNewSettings ? (
         <NewSettingsLayOut />
       ) : (
