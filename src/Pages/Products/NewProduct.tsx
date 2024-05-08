@@ -1,7 +1,94 @@
+import { useQuery } from "@tanstack/react-query";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import { TextEditor } from "../../component/TextEditor";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import Loader from "../../component/Loader";
+
+const UNPAGINATE = null;
 
 const NewProduct = () => {
+  const navigate = useNavigate();
+  const { data = { codebases: [], layouts: [] }, isPending } = useQuery({
+    queryKey: ["new-product"],
+    queryFn: () => fetchCodebases(),
+  });
+  const [textVal, setTextVal] = useState("");
+  const [newProd, setNewProd] = useState({
+    name: "",
+    description: "",
+    price: "",
+    codebase: "",
+  });
+  const navigate_to_create_codes = () => {
+    navigate("/codebase/new-base-code");
+  };
+  const setProductDetails = (e) => {
+    console.dir(e.target.value);
+    setNewProd({
+      ...newProd,
+      [e.target.name]: e.target.value,
+      description: textVal,
+    });
+  };
+  const handleSendDetails = async () => {
+    const { name, price } = newProd;
+    let { codebase } = newProd;
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    if (name && price) {
+      if (!codebase) {
+        const first_codebase = data.codebases[0];
+        if (!first_codebase) {
+          alert("please add codes to continue");
+          return;
+        }
+        codebase = first_codebase.id;
+      }
+      const endpoint = new base.ProductEndpoint(access_token, {});
+      try {
+        const res = await endpoint.create({
+          name: name,
+          price: price,
+          use_codebase: true,
+          codebase: codebase,
+          description: newProd.description,
+        });
+        if (!("product_id" in res)) {
+          console.error(res);
+          throw Error(`Server returned with: ${res}`);
+        }
+
+        navigate(`/products/all-products/${res.product_id}`);
+      } catch (err) {
+        console.error(err);
+      }
+    } else {
+      alert("input all field");
+    }
+  };
+  const fetchCodebases = async () => {
+    const access_token = await tokenUtil.getToken();
+
+    if (access_token == null) {
+      navigate("/login");
+    }
+    const endpoint = new base.CodebaseEndpoint(access_token, {});
+    const codebase = await endpoint.list(UNPAGINATE);
+    console.log(codebase);
+    return {
+      codebases: codebase,
+      layouts: [],
+    };
+  };
+
+  if (isPending) {
+    return <Loader />;
+  }
   return (
     <DashBoardSubRoutesWrapper
       font="font-poppins"
@@ -12,7 +99,13 @@ const NewProduct = () => {
         <p className=" font-open-sans font-normal leading-[22.4px] text-sm text-[#333333]">
           Product name
         </p>
-        <input type="text" className=" border border-[#CCCCCC] w-full" />
+        <input
+          name="name"
+          type="text"
+          required
+          onChange={(e) => setProductDetails(e)}
+          className=" border border-[#CCCCCC] w-full"
+        />
       </div>
       <div className="text-sm mt-2 text-[#333333] leading-[22.4px]  font-open-sans font-normal ">
         <p>Product description</p>
@@ -20,13 +113,17 @@ const NewProduct = () => {
           Product description will be found in transaction website. Add the most
           important information about your product here.
         </p>
-        <TextEditor />
+        <TextEditor val={{ textVal, setTextVal }} />
       </div>
       <div className="mt-4">
         <p>Price and currency</p>
         <div className="md:flex gap-6 mt-2">
           <input
             type="number"
+            name="price"
+            required
+            onChange={(e) => setProductDetails(e)}
+            value={newProd.price}
             className="w-full md:w-[186.22px] border h-[34px] border-[#CCCCCC] rounded-[4px]"
           />
           <input
@@ -54,17 +151,34 @@ const NewProduct = () => {
         <p>Code base</p>
         <p className="mt-1 leading-[22.4px]">
           Choose codebase from which codes will be sent to customers.
-          <a className="text-[#428BCA] pl-1">Click here to add new codebase.</a>
+          <a
+            onClick={(e) => navigate_to_create_codes()}
+            className="text-[#428BCA] pl-1"
+          >
+            Click here to add new codebase.
+          </a>
         </p>
-        <select className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]">
-          <option value="Osteeen (recursive)">Osteeen (recursive)</option>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+        <select
+          onChange={(e) => setProductDetails(e)}
+          name="codebase"
+          className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]"
+        >
+          {data && data?.codebases?.length > 0 ? (
+            data.codebases.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))
+          ) : (
+            <></>
+          )}
         </select>
       </div>
       <div className="mt-10 p-0">
-        <button className=" font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] w-[138.11px] bg-[#5CB85C] border border-[#4CAE4C]">
+        <button
+          onClick={handleSendDetails}
+          className=" font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] w-[138.11px] bg-[#5CB85C] border border-[#4CAE4C]"
+        >
           Add new product
         </button>
       </div>

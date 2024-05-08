@@ -1,18 +1,18 @@
 // import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import fetchProducts from "../utils/fetchProducts";
+import fetchCodebases from "../utils/fetchCodebases";
 // import { Products } from "../types/type";
 import { useQuery } from "@tanstack/react-query";
 
-const useGetProducts = () => {
+const useGetCodebases = () => {
   const navigate = useNavigate();
   const {
     isPending,
     data = [],
     error,
   } = useQuery({
-    queryKey: ["products"],
-    queryFn: () => fetchProducts(),
+    queryKey: ["codebases"],
+    queryFn: () => fetchCodebases(),
   });
   if (error) {
     navigate("/login");
@@ -20,4 +20,4 @@ const useGetProducts = () => {
   return { data, isPending };
 };
 
-export default useGetProducts;
+export default useGetCodebases;

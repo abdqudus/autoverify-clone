@@ -1,7 +1,9 @@
+import { useState } from "react";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import { TextEditor } from "../../component/TextEditor";
 
 const SalesSettings = () => {
+  const [textVal, setTextVal] = useState("");
   return (
     <DashBoardSubRoutesWrapper
       header="Customers/Sales Settings"
@@ -95,7 +97,7 @@ const SalesSettings = () => {
               Reminder content
             </h3>
             <div className="md:flex  gap-8">
-              <TextEditor />
+              <TextEditor val={{ textVal, setTextVal }} />
               <div className="mt-3">
                 <h3 className="font-bold text-sm leading-[22.4px]">
                   Frequency of notifications

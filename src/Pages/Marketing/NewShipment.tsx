@@ -1,8 +1,10 @@
+import { useState } from "react";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import MarketingNav from "../../component/MarketingNav";
 import { TextEditor } from "../../component/TextEditor";
 
 const NewShipment = () => {
+  const [textVal, setTextVal] = useState("");
   return (
     <DashBoardSubRoutesWrapper
       header="Marketing/New Shipment"
@@ -156,7 +158,7 @@ const NewShipment = () => {
                       name
                     </p>
                   </div>
-                  <TextEditor />
+                  <TextEditor val={{ textVal, setTextVal }} />
                 </div>
                 <div className="mt-4 sm:flex-row sm:justify-between sm:items-start flex flex-col">
                   <button className="text-white font-open-sans h-[34px] text-sm border w-[123.47px] border-[#4CAE4C] bg-[#5CB85C] rounded-[4px]">

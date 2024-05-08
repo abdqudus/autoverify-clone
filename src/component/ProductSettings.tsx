@@ -1,8 +1,10 @@
+import { useState } from "react";
 import DashBoardSubRoutesWrapper from "./DashBoardSubRoutesWrapper";
 import ProductDetailExtenstion from "./ProductDetailExtenstion";
 import { TextEditor } from "./TextEditor";
 
 const ProductSettings = () => {
+  const [textVal, setTextVal] = useState("");
   return (
     <DashBoardSubRoutesWrapper
       header="Dashboard/Product/Osteen "
@@ -108,7 +110,7 @@ const ProductSettings = () => {
               <h3 className="text-[#333333] mb-4 font-normal font-poppins text-[.75rem] leading-[22.4px]">
                 Product description
               </h3>
-              <TextEditor />
+              <TextEditor val={{ textVal, setTextVal }} />
               <button className="bg-[#5CB85C] rounded-[4px] h-[34px] mt-6 font-poppins text-[.75rem] leading-5 text-white flex items-center justify-center border vsm:max-w-full w-[166.06px]  border-[#4CAE4C]">
                 Save product settings
               </button>

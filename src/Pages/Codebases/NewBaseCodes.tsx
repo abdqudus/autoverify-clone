@@ -1,6 +1,37 @@
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import { useState } from "react";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { useNavigate } from "react-router-dom";
 
 const NewBaseCodes = () => {
+  const [newCodeBase, setNewCodeBase] = useState({
+    name: "",
+  });
+  const navigate = useNavigate();
+  const setProductDetails = (e) => {
+    console.dir(e.target.value);
+    setNewCodeBase({
+      ...newCodeBase,
+      [e.target.name]: e.target.value,
+    });
+  };
+  const handleSendDetails = async () => {
+    const codebaseName = newCodeBase.name;
+    const access_token = await tokenUtil.getToken();
+
+    if (access_token === null) {
+      navigate("/login");
+    }
+
+    const endpoint = new base.CodebaseEndpoint(access_token, {});
+    const res = await endpoint.create({
+      name: codebaseName,
+    });
+
+    console.log(res);
+  };
+
   return (
     <DashBoardSubRoutesWrapper
       header="Code Base/New Base Code"
@@ -12,16 +43,17 @@ const NewBaseCodes = () => {
             htmlFor="base-name"
             className="font-normal font-open-sans text-sm leading-[22.4px] text-[#333333]"
           >
-            Base name
+            Name
           </label>
           <input
             className="rounded-[4px] px-3 mt-1 w-full sm:w-[80%] max-w-[812.5px] border border-[#CCCCCC]"
             type="text"
-            name=""
+            name="name"
             id="base-name"
+            onChange={(e) => setProductDetails(e)}
           />
         </div>
-        <div className="mt-3 flex flex-col">
+        {/* <div className="mt-3 flex flex-col">
           <label
             htmlFor="base-type"
             className="font-normal font-open-sans text-sm leading-[22.4px] text-[#333333]"
@@ -34,9 +66,12 @@ const NewBaseCodes = () => {
             name=""
             id="base-type"
           />
-        </div>
+        </div> */}
         <div className="my-5 flex justify-end sm:justify-start">
-          <button className="w-[117.44px] h-[34px] font-open-sans rounded-[4px] border block border-[#4CAE4C] bg-[#5CB85C] text-white text-sm leading-5">
+          <button
+            onClick={handleSendDetails}
+            className="w-[117.44px] h-[34px] font-open-sans rounded-[4px] border block border-[#4CAE4C] bg-[#5CB85C] text-white text-sm leading-5"
+          >
             Add new base
           </button>
         </div>

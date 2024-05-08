@@ -1,9 +1,12 @@
 import { Suspense, lazy } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import Login from "./Pages/Login";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import MainInterface from "./Pages/MainInterface";
 import Footer from "./component/Footer.tsx";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Loader from "./component/Loader.tsx";
+
+const Login = lazy(() => import("./Pages/Login"));
 const MainDashboard = lazy(() => import("./component/MainDashboard.tsx"));
 const Products = lazy(() => import("./Pages/Products/Products.tsx"));
 const Customers = lazy(() => import("./Pages/Customers/Customers.tsx"));
@@ -19,75 +22,77 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <div className="parent bg-mobile-bg sm:bg-desktop-bg">
-          <Routes>
-            <Route path="/" element={<MainInterface />}>
-              <Route index element={<MainDashboard />} />
+          <Suspense fallback={<Loader />}>
+            <Routes>
+              <Route path="/" element={<MainInterface />}>
+                <Route index element={<MainDashboard />} />
+                <Route
+                  path="products/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Products />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="customers/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Customers />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="codebase/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Codebases />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="settings/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Settings />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="store/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Store />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="marketing/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Marketing />
+                    </Suspense>
+                  }
+                />
+                <Route
+                  path="ebay/*"
+                  element={
+                    <Suspense fallback={<Loader />}>
+                      <Ebay />
+                    </Suspense>
+                  }
+                />
+              </Route>
               <Route
-                path="products/*"
+                path="/login"
                 element={
-                  <Suspense>
-                    <Products />
+                  <Suspense fallback={<Loader />}>
+                    <Login />
                   </Suspense>
                 }
               />
-              <Route
-                path="customers/*"
-                element={
-                  <Suspense>
-                    <Customers />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="codebase/*"
-                element={
-                  <Suspense>
-                    <Codebases />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="settings/*"
-                element={
-                  <Suspense>
-                    <Settings />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="store/*"
-                element={
-                  <Suspense>
-                    <Store />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="marketing/*"
-                element={
-                  <Suspense>
-                    <Marketing />
-                  </Suspense>
-                }
-              />
-              <Route
-                path="ebay/*"
-                element={
-                  <Suspense>
-                    <Ebay />
-                  </Suspense>
-                }
-              />
-            </Route>
-            <Route
-              path="/login"
-              element={
-                <Suspense>
-                  <Login />
-                </Suspense>
-              }
-            />
-          </Routes>
+            </Routes>
+          </Suspense>
           <Footer />
         </div>
       </BrowserRouter>

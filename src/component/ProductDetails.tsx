@@ -1,7 +1,29 @@
+import { useParams } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "./DashBoardSubRoutesWrapper";
 import ProductDetailExtenstion from "./ProductDetailExtenstion";
+import { useQuery } from "@tanstack/react-query";
+import * as tokenUtil from "../utils/tokenUtil";
+import * as base from "../utils/base";
+import Loader from "./Loader";
 
 const ProductDetails = () => {
+  const { id } = useParams();
+  const fetchProduct = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      throw Error("Login Error go to login");
+    }
+    const product_endpoint = new base.ProductEndpoint(access_token, {});
+    const single_product = await product_endpoint.read(id);
+    return single_product;
+  };
+  const { error, isPending, data } = useQuery({
+    queryKey: ["product"],
+    queryFn: () => fetchProduct(),
+  });
+  if (isPending) {
+    return <Loader />;
+  }
   return (
     <DashBoardSubRoutesWrapper
       header="Dashboard/Products/[Product]"
@@ -11,10 +33,11 @@ const ProductDetails = () => {
       additionalHeader={
         <div className="mt-4">
           <h3 className="text-[#1A1D1F] font-inter font-semibold leading-8 text-2xl">
-            Osteen
+            {data.name}
           </h3>
           <span className="block text-[#6F767E] text-sm leading-6 font-semibold">
             Description
+            <br /> {data.description}
           </span>
         </div>
       }
@@ -31,7 +54,7 @@ const ProductDetails = () => {
                 <div className="w-full mb-4 rounded-[12px]">
                   <img
                     className="w-full h-auto"
-                    src="/osteen.png"
+                    src={data.thumbnail}
                     width="308"
                     height="200"
                     alt=""
@@ -39,10 +62,10 @@ const ProductDetails = () => {
                 </div>
                 <div className="flex justify-between items-center gap-2 flex-wrap">
                   <p className="font-inter font-semibold leading-6 text-[.9375rem] text-[#1A1D1F]">
-                    Product Thumbnail
+                    Thumbnail
                   </p>
                   <p className="px-1 py-2 rounded-[6px] font-inter font-bold text-[.9375rem] bg-[#B5E4CA] flex items-center justify-center leading-6 ">
-                    $64
+                    ${data.price}
                   </p>
                 </div>
               </div>
@@ -108,7 +131,7 @@ const ProductDetails = () => {
                   Product name
                 </span>
                 <span className="font-poppins text-sm text-[#428BCA] leading-5">
-                  Osteeen
+                  {data.name}
                 </span>
               </p>
               <p className="flex justify-between items-center gap-4 border-y p-4">
@@ -116,13 +139,17 @@ const ProductDetails = () => {
                   Price
                 </span>
                 <span className="font-poppins text-sm text-[#333333]  leading-5">
-                  1.00 PLN
+                  {data.price}
                 </span>
               </p>
             </div>
           </div>
         </div>
-        <ProductDetailExtenstion bg="bg-[#E74C3C]" border="border-[#DF2E1B]" />
+        <ProductDetailExtenstion
+          data={data}
+          bg="bg-[#E74C3C]"
+          border="border-[#DF2E1B]"
+        />
       </section>
     </DashBoardSubRoutesWrapper>
   );

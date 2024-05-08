@@ -1,3 +1,4 @@
+import { useState } from "react";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import LayoutNavigations from "../../component/LayoutNavigations";
 import SettingsWrapper from "../../component/SettingsWrapper";
@@ -5,6 +6,7 @@ import { TextEditor } from "../../component/TextEditor";
 import TransactionCard from "../../component/TransactionCard";
 
 const PagePersonalization = () => {
+  const [textVal, setTextVal] = useState("");
   return (
     <DashBoardSubRoutesWrapper
       header="Settings /Page Personalization"
@@ -23,7 +25,7 @@ const PagePersonalization = () => {
                 box on the page with the transaction status, complaint status
                 and in the purchase form.
               </p>
-              <TextEditor />
+              <TextEditor val={{ textVal, setTextVal }} />
               <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">
                 Save changes
               </button>

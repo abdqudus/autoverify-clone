@@ -1,6 +1,63 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { redirect } from "react-router-dom";
 
 const PaymentMethods = () => {
+  // PLEASE REPLACE THESE URLS APPROPRIATELY
+  const success_activation_url = "https://google.com?q=success"; // URL WHEN ACTIVATION IS SUCCESSUFL
+  const unsuccess_activation_url = "https://google.com?q=failure"; // URL WHEN ACTIVATION FAILS
+  const navigate = useNavigate();
+
+  const [account, setAccount] = useState({
+    name: "",
+    type: "STRIPE",
+    isActive: true,
+  });
+  const handleChange = (e) => {
+    setAccount((acct) => ({ ...acct, [e.target.name]: e.target.value }));
+  };
+  const addNewAccount = async () => {
+    if (!account.name) {
+      alert("Enter account name");
+    }
+
+    if (!account.type) {
+      alert("Select account type");
+    }
+
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+
+    // create account
+    const endpoint = new base.PaymentMethod(access_token, {});
+    let res = await endpoint.create({
+      account_name: account.name,
+      account_type: account.type,
+      is_active: account.isActive,
+    });
+    if (!res.id) {
+      alert("something went wrong");
+      console.error(res);
+      throw Error(res);
+    }
+
+    // activate account
+    res = await endpoint.configure_stripe(res.id, {
+      refresh_url: success_activation_url,
+      return_url: unsuccess_activation_url,
+    });
+    if (!res.redirect_link) {
+      alert("something went wrong");
+      console.error(res);
+      throw Error(res);
+    }
+    window.location.href = res.redirect_link;
+  };
   return (
     <DashBoardSubRoutesWrapper
       font="font-poppins"
@@ -18,6 +75,9 @@ const PaymentMethods = () => {
         <input
           type="text"
           id="acct-name"
+          name="name"
+          value={account.name}
+          onChange={(e) => handleChange(e)}
           className=" border border-[#CCCCCC] w-full"
         />
       </div>
@@ -31,12 +91,13 @@ const PaymentMethods = () => {
         </label>
         <select
           id="payment-operator"
+          onChange={(e) => handleChange(e)}
+          name="type"
           className=" border border-[#CCCCCC] w-full"
+          value={account.type}
         >
-          <option value="---select--">---select--</option>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+          <option value="">---select--</option>
+          <option value="STRIPE">Stripe</option>
         </select>
       </div>
       <div className="mt-8 md:mt-4 font-open-sans text-[#333333] flex flex-col gap-2">
@@ -49,7 +110,15 @@ const PaymentMethods = () => {
             >
               account active
             </label>
-            <input type="radio" id="acct-active" name="account-activity" />
+            <input
+              onChange={() =>
+                setAccount({ ...account, isActive: !account.isActive })
+              }
+              checked={account.isActive}
+              type="radio"
+              id="acct-active"
+              name="account-activity"
+            />
           </div>
           <div className="flex items-center gap-2">
             <label
@@ -59,15 +128,21 @@ const PaymentMethods = () => {
               account inactive
             </label>
             <input
+              onChange={() =>
+                setAccount({ ...account, isActive: !account.isActive })
+              }
+              checked={!account.isActive}
               type="radio"
               id="acct-inactive"
               name="account-activity"
-              //   className=" border border-[#CCCCCC] w-full"
             />
           </div>
         </div>
       </div>
-      <button className="w-[128.72px] font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]">
+      <button
+        onClick={addNewAccount}
+        className="w-[128.72px] font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]"
+      >
         Add new account
       </button>
       <div className="md:flex gap-6 mt-4 md:px-4">

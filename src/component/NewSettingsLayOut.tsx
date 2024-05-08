@@ -1,9 +1,11 @@
+import { useState } from "react";
 import Input from "./Input";
 import LayoutNavigations from "./LayoutNavigations";
 import SettingsWrapper from "./SettingsWrapper";
 import { TextEditor } from "./TextEditor";
 
 const NewSettingsLayOut = () => {
+  const [textVal, setTextVal] = useState("");
   return (
     <div className="mt-6">
       <SettingsWrapper>
@@ -72,7 +74,7 @@ const NewSettingsLayOut = () => {
               be exchanged e.g. [CODE] for code.
             </p>
 
-            <TextEditor />
+            <TextEditor val={{ textVal, setTextVal }} />
             <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[100.25px] rounded-[4px] text-white">
               Save layout
             </button>

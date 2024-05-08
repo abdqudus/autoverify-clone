@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction } from "react";
 import {
   ContentEditableEvent,
   Editor,
@@ -20,11 +20,28 @@ import {
   Separator,
   Toolbar,
 } from "react-simple-wysiwyg";
-export function TextEditor(props: EditorProps) {
-  const [value, setValue] = useState("");
-
+type ValueProps = {
+  textVal: string;
+  setTextVal: Dispatch<SetStateAction<string>>;
+  setStoreDetails?: Dispatch<
+    SetStateAction<{
+      address: string;
+      domain: string;
+      name: string;
+      terms: string;
+      logo: null | File;
+      code_warning_threshold: number;
+      transaction_email: string;
+    }>
+  >;
+};
+export function TextEditor(props: EditorProps & { val: ValueProps }) {
+  const { textVal, setTextVal, setStoreDetails } = props.val;
   function onChange(e: ContentEditableEvent): void {
-    setValue(e.target.value);
+    setTextVal(e.target.value);
+    if (setStoreDetails) {
+      setStoreDetails((details) => ({ ...details, terms: e.target.value }));
+    }
   }
   const BtnAlignCenter = createButton(
     "Align center",
@@ -47,7 +64,7 @@ export function TextEditor(props: EditorProps) {
         <EditorProvider>
           <Editor
             containerProps={{ style: { minHeight: "301px" } }}
-            value={value}
+            value={textVal}
             onChange={onChange}
             {...props}
           >
@@ -78,7 +95,7 @@ export function TextEditor(props: EditorProps) {
         <EditorProvider>
           <Editor
             containerProps={{ style: { minHeight: "300px" } }}
-            value={value}
+            value={textVal}
             onChange={onChange}
             {...props}
           >

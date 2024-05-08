@@ -1,6 +1,24 @@
+import { Link } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import useGetCodebases from "../../customHooks/useGetCodebases";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { useNavigate } from "react-router-dom";
 
 const CodeList = () => {
+  const { data, isPending } = useGetCodebases();
+  const navigate = useNavigate();
+  console.log(data);
+  const deleteCodebase = async (id: string) => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    const endpoint = new base.CodebaseEndpoint(access_token, {});
+    const res = await endpoint.delete(id);
+    // console.log(res);
+    console.log("deleted");
+  };
   return (
     <DashBoardSubRoutesWrapper
       header="Code Base/Code List"
@@ -65,23 +83,33 @@ const CodeList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="h-[48px] text-center ">
-                      <td className="px-2 border-r">1045683</td>
-                      <td className="px-2 border-r">1,00PLN</td>
-                      <td className="px-2 border-r">
-                        <button className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]">
-                          <img src="/recycle.png" alt="" />
-                          <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                            base
-                          </p>
-                        </button>
-                      </td>
-                      <td>
-                        <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
-                          edit
-                        </button>
-                      </td>
-                    </tr>
+                    {data &&
+                      data.map((d) => (
+                        <tr className="h-[48px] text-center ">
+                          <td className="px-2 border-r">{d.id}</td>
+                          <td className="px-2 border-r">
+                            <Link to={`/codebase/show/${d.id}`}>{d.name}</Link>
+                          </td>
+                          <td className="px-2 border-r">
+                            <button
+                              onClick={() => deleteCodebase(d.id)}
+                              className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]"
+                            >
+                              <img src="/recycle.png" alt="" />
+                              <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
+                                base
+                              </p>
+                            </button>
+                          </td>
+                          <td>
+                            <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
+                              <Link to={`/codebase/show/${d.id}/manage`}>
+                                edit
+                              </Link>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>

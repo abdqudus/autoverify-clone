@@ -1,8 +1,30 @@
+import * as tokenUtil from "../utils/tokenUtil";
+import * as base from "../utils/base";
+import { Products } from "../types/type";
+
 type Props = {
   bg: string;
   border: string;
+  data: Products;
 };
-const ProductDetailExtenstion = ({ bg, border }: Props) => {
+const ProductDetailExtenstion = ({ bg, border, data }: Props) => {
+  const handlePause = async () => {
+    // I need to know if
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      throw Error("Go to login");
+    }
+    const endpoint = new base.ProductEndpoint(access_token, {});
+    const product = await endpoint.read(data.product_id);
+    const payload = JSON.stringify({
+      is_active: !product.is_active,
+    });
+    const result = await endpoint.partial_update(data.product_id, payload);
+
+    // is possible the result could have and error from the server
+    // handle error
+    console.log(result);
+  };
   return (
     <div className="mt-[30px] justify-self-end  lg:mt-4 md:flex gap-4 lg:flex-col items-start justify-between">
       <div className="max-w-[250px] lg:w-full p-4 text-[#333333] font-open-sans  min-h-[146.19px] rounded-[4px] bg-[#F5F5F5] border border-[#E3E3E3]">
@@ -13,6 +35,7 @@ const ProductDetailExtenstion = ({ bg, border }: Props) => {
           Product is in stock
         </p>
         <button
+          onClick={handlePause}
           className={`w-full h-[34px] text-white ${bg} ${border}  rounded-[4px]`}
         >
           Pause sale

@@ -54,7 +54,7 @@ export type HamburgerAction = {
 export type DivRef = MutableRefObject<HTMLDivElement | null>;
 export type InputRef = MutableRefObject<HTMLInputElement | null>;
 export type Products = {
-  id: string;
+  product_id: string;
   name: string;
   price: string;
   thumbnail: string;
