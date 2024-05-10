@@ -1,10 +1,10 @@
 import { useParams } from "react-router-dom";
-import DashBoardSubRoutesWrapper from "./DashBoardSubRoutesWrapper";
-import ProductDetailExtenstion from "./ProductDetailExtenstion";
+import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
+import ProductDetailExtenstion from "../../component/ProductDetailExtenstion";
 import { useQuery } from "@tanstack/react-query";
-import * as tokenUtil from "../utils/tokenUtil";
-import * as base from "../utils/base";
-import Loader from "./Loader";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import Loader from "../../component/Loader";
 
 const ProductDetails = () => {
   const { id } = useParams();
@@ -51,9 +51,9 @@ const ProductDetails = () => {
                   <p className="w-4 h-8 rounded-[4px] bg-[#FFBC99]"></p>
                   <p>Overview</p>
                 </div>
-                <div className="w-full mb-4 rounded-[12px]">
+                <div className="w-full h-[200px] border border-red-500 mb-4 rounded-[12px]">
                   <img
-                    className="w-full h-auto"
+                    className="w-full bg-cover h-auto"
                     src={data.thumbnail}
                     width="308"
                     height="200"

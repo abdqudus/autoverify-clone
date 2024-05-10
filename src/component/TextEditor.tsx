@@ -29,18 +29,33 @@ type ValueProps = {
       domain: string;
       name: string;
       terms: string;
-      logo: null | File;
+      logo: null | string;
       code_warning_threshold: number;
       transaction_email: string;
     }>
   >;
+  setProductDetails: Dispatch<
+    SetStateAction<{
+      name: string;
+      price: string;
+      thumbnail: File | string;
+      description: string;
+      codebase: string | number;
+    }>
+  >;
 };
 export function TextEditor(props: EditorProps & { val: ValueProps }) {
-  const { textVal, setTextVal, setStoreDetails } = props.val;
+  const { textVal, setTextVal, setStoreDetails, setProductDetails } = props.val;
   function onChange(e: ContentEditableEvent): void {
     setTextVal(e.target.value);
     if (setStoreDetails) {
       setStoreDetails((details) => ({ ...details, terms: e.target.value }));
+    }
+    if (setProductDetails) {
+      setProductDetails((details) => ({
+        ...details,
+        description: e.target.value,
+      }));
     }
   }
   const BtnAlignCenter = createButton(

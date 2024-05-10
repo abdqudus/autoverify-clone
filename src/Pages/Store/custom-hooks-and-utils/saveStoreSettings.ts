@@ -5,7 +5,7 @@ type StoreDetails = {
   domain: string;
   name: string;
   terms: string;
-  logo: null | File;
+  logo: null | string;
   code_warning_threshold: number;
   transaction_email: string;
 };
@@ -17,7 +17,10 @@ export const saveStoreSettings = async (
   if (access_token === null) {
     navigate("/login");
   }
+
+  const payload = storeDetails;
+  payload.logo_b64 = payload.logo;
   const endpoint = new base.StoreSetting(access_token!, {});
-  const res = await endpoint.update_settings(storeDetails);
+  const res = await endpoint.update_settings(payload);
   console.log(res);
 };

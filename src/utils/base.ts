@@ -25,6 +25,10 @@ const codebase_endpoints = {
   delete: "/api/v1/codebases/{id}/",
 };
 
+const csrf_token_endpoint = {
+  endpoint: "/api/v1/products/get_csrf_token/",
+};
+
 const payment_method_endpoints = {
   list: "/api/v1/payment-method/",
   create: "/api/v1/payment-method/",
@@ -34,6 +38,16 @@ const payment_method_endpoints = {
   delete: "/api/v1/payment-method/{id}/",
   configure_stripe: "/api/v1/payment-method/{id}/configure_stripe/",
   get_configuration: "/api/v1/payment-method/{id}/get_configuration/",
+};
+
+const ebay_account_endpoints = {
+  list: "/api/v1/ebay_connector/",
+  create: "/api/v1/ebay_connector/",
+  read: "/api/v1/ebay_connector/{account_id}/",
+  update: "/api/v1/ebay_connector/{account_id}/",
+  partial_update: "/api/v1/ebay_connector/{account_id}/",
+  delete: "/api/v1/ebay_connector/{account_id}/",
+  activate: "/api/v1/ebay_connector/{account_id}/activate_account/",
 };
 
 const store_setting_endpoints = {
@@ -70,6 +84,8 @@ class _BaseRequestEndpoint {
 
 class _RequestEndpoint extends _BaseRequestEndpoint {
   public access_token: string;
+  public csrf_token_endpoint = csrf_token_endpoint;
+  public csrf_token: null | string = null;
 
   constructor(access_token: string, headers: Record<string, string>) {
     super(headers);
@@ -118,7 +134,7 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
   async _fetch(
     endpoint: string,
     method: string,
-    body: object | undefined | null,
+    body: object | undefined | null | FormData,
     callback?: callback,
     error?: error_callback
   ) {
@@ -127,6 +143,18 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
         `RequestError: Failed to fetch data, the method ${method} is not recognised`
       );
     }
+
+    if (this.csrf_token !== null && !(body instanceof FormData)) {
+      const e = `When uploading data the body should be of type FormData not ${typeof body}`;
+      console.error(e);
+      throw Error(e);
+    }
+
+    if (this.csrf_token !== null) {
+      const formdata: FormData = body;
+      formdata.set("csrfmiddlewaretoken", this.csrf_token);
+    }
+
     try {
       if (typeof body === "object") {
         body = JSON.stringify(body);
@@ -198,6 +226,25 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
     }
     return await this.get(endpoint, queryParams);
   }
+
+  // csrf token is for uploading data, that is sending Form Data
+
+  async _get_csrf_token() {
+    // example return data {csrfToken: 'cE8v3aLNdBRuw94W6repsz1Jap1NIWeygCoAV9JdLICvMkyFJleKRisrxVMF7d8t'}
+    const endpoint = _join(this.csrf_token_endpoint.endpoint);
+    const csrf_token = await this.get(endpoint, {});
+    return csrf_token.csrfToken;
+  }
+
+  async setup_for_upload() {
+    const csrf_token = await this._get_csrf_token();
+    this.csrf_token = csrf_token;
+    // this.add_header("Content-Type", "multipart/form-data"); // God sent solution was to comment this
+    this.del_header("Content-Type"); // some browser default Content-type to text plain
+    // this.add_header("Content-Type", null);
+
+    // this.add_header("X-Requested-With", "XMLHttpRequest"); // so backend knows this wasnt a browser request but from JS
+  }
 }
 
 export class ProductEndpoint extends _RequestEndpoint {
@@ -223,6 +270,9 @@ export class ProductEndpoint extends _RequestEndpoint {
     return list;
   }
 
+  async list_unpaginated(...args) {
+    return await this.list(null, ...args);
+  }
   async read(id, ...args) {
     const endpoint = _join(
       this.endpoints.read.replace(`{${this.id_name}}`, id)
@@ -295,6 +345,11 @@ export class StoreSetting extends ProductEndpoint {
   }
 }
 
+export class EbayAccount extends ProductEndpoint {
+  public endpoints = ebay_account_endpoints;
+  public id_name: string = "account_id";
+}
+
 // async function test() {
 //   const res = await loginUser(credentials);
 //   const p = new ProductEndpoint(res, {});
@@ -310,31 +365,31 @@ export class StoreSetting extends ProductEndpoint {
 
 //   console.log(`Create one Product`);
 //   let data = `
-// {
-//   "name": "Shoe",
-//   "price": "30.4",
-//   "use_codebase": true,
-//   "codebase": 1
-// }`;
+//   {
+//     "name": "Shoe",
+//     "price": "30.4",
+//     "use_codebase": true,
+//     "codebase": 1
+//   }`;
 //   const p2 = await p.create(data);
 //   console.log(p2);
 
 //   console.log(`Updatating the product`);
 //   data = `
-// {
-//   "name": "Shoe lala",
-//   "price": "30.4",
-//   "use_codebase": true,
-//   "codebase": 1
-// }`;
+//   {
+//     "name": "Shoe lala",
+//     "price": "30.4",
+//     "use_codebase": true,
+//     "codebase": 1
+//   }`;
 //   let p1_update = await p.update(pid, data);
 //   console.log(p1_update);
 
 //   console.log(`Partialy Updatating the product`);
 //   data = `
-// {
-//   "name": "Shoe lala"
-// }`;
+//   {
+//     "name": "Shoe lala"
+//   }`;
 //   p1_update = await p.partial_update(pid, data);
 //   console.log(p1_update);
 // }

@@ -6,33 +6,31 @@ import { useNavigate } from "react-router-dom";
 import Loader from "../../component/Loader";
 import useGetFormFields from "./custom-hooks-and-utils/useGetFormFields";
 import { saveStoreSettings } from "./custom-hooks-and-utils/saveStoreSettings";
+import { convertToBase64 } from "../../utils/convertToBase64";
 const initialState = {
   address: "",
   domain: "",
   name: "",
   terms: "",
-  logo: null,
+  logo: "",
   code_warning_threshold: 15,
   transaction_email: "",
 };
-
-// Usage
 
 type StoreDetails = {
   address: string;
   domain: string;
   name: string;
   terms: string;
-  logo: null | File;
+  logo: string;
   code_warning_threshold: number;
   transaction_email: string;
 };
 const StoreConfiguration = () => {
-  console.log(useGetFormFields());
   const { isLoading, data } = useGetFormFields();
   const navigate = useNavigate();
   const [textVal, setTextVal] = useState("");
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     if (data) {
@@ -46,10 +44,11 @@ const StoreConfiguration = () => {
   const handleImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      setSelectedImage(file);
-      setStoreDetails((prev) => ({ ...prev, logo: file }));
+      convertToBase64(file, storeDetails);
+      // window.a = storeDetails;
     }
   };
+  console.log(storeDetails);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setStoreDetails((storeDetails) => ({
@@ -158,10 +157,8 @@ const StoreConfiguration = () => {
                       will be scaled to 48px height.
                     </p>
                     <div className="mt-2 relative">
-                      {!storeDetails?.logo && <img src="/header.png" alt="" />}
-                      {storeDetails?.logo && (
-                        <img src={URL.createObjectURL(selectedImage!)} alt="" />
-                      )}
+                      {!selectedImage && <img src="/header.png" alt="" />}
+                      {selectedImage && <img src={selectedImage} alt="" />}
                       <label
                         htmlFor="change-logo"
                         className="flex justify-center items-center cursor-pointer mt-4 w-[106.86px] rounded-[4px] border border-[#CCCCCC] text-[#333333] text-sm font-open-sans h-[34px]"

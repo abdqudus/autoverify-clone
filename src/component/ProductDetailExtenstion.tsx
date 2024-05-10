@@ -1,6 +1,7 @@
 import * as tokenUtil from "../utils/tokenUtil";
 import * as base from "../utils/base";
 import { Products } from "../types/type";
+import { Link } from "react-router-dom";
 
 type Props = {
   bg: string;
@@ -52,7 +53,9 @@ const ProductDetailExtenstion = ({ bg, border, data }: Props) => {
           </div>
           <div className="max-w-[250px] lg:w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
             <img src="/prod-setting.png" alt="" />
-            <p className="leading-[22.4px]">Product settings</p>
+            <p className="leading-[22.4px]">
+              <Link to="monitoring">Product settings</Link>
+            </p>
           </div>
           <div className="max-w-[250px] lg:w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
             <img src="/shipping-setting.png" alt="" />
