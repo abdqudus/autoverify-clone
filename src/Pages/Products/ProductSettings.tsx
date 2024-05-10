@@ -23,6 +23,7 @@ const ProductSettings = () => {
     setTextVal,
     codebase,
   } = useGetProductSettings(id!);
+  
   const src = data.thumbnail;
 
   console.log(data, codebase);
