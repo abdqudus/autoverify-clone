@@ -47,6 +47,8 @@ jobs:
            if docker ps -a --format '{{.Names}}' | grep -q '^auto-verify$'; then
             docker stop auto-verify || true
             docker rm auto-verify || true
+            docker image prune -af || true
+            docker system prune --force || true
           fi 
 
             # Pull the new image
