@@ -2,9 +2,8 @@ import Money from "/money-tag 1.png";
 import Income from "/Group.png";
 import Expense from "/001-medical.png";
 import Savings from "/003-saving.png";
-import { Card, GraphData } from "./types/type";
 
-export const cards: Card[] = [
+export const cards = [
   {
     img: Money,
     text: "My Balance",
@@ -29,9 +28,9 @@ export const cards: Card[] = [
     amount: "$7,920",
     bg: "bg-[#DCFAF8]",
   },
-] as const;
+];
 
-export const graphData: GraphData[] = [
+export const graphData = [
   {
     name: "12th",
     sale: 1.2,

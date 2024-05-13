@@ -1,4 +1,4 @@
-import * as tokenUtils from "./tokenUtil.ts";
+import * as tokenUtils from "./tokenUtil.js";
 import * as base from "./base.js";
 
 const fetchCodebases = async () => {
