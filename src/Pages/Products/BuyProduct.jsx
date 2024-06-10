@@ -45,8 +45,8 @@ const BuyProduct = () => {
                 // store_owner_id
                 "payment_method_id": paymentMethodId,
                 "store_owner_id": data.store_owner_id,
-                "success_url": "https://google.com?q=success",
-                "cancel_url": "https://google.com?q=failure"
+                "success_url": `${base.getDomain()}/success`,
+                "cancel_url": `${base.getDomain()}/failure`
             }
 
             // const access_token = await tokenUtil.getToken();
