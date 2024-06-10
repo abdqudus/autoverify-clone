@@ -5,7 +5,7 @@ const CodebaseNavigations = ({ id }) => {
     <div className="mt-3">
       <div className="navigations ">
         <div className="group">
-          <NavLink className="" to={`/codebase/show/${id}/`}>
+          <NavLink end className="" to={`/codebase/show/${id}/`}>
             <div className="w-full group-has-[.active]:text-[#FFFFFF] group-has-[.active]:bg-[#e74c3c] md-[250px] mb-2 cursor-pointer h-[42.39px] font-poppins text-sm font-normal text-[#000000] leading-[22.4px] rounded-[4px]   bg-[#EEEEEE] flex px-4 items-center">
               <p>Base configuration</p>
             </div>

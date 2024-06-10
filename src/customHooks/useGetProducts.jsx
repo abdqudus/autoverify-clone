@@ -15,7 +15,8 @@ const useGetProducts = () => {
     queryFn: () => fetchProducts(),
   });
   if (error) {
-    navigate("/login");
+    console.log(error)
+    // navigate("/login");
   }
   return { data, isPending };
 };

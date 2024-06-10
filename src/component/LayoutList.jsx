@@ -1,7 +1,53 @@
+import { Link, useNavigate } from "react-router-dom";
 import LayoutNavigations from "./LayoutNavigations";
 import SettingsWrapper from "./SettingsWrapper";
+import { useQuery } from "@tanstack/react-query";
+import * as tokenUtil from "../utils/tokenUtil";
+import * as base from "../utils/base";
+import Loader from "./Loader";
+import DeleteModal from "./DeleteModal";
+import { useState } from "react";
 
 const LayoutList = ({ setIsNewSetting }) => {
+  const navigate = useNavigate()
+  const [showModal, setShowModal] = useState(false);
+  const [tobeDeleted, setTobeDeleted] = useState({ name: '', id: null })
+
+  const handleClickDelete = (name, id) => {
+    setTobeDeleted({ name, id })
+    setShowModal(true)
+  }
+  const onDelete = async () => {
+    console.log()
+    // const access_token = await tokenUtil.getToken();
+    // if (access_token === null) {
+    //   navigate("/login");
+    // }
+
+    // const endpoint = new base.LayoutEndpoint(access_token, {});
+
+    // await endpoint.delete(tobeDeleted.id);
+    // location.reload()
+  }
+  const fetchLayoutList = async () => {
+    let limit, offset;
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+
+    const endpoint = new base.LayoutEndpoint(access_token, {});
+    const res = await endpoint.list(limit, offset);
+    console.log('layout list', res);
+    return res;
+  }
+
+  const { data } = useQuery({
+    queryKey: ["layout-list"],
+    queryFn: fetchLayoutList
+  })
+
+
   return (
     <div className="mt-6 ">
       <SettingsWrapper>
@@ -33,56 +79,32 @@ const LayoutList = ({ setIsNewSetting }) => {
                 </tr>
               </thead>
               <tbody>
-                <tr className="h-[48px]">
-                  <td className="px-3">107336</td>
-                  <td className="px-3">
-                    <div className="flex justify-between">
-                      <p>Default</p>
-                      <div className="flex gap-2 items-center">
-                        <button className="w-[39.39px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#4CA2C7] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                        <button className="w-[52.88px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#DB5555] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
+
+                {data && data.results.map(d => (
+
+                  <tr key={d.id} className="h-[48px]">
+                    <td className="px-3">{d.id}</td>
+                    <td className="px-3">
+                      <div className="flex justify-between">
+                        <p>{d.name}</p>
+                        <div className="flex gap-2 items-center">
+                          <button className="w-[39.39px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#4CA2C7] font-open-sans text-[.75rem] leading-[15px]">
+                            <Link to={`/settings/layout/edit/${d.id}`}>
+                              edit
+                            </Link>
+                          </button>
+                          <button onClick={() => handleClickDelete(d.name, d.id)} className="w-[52.88px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#DB5555] font-open-sans text-[.75rem] leading-[15px]">
+                            delete
+                          </button>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="h-[48px]">
-                  <td className="px-3">107336</td>
-                  <td className="px-3">
-                    <div className="flex justify-between">
-                      <p>Optimised</p>
-                      <div className="flex gap-2 items-center">
-                        <button className="w-[39.39px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#4CA2C7] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                        <button className="w-[52.88px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#DB5555] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
-                <tr className="h-[48px]">
-                  <td className="px-3">1045684</td>
-                  <td className="px-3">
-                    <div className="flex justify-between">
-                      <p>Layout 2</p>
-                      <div className="flex gap-2 items-center">
-                        <button className="w-[39.39px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#4CA2C7] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                        <button className="w-[52.88px] h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#DB5555] font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                      </div>
-                    </div>
-                  </td>
-                </tr>
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
+            {!data && <Loader />}
+            {data && data.results == 0 && <p className="p-4">The list is currently empty</p>}
           </div>
           <div className="show-and-prev-next mt-4 font-poppins font-normal pb-3 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
             <div className="hidden md:flex mt-12 gap-2 flex-wrap">
@@ -121,8 +143,9 @@ const LayoutList = ({ setIsNewSetting }) => {
               New settings template
             </button>
           </div>
+          <DeleteModal showModal={showModal} tobeDeleted={tobeDeleted} onDelete={onDelete} setShowModal={setShowModal} />
         </div>
-      </SettingsWrapper>
+      </SettingsWrapper >
       <div className="mt-4 what-is-this md:w-[230px] rounded-[4px]  border border-[#E3E3E3] text-[#333333] bg-[#E3E3E3] p-4 text-sm font-open-sans">
         <h3 className="leading-[19.8px] text-lg pb-2 border-b  border-[#CCCCCC]">
           What is this?
@@ -133,7 +156,7 @@ const LayoutList = ({ setIsNewSetting }) => {
           for example. for the keys STEAM.
         </p>
       </div>
-    </div>
+    </div >
   );
 };
 

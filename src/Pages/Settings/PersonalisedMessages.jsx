@@ -1,9 +1,76 @@
+import { useEffect, useState } from "react";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import LabelInput from "../../component/Label-Input";
 import LayoutNavigations from "../../component/LayoutNavigations";
 import SettingsWrapper from "../../component/SettingsWrapper";
+import { useNavigate } from "react-router-dom";
+
+
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { useQuery } from "@tanstack/react-query";
+
 
 const PersonalisedMessages = () => {
+  const [msgDetails, setMsgDetails] = useState({ user_name: '', logo: null, redirect_address: '', msg_footer: '' })
+  const [showImgPreview, setShowImgPreview] = useState(false)
+  const [isImgLink, setIsImgLink] = useState(false)
+  const getPersonalizedSettings = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+
+    const endpoint = new base.PersonalSettingsEndpoint(access_token, {});
+    return await endpoint.get_settings();
+  }
+  const { data } = useQuery({
+    queryKey: ["personalised-msg"],
+    queryFn: getPersonalizedSettings
+  })
+  useEffect(() => {
+    if (data) {
+      setMsgDetails({ user_name: data.sender_name, logo: data.logo_cloudinary_url, redirect_address: data.logo_redirect_url, msg_footer: data.footer })
+      setIsImgLink(true)
+    }
+  }, [data])
+  console.log(data)
+  const handleChange = (e) => {
+    if (e.target.id == 'logo') {
+      const file = e.target.files?.[0];
+      if (file) {
+        setMsgDetails((prev) => ({ ...prev, logo: file }));
+        setShowImgPreview(true)
+      }
+    } else {
+
+      setMsgDetails({ ...msgDetails, [e.target.id]: e.target.value })
+    }
+  }
+
+
+
+  const handleSubmit = async () => {
+    const { logo, msg_footer, redirect_address, user_name } = msgDetails;
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+
+    const endpoint = new base.PersonalSettingsEndpoint(access_token, {});
+    // upload image to cloudinary
+    const cloudinary_url = await endpoint.update_image(undefined, logo);
+
+    await endpoint.update_settings({
+      "sender_name": user_name,
+      "logo_cloudinary_url": cloudinary_url.secure_url,
+      "logo_redirect_url": redirect_address,
+      "footer": msg_footer
+    });
+
+    alert('Saved successfully');
+  }
+
   return (
     <DashBoardSubRoutesWrapper
       header="Settings /Personalized Messages"
@@ -20,9 +87,11 @@ const PersonalisedMessages = () => {
               <div>
                 <LabelInput
                   text="The name of sender of message:"
-                  id="sender-name"
+                  id="user_name"
                   placeholder="Your name"
                   style="mt-2"
+                  value={msgDetails.user_name}
+                  handleChange={(e) => handleChange(e)}
                 />
                 <p className="text-sm font-open-sans leading-[22.4px] text-[#737373]">
                   the maximum length is 24 characters
@@ -30,10 +99,12 @@ const PersonalisedMessages = () => {
               </div>
               <div className="mt-2 relative">
                 <LabelInput
-                  id="profile-pic"
+                  id="logo"
                   text="Your own logo in the message:"
                   style="sr-only"
                   type="file"
+                  accept={`image/png, image/jpeg`}
+                  handleChange={(e) => handleChange(e)}
                 >
                   <div className="flex md:flex-row flex-col md:items-center gap-3 md:flex-wrap">
                     <div className="flex  md:flex-wrap justify-between items-center gap-2 md:gap-0 mt-1 ">
@@ -44,9 +115,19 @@ const PersonalisedMessages = () => {
                         </p>
                       </div>
                     </div>
-                    <button className="w-full md:w-[94.44px] font-open-sans text-sm lea5\ h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C] text-white">
-                      save
-                    </button>
+                    {showImgPreview &&
+                      <div className="max-h-[100px] max-w-[100px]">
+                        <img className="max-w-full " src={URL.createObjectURL(msgDetails.logo)} alt="" />
+                      </div>
+                    }
+
+                    {isImgLink && !showImgPreview &&
+                      <div className="max-h-[100px] max-w-[100px]">
+                        <img className="max-w-full " src={msgDetails.logo} alt="" />
+                      </div>
+                    }
+
+
                   </div>
                   <span className="block text-[#737373] mt-3 text-sm leading-[22.4px]">
                     recommended size: 210px x 45px, the allowed extensions: PNG,
@@ -68,8 +149,10 @@ const PersonalisedMessages = () => {
                   </div>
                   <input
                     type="text"
+                    value={msgDetails.redirect_address}
+                    onChange={(e) => handleChange(e)}
                     className="flex-shrink w-[20px] flex-grow h-[34px]  focus:bg-[#EEEEEE] outline-1 outline-[#CCCCCC]   rounded-br-[4px] rounded-tr-[4px] border border-[#CCCCCC] px-4"
-                    id="redirect-address"
+                    id="redirect_address"
                     placeholder="yourpage.pl"
                   />
                 </div>
@@ -81,23 +164,25 @@ const PersonalisedMessages = () => {
               <div className="mt-6">
                 <label
                   className="text-sm block font-open-sans leading-[22.4px] text-[#333333]"
-                  htmlFor="footer"
+                  htmlFor="msg_footer"
                 >
                   Message footer:
                 </label>
                 <div className="mt-4 ">
                   <div className="h-[30px] bg-text-area"></div>
                   <textarea
+                    value={msgDetails.msg_footer}
+                    onChange={handleChange}
                     className="w-full min-h-[201px] block rounded-br-[4px] rounded-bl-[4px] p-4 border border-[#9E9E9E] outline-0"
                     name=""
-                    id="footer"
+                    id="msg_footer"
                   ></textarea>
                 </div>
                 <p className="mt-3 text-[#737373] text-sm  leading-[22.4px]">
                   defined footer will be added to each message
                 </p>
               </div>
-              <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">
+              <button onClick={handleSubmit} className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">
                 Save changes
               </button>
             </div>

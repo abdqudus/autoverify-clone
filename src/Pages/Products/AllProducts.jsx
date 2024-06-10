@@ -6,56 +6,62 @@ import Spinner from "../../component/Spinner";
 
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
+import EntriesCount from "../../component/EntriesCount";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { Paginator } from "../../utils/pagination";
+import PaginatorBtn from "../../component/PaginatorBtn";
+import DeleteModal from "../../component/DeleteModal";
 
 const AllProducts = () => {
-  const { data, isPending } = useGetProducts();
   const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+  const [tobeDeleted, setTobeDeleted] = useState({ name: '', id: null })
+  const [showModal, setShowModal] = useState(false);
 
-  const handleDelete = async (productId) => {
+  const fetchProducts = async (page) => {
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
       navigate("/login");
     }
+
     const endpoint = new base.ProductEndpoint(access_token, {});
-    const res = await endpoint.delete(productId);
-    console.log(res);
+    const paginator = new Paginator(endpoint, page);
+    const res = (await paginator.current()).results;
+    res.paginator = paginator;
+    return res;
+  }
+
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    return access_token;
+  }
+
+  const { isPending, data, } =
+    useQuery({
+      queryKey: ['projects', page,],
+      queryFn: () => fetchProducts({ page: page, setPage: setPage }),
+      placeholderData: keepPreviousData,
+    });
+
+  const onDelete = async (product) => {
+    const endpoint = new base.ProductEndpoint(await _checkLog(), {});
+    return await endpoint.delete(product.id);
   };
 
-  const handleEdit = (productId) => {
-    console.log(productId);
-  };
+  const handleClickDelete = async (name, id) => {
+    setTobeDeleted({ name, id });
+    setShowModal(true);
+  }
+
   return (
     <DashBoardSubRoutesWrapper header="Dashboard/Products" subheader="Products">
       <div className="border border-[#DDDDDD]  mt-8 p-3">
-        <div className="flex gap-2 flex-wrap mt-4">
-          <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-            show
-          </p>
-          <input
-            className="w-[70px] h-[33px] rounded-[4px] border border-[#CCCCCC]"
-            type="number"
-            name=""
-            id=""
-          />
-          <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-            entries
-          </p>
-        </div>
-        <div className="mt-3 flex gap-2 flex-wrap">
-          <label
-            htmlFor="search-products"
-            className="font-semibold font-open-sans text-[.875rem] leading-[22.4px] text-[#333333"
-          >
-            {" "}
-            Search:
-          </label>
-          <input
-            type="text"
-            id="search-products"
-            className="rounded-[4px] max-w-full border border-[#CCCCCC]"
-          />
-        </div>
-
+        <EntriesCount />
         <div className="max-w-full bg-[#F4F4F480] md:min-h-[406px] md:shadow-card-shadow overflow-x-scroll md:overflow-hidden mt-6">
           <table className="min-w-[550px] w-full">
             <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
@@ -88,7 +94,8 @@ const AllProducts = () => {
             </thead>
             <tbody>
               {/* {products.length >= 0 && <Spinner />} */}
-              {data.map((p) => (
+              {/* {JSON.stringify(data)} */}
+              {data ? data.map((p) => (
                 <tr key={p.product_id} className="h-[48px] text-center ">
                   <td className="pl-2">
                     <label htmlFor={`check-${p.product_id}`}>
@@ -114,13 +121,14 @@ const AllProducts = () => {
                   <td>
                     <div className="flex px-4 items-center">
                       <button
-                        onClick={() => handleEdit(p.product_id)}
                         className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]"
                       >
-                        Edit
+                        <Link to={p.product_id}>
+                          Edit
+                        </Link>
                       </button>
                       <button
-                        onClick={() => handleDelete(p.product_id)}
+                        onClick={() => handleClickDelete(p.name, p.product_id)}
                         className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]"
                       >
                         Delete
@@ -128,7 +136,7 @@ const AllProducts = () => {
                     </div>
                   </td>
                 </tr>
-              ))}
+              )) : 'data is loading'}
             </tbody>
           </table>
           {isPending && (
@@ -141,19 +149,8 @@ const AllProducts = () => {
           <p className="text-[.875rem] leading-[22.4px] text-[#333333]">
             Showing 1 of 1 entries
           </p>
-          <div className="w-[206.23px] self-end font-open-sans rounded-[4px] text-[.875rem] leading-[20px] font-normal h-[34.4px] flex">
-            <p className="w-[99.86px] flex justify-center items-center gap-1  bg-white text-[#999999] border border-[#DDDDDD] rounded-tl-[4px] rounded-bl-[4px]">
-              <span className="hidden md:block">←</span>
-              <span>Previous</span>
-            </p>
-            <p className="w-[34.02px] md:hidden bg-[#E74C3C] flex items-center justify-center text-white">
-              1
-            </p>
-            <p className="w-[74.36px] gap-1 text-[#999999] border border-[#DDDDDD] flex items-center justify-center rounded-tr-[4px] rounded-br-[4px]">
-              <span>Next</span>
-              <span className="hidden md:block">→</span>
-            </p>
-          </div>
+
+          <PaginatorBtn paginator={data?.paginator} />
           <div className="h-[96.39px] md:h-[74px] bg-[#F5F5F5] flex justify-center items-center rounded-[4px] border border-[#E3E3E3]">
             <div className="md:justify-between  md:flex px-4 items-center w-full">
               <p className="text-[#333333] text-[.75rem] leading-[22.4px] font-normal font-poppins">
@@ -193,7 +190,7 @@ const AllProducts = () => {
           </p>
         </div>
       </div>
-      {/* </div> */}
+      <DeleteModal onDelete={onDelete} tobeDeleted={tobeDeleted} showModal={showModal} setShowModal={setShowModal} />
     </DashBoardSubRoutesWrapper>
   );
 };

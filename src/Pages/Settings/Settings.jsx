@@ -8,6 +8,7 @@ import ChangePassword from "./ChangePassword";
 import GeneralSettings from "./GeneralSettings";
 import API from "./API";
 import Notification from "./Notification";
+import EditLayout from "./EditLayout";
 
 const Settings = () => {
   return (
@@ -20,6 +21,7 @@ const Settings = () => {
       <Route path="change-password" element={<ChangePassword />} />
       <Route path="general-settings" element={<GeneralSettings />} />
       <Route path="notifications" element={<Notification />} />
+      <Route path="layout/edit/:id" element={<EditLayout />} />
       <Route path="api" element={<API />} />
     </Routes>
   );

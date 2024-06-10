@@ -8,6 +8,9 @@ const LabelInput = ({
   type,
   children,
   divStyle = "flex-col",
+  readOnly = false,
+  value = '',
+  handleChange, accept
 }) => {
   return (
     <div className={`flex ${divStyle} gap-2`}>
@@ -18,7 +21,7 @@ const LabelInput = ({
         {text}
         {children}
       </label>
-      <Input id={id} style={style} placeholder={placeholder} type={type} />
+      <Input accept={accept} handleChange={handleChange} value={value} readOnly={readOnly} id={id} style={style} placeholder={placeholder} type={type} />
     </div>
   );
 };

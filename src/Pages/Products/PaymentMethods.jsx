@@ -6,8 +6,8 @@ import * as base from "../../utils/base";
 
 const PaymentMethods = () => {
   // PLEASE REPLACE THESE URLS APPROPRIATELY
-  const success_activation_url = "https://google.com?q=success"; // URL WHEN ACTIVATION IS SUCCESSUFL
-  const unsuccess_activation_url = "https://google.com?q=failure"; // URL WHEN ACTIVATION FAILS
+  const success_activation_url = `${base.getDomain()}/success`; // URL WHEN ACTIVATION IS SUCCESSUFL
+  const unsuccess_activation_url = `${base.getDomain()}/fail`; // URL WHEN ACTIVATION FAILS
   const navigate = useNavigate();
 
   const [account, setAccount] = useState({
@@ -55,7 +55,8 @@ const PaymentMethods = () => {
       console.error(res);
       throw Error(res);
     }
-    window.location.href = res.redirect_link;
+    window.location.replace(res.redirect_link);
+    // window.location.href = res.redirect_link;
   };
   return (
     <DashBoardSubRoutesWrapper
@@ -145,7 +146,7 @@ const PaymentMethods = () => {
         Add new account
       </button>
       <div className="md:flex gap-6 mt-4 md:px-4">
-        <div className="md:flex-grow">
+        {/* <div className="md:flex-grow">
           <header>
             <h3 className="p-4 text-center border-b font-normal text-[1.25rem] text-[#1E1E1E] leading-7">
               Add more ways for buyers to pay
@@ -208,7 +209,7 @@ const PaymentMethods = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
         <div className="text-[#333333] md:max-w-[408px] shadow-form-shadow mt-4  bg-[#E3E3E3] border border-[#E3E3E3] p-4 rounded-[4px] font-poppins font-normal ">
           <h3 className="text-[.875rem] leading-[19.8px] mb-12">
             Payment methods

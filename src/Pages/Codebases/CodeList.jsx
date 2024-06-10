@@ -4,11 +4,19 @@ import useGetCodebases from "../../customHooks/useGetCodebases";
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useNavigate } from "react-router-dom";
+import EntriesCount from "../../component/EntriesCount";
+import { Paginator } from "../../utils/pagination";
+import { useState } from "react";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import PaginatorBtn from "../../component/PaginatorBtn";
 
 const CodeList = () => {
-  const { data } = useGetCodebases();
+  // const { data } = useGetCodebases();
   const navigate = useNavigate();
-  console.log(data);
+
+  const [page, setPage] = useState(0);
+  const [forceReload, setForceReload] = useState(0);
+
   const deleteCodebase = async (id) => {
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
@@ -18,7 +26,36 @@ const CodeList = () => {
     const res = await endpoint.delete(id);
     console.log(res);
     console.log("deleted");
+    return res;
   };
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    return access_token;
+  }
+
+  const fetchCodebases = async (page, forceReload) => {
+    const endpoint = new base.CodebaseEndpoint(await _checkLog(), {});
+    const paginator = new Paginator(endpoint, page);
+    paginator.pager.forceReloadUseState = forceReload;
+    const res = (await paginator.current()).results;
+    return {
+      data: res,
+      paginator: paginator
+    }
+  }
+
+  let { data: codebases, refetch } = useQuery({
+    queryKey: ['codebases', page],
+    queryFn: () => fetchCodebases({ page: page, setPage: setPage }, { forceReload: forceReload, setForceReload: setForceReload }),
+    placeholderData: keepPreviousData,
+  });
+
+  // console.log('codebases', codebases);
+
   return (
     <DashBoardSubRoutesWrapper
       header="Code Base/Code List"
@@ -28,8 +65,9 @@ const CodeList = () => {
         <div className="md:grid grid-cols-[1fr_215px]">
           <div>
             <div className="show-and-table md:mt-12 md:px-3">
-              <div className="show md:flex justify-between items-center">
-                <div className="flex gap-2 flex-wrap">
+              <EntriesCount />
+              {/* <div className="show md:flex justify-between items-center"> */}
+              {/* <div className="flex gap-2 flex-wrap">
                   <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
                     show
                   </p>
@@ -42,8 +80,8 @@ const CodeList = () => {
                   <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
                     entries
                   </p>
-                </div>
-                <div className="mt-3 md:mt-0 md:flex-row md:items-center flex gap-2 flex-wrap">
+                </div> */}
+              {/* <div className="mt-3 md:mt-0 md:flex-row md:items-center flex gap-2 flex-wrap">
                   <label
                     htmlFor="search-products"
                     className="font-semibold font-open-sans text-[.875rem] leading-[22.4px] text-[#333333"
@@ -55,8 +93,8 @@ const CodeList = () => {
                     id="search-products"
                     className="rounded-[4px] max-w-full border border-[#CCCCCC]"
                   />
-                </div>
-              </div>
+                </div> */}
+              {/* </div> */}
               <div className="max-w-full border border-[#DDDDDD] bg-[#F4F4F480]  overflow-x-scroll md:overflow-hidden mt-3">
                 <table className="min-w-[550px] w-full">
                   <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
@@ -83,33 +121,36 @@ const CodeList = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {data &&
-                      data.map((d) => (
-                        <tr className="h-[48px] text-center ">
-                          <td className="px-2 border-r">{d.id}</td>
-                          <td className="px-2 border-r">
-                            <Link to={`/codebase/show/${d.id}`}>{d.name}</Link>
-                          </td>
-                          <td className="px-2 border-r">
-                            <button
-                              onClick={() => deleteCodebase(d.id)}
-                              className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]"
-                            >
-                              <img src="/recycle.png" alt="" />
-                              <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                base
-                              </p>
-                            </button>
-                          </td>
-                          <td>
-                            <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
-                              <Link to={`/codebase/show/${d.id}/manage`}>
-                                edit
-                              </Link>
-                            </button>
-                          </td>
-                        </tr>
-                      ))}
+                    {
+                      codebases ?
+                        codebases.data.map((d) => (
+                          <tr className="h-[48px] text-center ">
+                            <td className="px-2 border-r">{d.id}</td>
+                            <td className="px-2 border-r">
+                              <Link to={`/codebase/show/${d.id}`}>{d.name}</Link>
+                            </td>
+                            <td className="px-2 border-r">
+                              <button
+                                onClick={() => deleteCodebase(d.id)}
+                                className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]"
+                              >
+                                <img src="/recycle.png" alt="" />
+                                <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
+                                  base
+                                </p>
+                              </button>
+                            </td>
+                            <td>
+                              <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
+                                <Link to={`/codebase/show/${d.id}/manage`}>
+                                  edit
+                                </Link>
+                              </button>
+                            </td>
+                          </tr>
+                        )) :
+                        <p>loading... </p>
+                    }
                   </tbody>
                 </table>
               </div>
@@ -117,24 +158,19 @@ const CodeList = () => {
                 <p className="text-[.875rem] leading-[22.4px] text-[#333333]">
                   Showing 1 of 1 entries
                 </p>
-                <div className="w-[206.23px] self-end font-open-sans rounded-[4px] text-[.875rem] leading-[20px] font-normal h-[34.4px] flex">
-                  <p className="w-[99.86px] flex justify-center items-center gap-1  bg-white text-[#999999] border border-[#DDDDDD] rounded-tl-[4px] rounded-bl-[4px]">
-                    <span className="hidden md:block">←</span>
-                    <span>Previous</span>
-                  </p>
-                  <p className="w-[74.36px] gap-1 text-[#999999] border border-[#DDDDDD] flex items-center justify-center rounded-tr-[4px] rounded-br-[4px]">
-                    <span>Next</span>
-                    <span className="hidden md:block">→</span>
-                  </p>
-                </div>
+                <PaginatorBtn paginator={codebases?.paginator} />
               </div>
             </div>
             <div className="btns md:flex-row md:gap-6 md:mt-6 flex mt-2 flex-col gap-2">
-              <button className="hidden sm:flex md:w-[262px] justify-center text-white text-sm w-full gap-2 items-center font-open-sans h-[34px] rounded-[4px] bg-[#5BC0DE] border border-[#46B8DA]">
+              <button
+                onClick={() => { navigate("/codebase/export-code"); }}
+                className="hidden sm:flex md:w-[262px] justify-center text-white text-sm w-full gap-2 items-center font-open-sans h-[34px] rounded-[4px] bg-[#5BC0DE] border border-[#46B8DA]">
                 <img src="/download-icon.png" alt="" />
                 <span> Export code base (CSV)</span>
               </button>
-              <button className="bg-[#428BCA] md:w-[262px] h-[34px] text-white text-sm font-normal flex justify-center items-center w-full rounded-[4px] border border-[#3276B1]">
+              <button
+                onClick={() => { navigate("/codebase/new-base-code"); }}
+                className="bg-[#428BCA] md:w-[262px] h-[34px] text-white text-sm font-normal flex justify-center items-center w-full rounded-[4px] border border-[#3276B1]">
                 New codebase
               </button>
             </div>
@@ -170,12 +206,13 @@ const CodeList = () => {
             </p>
           </div>
         </div>
-        <button className="flex justify-center mt-4 sm:hidden text-white text-sm w-full gap-2 items-center font-open-sans h-[34px] rounded-[4px] bg-[#5BC0DE] border border-[#46B8DA]">
+        <button
+          className="flex justify-center mt-4 sm:hidden text-white text-sm w-full gap-2 items-center font-open-sans h-[34px] rounded-[4px] bg-[#5BC0DE] border border-[#46B8DA]">
           <img src="/download-icon.png" alt="" />
           <span> Export code base (CSV)</span>
         </button>
       </div>
-    </DashBoardSubRoutesWrapper>
+    </DashBoardSubRoutesWrapper >
   );
 };
 

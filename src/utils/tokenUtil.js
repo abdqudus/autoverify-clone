@@ -2,9 +2,9 @@ const TOKEN_NAME = "jwtToken";
 const DEFAULT_ACCESS_EXPIRY = 55 / 60; // 55mins
 const DEFAULT_REFRESH_EXPIRY = (24 * 60 - 5) / 60; // 5mins less of 24hrs
 const FIVE_MINUTES_IN_HOURS = 5 / 60; //
-const TOKEN_ENDPOINT = "https://apps.autoverify-be.bloombyte.dev/api/v1/token/";
+const TOKEN_ENDPOINT = "https://be.autoverify.bloombyte.dev/api/v1/token/";
 const REFRESH_TOKEN_ENDPOINT =
-  "https://apps.autoverify-be.bloombyte.dev/api/v1/token/refresh/";
+  "https://be.autoverify.bloombyte.dev/api/v1/token/refresh/";
 
 // type JwtTokenType = {
 //   access: string;

@@ -41,7 +41,7 @@ const useGetProductSettings = (id) => {
         description: result.data[0].description,
         codebase: result.data[0].codebase,
       });
-      setTextVal(result.data[0].thumbnail);
+      setTextVal(result.data[0].description);
     }
     if (result?.data[1]?.length) {
       setPaymentMethod(result.data[1]);

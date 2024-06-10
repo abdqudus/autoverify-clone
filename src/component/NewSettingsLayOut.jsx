@@ -4,8 +4,32 @@ import LayoutNavigations from "./LayoutNavigations";
 import SettingsWrapper from "./SettingsWrapper";
 import { TextEditor } from "./TextEditor";
 
-const NewSettingsLayOut = () => {
+import { useNavigate } from "react-router-dom";
+import * as tokenUtil from "../utils/tokenUtil";
+import * as base from "../utils/base";
+
+const NewSettingsLayOut = ({ setIsNewSetting }) => {
+  const navigate = useNavigate();
   const [textVal, setTextVal] = useState("");
+  const [isValidyChecked, setIsValidityChecked] = useState(false)
+  const [layoutSettings, setLayoutSettings] = useState({ name: '', subject: '', msgContent: textVal })
+  const handleSaveLayout = async () => {
+    setIsValidityChecked(true);
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    const endpoint = new base.LayoutEndpoint(access_token, {});
+    await endpoint.create({
+      message: layoutSettings.msgContent,
+      subject: layoutSettings.subject,
+      name: layoutSettings.name,
+    })
+    setIsNewSetting(false)
+  }
+  const handleChange = (e) => {
+    setLayoutSettings(prev => ({ ...prev, [e.target.id]: e.target.value }))
+  }
   return (
     <div className="mt-6">
       <SettingsWrapper>
@@ -22,60 +46,33 @@ const NewSettingsLayOut = () => {
             <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
               Choose name that will help you identify layout in future.
             </p>
-            <Input id="" />
+            {isValidyChecked && !layoutSettings.name && <p className="text-red-500 text-sm">Kindly enter a name</p>}
+            <Input handleChange={(e) => handleChange(e)} value={layoutSettings.name} id="name" />
           </div>
           <div className="mt-4">
             <h4 className="font-bold text-sm mt-2">Subject</h4>
             <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
               Message with code to customer will have this subject.
             </p>
-            <Input id="" />
-          </div>
-          <div className="mt-4">
-            <h4 className="font-bold text-sm mt-2 md:mt-6">
-              E-mail to response
-            </h4>
-            <p className=" text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              Messages with codes are sent from kontakt@automater.pl but we also
-              add header respond to. Submit your e-mail on which you would like
-              to receive responses.
-            </p>
-            <p className=" text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              <span className="font-bold">Attention! </span> If you are selling
-              products on Allegro, you must add the following email address in
-              the settings in the Additional email addresses tab.
-            </p>
-            <Input id="" />
+            {isValidyChecked && !layoutSettings.subject && <p className="text-red-500 text-sm">Kindly enter a subject</p>}
+            <Input id="subject" placeholder="Successfull Order" handleChange={(e) => handleChange(e)} value={layoutSettings.subject} />
           </div>
         </div>
       </SettingsWrapper>
       <SettingsWrapper>
         <div className="md:col-start-2">
-          <div className="mt-4">
-            <h4 className="font-bold text-sm mt-2">
-              Message content sent by eBay message (only for eBay auctions)
-            </h4>
-            <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              The content of the message sent to the customer via eBay
-              messaging, if this option is active. You can put the{" "}
-              <span className="font-bold">[CODE] </span> tag, which will be
-              converted into a code taken from the database, or the
-              <span className="font-bold">[EMAIL_PREVIEW_LINK] </span>tag, which
-              will be converted to a link to display a full copy of the message
-              sent to the customer's email address.
-            </p>
-            <Input id="" />
-          </div>
+
           <div className="mt-6">
             <h4 className="font-bold text-sm mt-4">Message content</h4>
+            {isValidyChecked && !layoutSettings.msgContent && <p className="text-red-500 text-sm">Kindly enter a content</p>}
             <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
               Message with this content will be send to customer. In this blank
               you can use <span className="font-bold">tags</span> , which will
-              be exchanged e.g. [CODE] for code.
+              be exchanged e.g. [CODES] for code.
             </p>
 
-            <TextEditor val={{ textVal, setTextVal }} />
-            <button className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[100.25px] rounded-[4px] text-white">
+            <TextEditor val={{ textVal, setTextVal, setLayoutSettings }} />
+            <button onClick={handleSaveLayout} className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[100.25px] rounded-[4px] text-white">
               Save layout
             </button>
           </div>
@@ -89,17 +86,29 @@ const NewSettingsLayOut = () => {
           </p>
           <ul className="px-4 text-[#333333] flex flex-col gap-1 text-sm leading-[22.4px] font-open-sans">
             <li>
-              <span className="font-bold">[CODE] </span>- code downloaded from
+              <span className="font-bold">[CODES] </span>- code downloaded from
               base
             </li>
             <li>
-              <span className="font-bold">[CODE_IMAGE] </span>- graphic file
+              <span className="font-bold">[THUMBNAIL] </span>- the product image
             </li>
             <li>
               <span className="font-bold">[TITLE] </span>- product name
             </li>
             <li>
-              <span className="font-bold">[BUYER_ID] </span>- Transaction ID
+              <span className="font-bold">[PRICE_PER_PRODUCT] </span>- price per product
+            </li>
+            <li>
+              <span className="font-bold">[TOTAL_PRICE] </span>- the aggregrate price
+            </li>
+            <li>
+              <span className="font-bold">[QUANTITY] </span>- quantity ordered
+            </li>
+            <li>
+              <span className="font-bold">[CURRENCY] </span>- currency
+            </li>
+            <li>
+              <span className="font-bold">[TRANSACTION_ID] </span>- Transaction ID
             </li>
             <li>
               <span className="font-bold">[BUYER_EMAIL] </span>-customer e-mail
@@ -110,14 +119,7 @@ const NewSettingsLayOut = () => {
               number
             </li>
             <li>
-              <span className="font-bold">[QUANTITY] </span>-purchased product
-              quantity
-            </li>
-            <li>
-              <span className="font-bold">[PRICE] </span>-price per product
-            </li>
-            <li>
-              <span className="font-bold">[CURRENCY] </span>-currency
+              <span className="font-bold">[BUYER_NAME] </span>-customer name
             </li>
           </ul>
           <p className="text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-3">

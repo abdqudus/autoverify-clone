@@ -5,7 +5,7 @@
 // type callback = (resource?: object | string) => void;
 // type error_callback = (error?: object | string) => void;
 
-const DOMAIN = "https://apps.autoverify-be.bloombyte.dev";
+const DOMAIN = "https://be.autoverify.bloombyte.dev";
 
 const product_endpoints = {
   list: "/api/v1/products/",
@@ -14,6 +14,40 @@ const product_endpoints = {
   update: "/api/v1/products/{product_id}/",
   partial_update: "/api/v1/products/{product_id}/",
   delete: "/api/v1/products/{product_id}/",
+  buy: "/api/v1/public_store/{product_id}/",
+};
+
+const layout_endpoints = {
+  list: "/api/v1/layouts/",
+  create: "/api/v1/layouts/",
+  read: "/api/v1/layouts/{id}/",
+  update: "/api/v1/layouts/{id}/",
+  partial_update: "/api/v1/layouts/{id}/",
+  delete: "/api/v1/layouts/{id}/",
+};
+
+const user_endpoints = {
+  list: "/api/v1/users/",
+  create: "/api/v1/users/",
+  read: "/api/v1/users/{id}/",
+  update: "/api/v1/users/{id}/",
+  partial_update: "/api/v1/users/{id}/",
+  delete: "/api/v1/users/{id}/",
+  me: "/api/v1/users/me/",
+};
+
+const general_settings_endpoints = {
+  get_settings: "/api/v1/general_settings/get_settings/",
+  update_settings: "/api/v1/general_settings/update_settings/",
+};
+
+const personal_settings_endpoints = {
+  get_settings: "/api/v1/personal_settings/get_settings/",
+  update_settings: "/api/v1/personal_settings/update_settings/",
+};
+
+const checkout_endpoints = {
+  checkout: "/api/v1/checkout-endpoint/checkout/",
 };
 
 const codebase_endpoints = {
@@ -23,6 +57,15 @@ const codebase_endpoints = {
   update: "/api/v1/codebases/{id}/",
   partial_update: "//api/v1/codebases/{id}/",
   delete: "/api/v1/codebases/{id}/",
+};
+
+const code_endpoints = {
+  list: "/api/v1/codes/",
+  create: "/api/v1/codes/",
+  read: "/api/v1/codes/{id}/",
+  update: "/api/v1/codes/{id}/",
+  partial_update: "/api/v1/codes/{id}/",
+  delete: "/api/v1/codes/{id}/",
 };
 
 const csrf_token_endpoint = {
@@ -55,6 +98,13 @@ const store_setting_endpoints = {
   update_settings: "/api/v1/store_settings/update_settings/",
 };
 
+const statistics = {
+  get_data: "/api/v1/statistics/statistics/",
+};
+
+const cloudinary_link =
+  "https://api.cloudinary.com/v1_1/autovery-cloud-name/image/upload";
+
 function _join(endpoint) {
   return DOMAIN + endpoint;
 }
@@ -64,6 +114,29 @@ function _isHttpMethod(method) {
     [`post`, `get`, `put`, `patch`, "delete"].indexOf(method.toLowerCase()) !==
     -1
   );
+}
+
+export const getDomain = () => {
+  const { protocol, hostname, port } = window.location;
+  return `${protocol}//${hostname}${port ? `:${port}` : ""}`;
+};
+
+export function sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms * 1000));
+}
+
+const DEFAULT_ERROR_METHOD = (res) => {
+  console.warn("you are suppose to handle this error", res);
+};
+
+function _formatDate(date) {
+  // Get the year, month, and day from the date object
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-based month
+  const day = String(date.getDate()).padStart(2, "0"); // getDate() returns 1-based day
+
+  // Combine them into the desired format
+  return `${year}-${month}-${day}`;
 }
 
 class _BaseRequestEndpoint {
@@ -85,8 +158,9 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
   csrf_token_endpoint = csrf_token_endpoint;
   csrf_token;
 
-  constructor(access_token, headers) {
+  constructor(access_token, headers, error) {
     super(headers);
+    this.error = error || DEFAULT_ERROR_METHOD;
     this.access_token = access_token;
     this.add_jwt_header();
     this.finish_constructor();
@@ -125,20 +199,21 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
     return await this._fetch(endpoint, "PATCH", body, callback);
   }
 
-  async _fetch(endpoint, method, body, callback, error) {
+  async _fetch(endpoint, method, body, callback) {
+    const error = this.error;
+
     if (!_isHttpMethod(method)) {
       throw Error(
         `RequestError: Failed to fetch data, the method ${method} is not recognised`
       );
     }
-
-    if (this.csrf_token !== null && !(body instanceof FormData)) {
+    if (this.csrf_token && !(body instanceof FormData)) {
       const e = `When uploading data the body should be of type FormData not ${typeof body}`;
       console.error(e);
       throw Error(e);
     }
 
-    if (this.csrf_token !== null) {
+    if (this.csrf_token) {
       const formdata = body;
       formdata.set("csrfmiddlewaretoken", this.csrf_token);
     }
@@ -162,31 +237,31 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
         console.warn(`Return data is not json at ${endpoint}`);
       }
 
-      if (res.ok && callback) {
-        try {
-          callback(resource);
-        } catch (error) {
-          console.error(
-            "Request Success But Failed To Call success Callback:",
-            error
-          );
-        }
-      } else {
-        if (error) {
-          console.error(`Failed at ${endpoint} calling callback ...`);
+      if (res.ok) {
+        if (callback) {
           try {
-            error(resource);
+            callback(resource);
           } catch (error) {
-            console.error("Failed to call error callback");
+            console.error(
+              "Request Success But Failed To Call success Callback:",
+              error
+            );
           }
         }
+      } else {
+        try {
+          error(res);
+        } catch (error) {
+          console.error("Error call back throwed an error", error);
+          console.error(
+            "Why in God's name will the code to handle error throw an error"
+          );
+        }
       }
-      return resource;
 
-      // console.error(`Request Failed: ${res.statusText}`);
-      // console.error(await res.text());
+      return resource;
     } catch (error) {
-      console.error("Request Failed:", error);
+      console.warn("Request Failed:", error);
     }
 
     return null;
@@ -232,7 +307,34 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
 export class ProductEndpoint extends _RequestEndpoint {
   endpoints = product_endpoints;
   id_name = "product_id";
+  cloudinary_upload_preset = "autoverify_upload_preset";
 
+  async update_image(id, image) {
+    const form = new FormData();
+    form.append("file", image);
+    form.append("upload_preset", "autoverify_upload_preset");
+    form.append("folder", "somewhere_up_there");
+
+    const res = await fetch(cloudinary_link, {
+      method: "POST",
+      body: form,
+    });
+
+    if (!res.ok) {
+      throw Error("Could not upload image");
+    }
+
+    const data = await res.json();
+    const image_url = data.url;
+
+    if (id) {
+      return await this.partial_update(id, {
+        cloudinary_thumbnail: image_url,
+      });
+    }
+
+    return image_url;
+  }
   async list(...args) {
     // if limit is null then return unpaginated data
     const limit = args[0];
@@ -287,6 +389,11 @@ export class ProductEndpoint extends _RequestEndpoint {
     );
     return await this._fetch(endpoint, "DELETE", {});
   }
+
+  async get_buy_data(id) {
+    const endpoint = _join(this.endpoints.buy.replace(`{${this.id_name}}`, id));
+    return await this.get(endpoint, {});
+  }
 }
 
 export class CodebaseEndpoint extends ProductEndpoint {
@@ -315,13 +422,11 @@ export class StoreSetting extends ProductEndpoint {
   endpoints = store_setting_endpoints;
 
   async get_settings() {
-    console.log("called in base");
     const endpoint = _join(this.endpoints.get_settings);
     return await this.get(endpoint, {});
   }
 
   async update_settings(body) {
-    console.log(body);
     const endpoint = _join(this.endpoints.update_settings);
     return await this.patch(endpoint, body);
   }
@@ -330,6 +435,74 @@ export class StoreSetting extends ProductEndpoint {
 export class EbayAccount extends ProductEndpoint {
   endpoints = ebay_account_endpoints;
   id_name = "account_id";
+}
+
+export class Statistics extends ProductEndpoint {
+  endpoints = statistics;
+
+  async get_data(startDate, endDate) {
+    const endpoint = _join(this.endpoints.get_data);
+    const payload = {
+      start_date: _formatDate(startDate || new Date()),
+      end_date: _formatDate(endDate || new Date()),
+    };
+    return await this.post(endpoint, payload);
+  }
+
+  async get_last_7_days() {
+    const now = new Date();
+    const last7days = new Date();
+    now.setDate(now.getDate() - 7);
+    return await this.get_data(now, last7days);
+  }
+}
+
+export class CheckoutEndpoint extends ProductEndpoint {
+  endpoints = checkout_endpoints;
+
+  async checkout(payload) {
+    const endpoint = _join(this.endpoints.checkout);
+    return await this.post(endpoint, payload);
+  }
+}
+
+export class LayoutEndpoint extends ProductEndpoint {
+  endpoints = layout_endpoints;
+  id_name = "id";
+}
+
+export class UserEndpoint extends ProductEndpoint {
+  endpoints = user_endpoints;
+  id_name = "id";
+
+  async me() {
+    const endpoint = _join(this.endpoints.me);
+    return await this.get(endpoint, {});
+  }
+}
+
+export class GeneralSettingsEndpoint extends ProductEndpoint {
+  endpoints = general_settings_endpoints;
+  id_name = "id";
+
+  async get_settings() {
+    const endpoint = _join(this.endpoints.get_settings);
+    return await this.get(endpoint, {});
+  }
+
+  async update_settings(payload) {
+    const endpoint = _join(this.endpoints.update_settings);
+    return await this.post(endpoint, payload);
+  }
+}
+
+export class PersonalSettingsEndpoint extends GeneralSettingsEndpoint {
+  endpoints = personal_settings_endpoints;
+}
+
+export class CodeEndpoint extends ProductEndpoint {
+  endpoints = code_endpoints;
+  id_name = "id";
 }
 
 // async function test() {

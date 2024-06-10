@@ -2,7 +2,7 @@ export const settingsNavItems = [
   { text: "Layout", route: "/settings/layout" },
   { text: "General Settings", route: "/settings/general-settings" },
   { text: "Personalized Messages", route: "/settings/personalised-messages" },
-  { text: "Page Personalization", route: "/settings/page-personalization" },
+  // { text: "Page Personalization", route: "/settings/page-personalization" },
   { text: "Payments", route: "/settings/payment-history" },
   { text: "Change Password", route: "/settings/change-password" },
   {
@@ -10,46 +10,31 @@ export const settingsNavItems = [
     route: "/settings/two-fa-auth",
   },
   { text: "Notifications", route: "/settings/notifications" },
-  { text: "API", route: "/settings/api" },
+  // { text: "API", route: "/settings/api" },
 ];
 
-export const generalSettingsData= [
+export const accountSettingsData = [
   {
     text: "Username (if you want to change this address, contact us)",
-    placeholder: "techiewestly@gmail.com",
+    placeholder: "sample username",
     id: "username",
+    readOnly: true,
   },
   {
-    text: "Name",
+    text: "First name",
     placeholder: "Tekena",
-    id: "name",
+    id: "first_name",
   },
   {
     text: "Last name",
     placeholder: "West",
-    id: "last-name",
+    id: "last_name",
   },
   {
     text: "Email",
     placeholder: "techiewestly@gmail.com",
     id: "email",
     type: "email",
-  },
-  {
-    text: "Mobile number",
-    placeholder: "+2347038216467",
-    id: "number",
-    type: "tel",
-  },
-  {
-    text: "Select the time zone in which we want to display dates in the system",
-    type: "select",
-    options: ["(GMT+1:00) Europe/Warsaw (Central European Time)", "option 2"],
-  },
-  {
-    text: "Choose language",
-    type: "select",
-    options: ["English", "French"],
   },
 ];
 export const paymentHistoryHeader = [

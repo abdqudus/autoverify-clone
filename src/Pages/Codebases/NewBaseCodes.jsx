@@ -28,8 +28,8 @@ const NewBaseCodes = () => {
     const res = await endpoint.create({
       name: codebaseName,
     });
-
-    console.log(res);
+    navigate(`/codebase/show/${res.id}/manage`);
+    return res;
   };
 
   return (

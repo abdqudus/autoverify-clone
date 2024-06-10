@@ -22,8 +22,18 @@ const NewProduct = () => {
     price: "",
     codebase: "",
   });
+  const [newLayout, setNewLayout] = useState({
+    "id": 0,
+    "name": "",
+    "subject": "",
+    "message": ""
+  });
+
   const navigate_to_create_codes = () => {
     navigate("/codebase/new-base-code");
+  };
+  const navigate_to_create_layout = () => {
+    navigate("/settings/layout");
   };
   const setProductDetails = (e) => {
     console.dir(e.target.value);
@@ -33,12 +43,28 @@ const NewProduct = () => {
       description: textVal,
     });
   };
+  const setLayoutDetails = (e) => {
+    console.dir(e.target.value);
+    setNewLayout({
+      ...newLayout,
+      [e.target.name]: e.target.value,
+      description: textVal,
+    });
+  };
+
+  window.layout = newLayout.layout;
+
   const handleSendDetails = async () => {
     const { name, price } = newProd;
     let { codebase } = newProd;
+
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
       navigate("/login");
+    }
+    if (price < 0) {
+      alert('Invalid price');
+      throw Error();
     }
     if (name && price) {
       if (!codebase) {
@@ -57,6 +83,7 @@ const NewProduct = () => {
           use_codebase: true,
           codebase: codebase,
           description: newProd.description,
+          layout: layout,
         });
         if (!("product_id" in res)) {
           console.error(res);
@@ -77,12 +104,17 @@ const NewProduct = () => {
     if (access_token == null) {
       navigate("/login");
     }
-    const endpoint = new base.CodebaseEndpoint(access_token, {});
+    let endpoint = new base.CodebaseEndpoint(access_token, {});
     const codebase = await endpoint.list(UNPAGINATE);
-    console.log(codebase);
+
+    endpoint = new base.LayoutEndpoint(access_token, {});
+    const layout = await endpoint.list(UNPAGINATE);
+
+    console.log('layout', layout);
+
     return {
       codebases: codebase,
-      layouts: [],
+      layouts: layout,
     };
   };
 
@@ -124,6 +156,7 @@ const NewProduct = () => {
             required
             onChange={(e) => setProductDetails(e)}
             value={newProd.price}
+            min="0"
             className="w-full md:w-[186.22px] border h-[34px] border-[#CCCCCC] rounded-[4px]"
           />
           <input
@@ -136,15 +169,29 @@ const NewProduct = () => {
         <p>Settings layout</p>
         <p className="mt-1 leading-[22.4px]">
           Choose layout from which settings will be submitted to monitoring.
-          <a className="text-[#428BCA] pl-1">
+          <a
+            onClick={(e) => navigate_to_create_layout()}
+            className="text-[#428BCA] pl-1">
             Click here to add new settings layout.
           </a>
         </p>
-        <select className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]">
-          <option value="Default">Default</option>
-          <option value="option1">Option 1</option>
-          <option value="option2">Option 2</option>
-          <option value="option3">Option 3</option>
+        <select
+          onChange={(e) => setLayoutDetails(e)}
+          name="layout"
+          className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]"
+        >
+          <option>None</option>
+
+          {data && data?.layouts?.length > 0 ? (
+            data.layouts.map((d) => (
+              <option key={d.id} value={d.id}>
+                {d.name}
+              </option>
+            ))
+          ) : (
+            <></>
+          )}
+
         </select>
       </div>
       <div className="text-[#333333] mt-4 font-open-sans font-normal text-[.875rem]">
@@ -161,8 +208,8 @@ const NewProduct = () => {
         <select
           onChange={(e) => setProductDetails(e)}
           name="codebase"
-          className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]"
-        >
+          className="w-full mt-2 h-[34px] border border-[#CCCCCC]  rounded-[4px]">
+
           {data && data?.codebases?.length > 0 ? (
             data.codebases.map((d) => (
               <option key={d.id} value={d.id}>
@@ -172,6 +219,7 @@ const NewProduct = () => {
           ) : (
             <></>
           )}
+
         </select>
       </div>
       <div className="mt-10 p-0">

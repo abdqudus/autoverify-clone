@@ -6,6 +6,7 @@ import ExportCode from "./ExportCode";
 import BaseConfig from "./BaseConfig";
 import AddManyCodes from "./AddManyCodes";
 import CodesExport from "./CodesExport";
+import EditCodeBase from "./EditCodeBase";
 
 const Codebases = () => {
   return (
@@ -14,7 +15,7 @@ const Codebases = () => {
       <Route path="new-base-code" element={<NewBaseCodes />} />
       <Route path="code-list" element={<CodeList />} />
       <Route path="show/:id" element={<BaseConfig />} />
-      <Route path="show/:id/manage" element={<p>Manage</p>} />
+      <Route path="show/:id/manage" element={<EditCodeBase />} />
       <Route path="show/:id/edit" element={<AddManyCodes />} />
       <Route path="show/:id/export" element={<CodesExport />} />
       <Route path="show/:id/counter" element={<p>codes counter</p>} />

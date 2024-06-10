@@ -8,7 +8,7 @@ const SettingsLayout = () => {
   return (
     <DashBoardSubRoutesWrapper header="Settings /Layout" subheader="Layout">
       {isNewSettings ? (
-        <NewSettingsLayOut />
+        <NewSettingsLayOut setIsNewSetting={setIsNewSetting} />
       ) : (
         <LayoutList setIsNewSetting={setIsNewSetting} />
       )}

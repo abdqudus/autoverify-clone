@@ -1,7 +1,42 @@
+import { Link, useNavigate } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 import StoreNav from "../../component/StoreNav";
+import { useQuery } from "@tanstack/react-query";
+
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import { Paginator } from "../../utils/pagination";
+import { useState } from "react";
 
 const StorePaymentMethods = () => {
+  const navigate = useNavigate();
+  const [page, setPage] = useState(0);
+
+  const getPaymentMethods = async (page) => {
+    const access_token = await _checkLog();
+    const endpoint = new base.PaymentMethod(access_token, {});
+    const paginator = new Paginator(endpoint, page);
+    const res = (await paginator.current()).results;
+    return {
+      data: res,
+      paginator: paginator,
+    }
+  }
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    return access_token;
+  }
+
+  const { data } = useQuery({
+    queryKey: ['payment-methods', page],
+    queryFn: () => getPaymentMethods(page)
+  })
+
+  console.log(data);
   return (
     <DashBoardSubRoutesWrapper
       subheader="Payment Method in store"
@@ -11,9 +46,56 @@ const StorePaymentMethods = () => {
         <div className="mt-4">
           <StoreNav />
           <div className="mt-4">
-            <p>No accounts have been configured.</p>
+            {/* <p>No accounts have been configured.</p> */}
+            <div>
+              <table className="w-full text-left">
+                <thead>
+                  <tr className="bg-black text-white font-normal">
+                    <th className="w-[10%] border border-black font-normal px-2 ">ID</th>
+                    <th className="w-[35%] border border-black font-normal text-md  px-2 py-2">Account name</th>
+                    <th className="w-[20%] border border-black font-normal text-md  px-2 py-2">Account type</th>
+                    <th className="w-[25%] border border-black font-normal text-md   px-2 ">Status</th>
+                    <th className="w-[10%] border border-black font-normal text-md  px-2 "></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {data?.data.map((d, i) => (
+
+                    <tr key={d.id} className={`h-[40px] ${i % 2 == 0 ? 'bg-[#f5f5f5]' : ''}`}>
+                      <td className="border px-2 text-ellipsis overflow-hidden text-nowrap ">
+                        <p className="w-[5rem] whitespace-nowrap overflow-hidden text-ellipsis">
+                          {d.id}
+                        </p>
+                      </td>
+                      <td className="border px-2">
+                        <p className="w-full font-normal whitespace-nowrap overflow-hidden text-ellipsis">
+                          {d.account_name}
+                        </p>
+                      </td>
+                      <td className="border px-2">
+                        <p className="w-full font-normal  whitespace-nowrap overflow-hidden text-ellipsis">
+                          {d.account_type}
+                        </p>
+                      </td>
+                      <td className="border px-2">
+                        <div className="flex justify-between items-center">
+
+                          <button className="px-2 f  rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium ">active</button>
+                          <button className="px-2 f  rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium ">connected</button>
+                        </div>
+                      </td>
+                      <td className="border px-2">
+                        <button className="px-2 rounded-[2px] bg-white h-[20px]  text-sm font-medium text-blue-300">edit</button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
             <button className="vsm:w-full w-[250px] mt-12 font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]">
-              Add new account
+              <Link to='/products/payment-methods'>
+                Add new account
+              </Link>
             </button>
           </div>
         </div>

@@ -1,8 +1,33 @@
 import * as tokenUtil from "../utils/tokenUtil";
 import * as base from "../utils/base";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import DeleteModal from "./DeleteModal";
+import { useState } from "react";
 
 const ProductDetailExtenstion = ({ bg, border, data }) => {
+  const [showModal, setShowModal] = useState(false);
+  const [tobeDeleted, setTobeDeleted] = useState(null);
+  const { id } = useParams();
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    return access_token;
+  }
+
+  const onDelete = async (product) => {
+    const endpoint = new base.ProductEndpoint(await _checkLog(), {});
+    console.log('deleting this product ...', product);
+    return await endpoint.delete(product.id);
+  };
+
+  const handleClickDelete = async (name, id) => {
+    setTobeDeleted({ name, id });
+    setShowModal(true);
+  }
+
   const handlePause = async () => {
     // I need to know if
     const access_token = await tokenUtil.getToken();
@@ -18,7 +43,6 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
 
     // is possible the result could have and error from the server
     // handle error
-    console.log(result);
   };
   return (
     <div className="mt-[30px] justify-self-end  lg:mt-4 md:flex gap-4 lg:flex-col items-start justify-between">
@@ -43,47 +67,21 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
         <div className="font-open-sans mt-4 font-normal text-[.875rem] text-[#555555]">
           <div className="max-w-[250px] lg:w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
             <img src="/msg.png" alt="" />
-            <p className="leading-[22.4px]">Show details</p>
+            <p className="leading-[22.4px]"><Link to={`/products/all-products/${id}`}>Show details</Link></p>
           </div>
           <div className="max-w-[250px] lg:w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
             <img src="/prod-setting.png" alt="" />
             <p className="leading-[22.4px]">
-              <Link to="monitoring">Product settings</Link>
+              <Link to={`/products/all-products/${id}/monitoring`}>Product settings</Link>
             </p>
           </div>
-          <div className="max-w-[250px] lg:w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
-            <img src="/shipping-setting.png" alt="" />
-            <p className="leading-[22.4px]">Shipping settings</p>
-          </div>
-          <div className="max-w-[250px]  px-2 flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
-            <img src="btn-on-website.png" alt="" />
-            <p className="leading-[22.4px]">Buttons on website</p>
-          </div>
-          <div className="max-w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
-            <img src="/shipping-simulation.png" alt="" />
-            <p className="leading-[22.4px]"> Shipping simulation</p>
-          </div>
-          <div className="max-w-[250px] px-2  mb-4 flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
+          <div onClick={() => handleClickDelete(data.name, data.product_id)} className="max-w-[250px] cursor-pointer px-2  mb-4 flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
             <img src="/delete.png" alt="" />
             <p className="leading-[22.4px]">Delete product</p>
           </div>
-          <div className="max-w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
-            <img src="/recurring-shipment.png" alt="" />
-            <p className="leading-[22.4px]">
-              <span className="font-bold text-[##555555]">Recurring</span>{" "}
-              shipments
-            </p>
-          </div>
-          <div className="max-w-[250px] px-2  flex gap-4 items-center h-[44.39px] border rounded-tl-[4px] rounded-tr-[4px] bg-white border-[#DDDDDD]">
-            <img src="/prod-setting.png" alt="" />
-            <p className="leading-[22.4px]">
-              <span className="font-bold text-[##555555]">Bonuses</span>{" "}
-              products
-            </p>
-          </div>
         </div>
       </div>
-      <div className="mt-[4rem] md:mt-0 lg:w-full">
+      {/* <div className="mt-[4rem] md:mt-0 lg:w-full">
         <p className="text-[#333333] font-open-sans text-lg left-[19.8px]">
           Statistics
         </p>
@@ -116,7 +114,8 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
           </p>
           <img src="/dollar.png" alt="" />
         </div>
-      </div>
+      </div> */}
+      <DeleteModal onDelete={onDelete} tobeDeleted={tobeDeleted} showModal={showModal} setShowModal={setShowModal} navigateAfterwards={'/products/all-products/'} />
     </div>
   );
 };

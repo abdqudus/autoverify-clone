@@ -19,7 +19,7 @@ import {
 } from "react-simple-wysiwyg";
 
 export function TextEditor({ props, val }) {
-  const { textVal, setTextVal, setStoreDetails, setProductDetails } = val;
+  const { textVal, setTextVal, setStoreDetails, setProductDetails, setLayoutSettings } = val;
   function onChange(e) {
     setTextVal(e.target.value);
     if (setStoreDetails) {
@@ -30,6 +30,9 @@ export function TextEditor({ props, val }) {
         ...details,
         description: e.target.value,
       }));
+    }
+    if (setLayoutSettings) {
+      setLayoutSettings(prev => ({ ...prev, msgContent: e.target.value }))
     }
   }
   const BtnAlignCenter = createButton(

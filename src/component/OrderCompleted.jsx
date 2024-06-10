@@ -1,4 +1,4 @@
-import Succesful from "./Succesful";
+import Succesful from "../Pages/Succesful";
 
 const OrderCompleted = () => {
   return (

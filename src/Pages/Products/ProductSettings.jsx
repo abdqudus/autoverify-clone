@@ -24,23 +24,34 @@ const ProductSettings = () => {
   } = useGetProductSettings(id);
 
 
-  console.log(data, codebase);
-  const handleSaveProduct = async () => {
+  console.log(data);
+  const handleProductSettings = async () => {
     const thumbnail = data.thumbnail
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
       navigate("/login");
     }
-    const form_data = new FormData();
-    form_data.set("thumbnail", thumbnail, thumbnail.name);
+    // const form_data = new FormData();
+    // form_data.set("thumbnail", thumbnail, thumbnail.name);
+    // const endpoint = new base.ProductEndpoint(access_token, {});
+    // await endpoint.setup_for_upload();
+    // console.log(endpoint.headers);
+    // if (!endpoint.csrf_token) {
+    //   console.error("could not get csrf token");
+    //   throw Error("could not get csrf token");
+    // }
+
     const endpoint = new base.ProductEndpoint(access_token, {});
-    await endpoint.setup_for_upload();
-    console.log(endpoint.headers);
-    if (!endpoint.csrf_token) {
-      console.error("could not get csrf token");
-      throw Error("could not get csrf token");
-    }
-    await endpoint.partial_update(id, form_data);
+    const res = await endpoint.partial_update(id, {
+      "description": data.description,
+      "name": data.name,
+      "price": data.price,
+      "use_codebase": true,
+      "codebase": data.codebase,
+      "is_active": true
+    });
+    endpoint.update_image(id, data.thumbnail); // made this non blocking to suppress errors
+    alert('Saved Succesffuly');
   };
 
   const handleImageChange = (e) => {
@@ -197,7 +208,7 @@ const ProductSettings = () => {
               </h3>
               <TextEditor val={{ textVal, setTextVal, setProductDetails }} />
               <button
-                onClick={handleSaveProduct}
+                onClick={handleProductSettings}
                 className="bg-[#5CB85C] rounded-[4px] h-[34px] mt-6 font-poppins text-[.75rem] leading-5 text-white flex items-center justify-center border vsm:max-w-full w-[166.06px]  border-[#4CAE4C]"
               >
                 Save product settings
