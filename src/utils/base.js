@@ -57,6 +57,10 @@ const codebase_endpoints = {
   update: "/api/v1/codebases/{id}/",
   partial_update: "//api/v1/codebases/{id}/",
   delete: "/api/v1/codebases/{id}/",
+  download_all_codes: "/api/v1/codebases/{id}/download_all_codes/",
+  download_sent_codes: "/api/v1/codebases/{id}/download_sent_codes/",
+  download_unsent_codes: "/api/v1/codebases/{id}/download_unsent_codes/",
+  handle_text_file: "/api/v1/bulk-codes/handle_text_file/",
 };
 
 const code_endpoints = {
@@ -105,7 +109,7 @@ const statistics = {
 const cloudinary_link =
   "https://api.cloudinary.com/v1_1/autovery-cloud-name/image/upload";
 
-function _join(endpoint) {
+export function _join(endpoint) {
   return DOMAIN + endpoint;
 }
 
@@ -137,6 +141,18 @@ function _formatDate(date) {
 
   // Combine them into the desired format
   return `${year}-${month}-${day}`;
+}
+
+export async function downloadAsFile(data, mimeType, fileName) {
+  const blob = new Blob([data], { type: mimeType });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = fileName;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+  URL.revokeObjectURL(url);
 }
 
 class _BaseRequestEndpoint {
@@ -240,7 +256,7 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
       if (res.ok) {
         if (callback) {
           try {
-            callback(resource);
+            callback(resource, res); // callback(data, res)
           } catch (error) {
             console.error(
               "Request Success But Failed To Call success Callback:",
@@ -325,7 +341,7 @@ export class ProductEndpoint extends _RequestEndpoint {
     }
 
     const data = await res.json();
-    const image_url = data.url;
+    const image_url = data.secure_url;
 
     if (id) {
       return await this.partial_update(id, {
@@ -399,6 +415,14 @@ export class ProductEndpoint extends _RequestEndpoint {
 export class CodebaseEndpoint extends ProductEndpoint {
   endpoints = codebase_endpoints;
   id_name = "id";
+
+  async handle_text_file(text, codebase_id) {
+    const endpoint = _join(this.endpoints.handle_text_file);
+    return await this.post(endpoint, {
+      code_list: text,
+      codebase_id: codebase_id,
+    });
+  }
 }
 
 export class PaymentMethod extends ProductEndpoint {

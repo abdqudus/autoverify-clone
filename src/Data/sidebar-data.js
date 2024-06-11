@@ -62,12 +62,11 @@ export const sideBarItems = [
     isActive: false,
     hasDropDown: true,
     dropDownItems: [
-      { text: "Search Code", route: "codebase/search-codes" },
       { text: "New Base Codes", route: "codebase/new-base-code" },
       { text: "Code List", route: "codebase/code-list" },
       { text: "Export Code", route: "codebase/export-code" },
     ],
-    newHeight: "h-[200px]",
+    newHeight: "h-[160px]",
   },
   {
     src: "/codebases.png",

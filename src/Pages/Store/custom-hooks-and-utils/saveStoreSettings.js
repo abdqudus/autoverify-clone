@@ -8,8 +8,23 @@ export const saveStoreSettings = async (navigate, storeDetails) => {
   }
 
   const payload = storeDetails;
-  payload.logo_b64 = payload.logo;
   const endpoint = new base.StoreSetting(access_token, {});
-  const res = await endpoint.update_settings(payload);
-  console.log(res);
+  const res = await endpoint.update_settings({
+    name: payload.name,
+    terms: payload.terms,
+    domain: payload.domain,
+    address: payload.address,
+    code_warning_threshold: payload.code_warning_threshold,
+    store: payload.store,
+  });
+
+  if (payload.logo) {
+    const cloudinary_thumbnail = await endpoint.update_image(
+      undefined,
+      payload.logo
+    );
+    endpoint.update_settings({
+      cloudinary_thumbnail: cloudinary_thumbnail,
+    });
+  }
 };

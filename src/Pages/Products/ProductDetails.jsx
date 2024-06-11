@@ -13,10 +13,6 @@ const ProductDetails = () => {
   const { id } = useParams();
 
   const OnServerError = (responseObject) => {
-    // Inspect the error and 
-    // do something with fetch response object
-
-    // console.log('responseObject', responseObject);
 
     if (!responseObject.ok) {
       if (responseObject.status == 404) {
@@ -48,12 +44,7 @@ const ProductDetails = () => {
   if (isPending) {
     return <Loader />;
   }
-  // if (isError) {
-  //   console.log(error)
-  //   if (error.message.includes('404')) {
-  //     navigate('/404')
-  //   }
-  // }
+
   if (data)
     return (
       <DashBoardSubRoutesWrapper
@@ -82,14 +73,14 @@ const ProductDetails = () => {
                     <p className="w-4 h-8 rounded-[4px] bg-[#FFBC99]"></p>
                     <p>Overview</p>
                   </div>
-                  <div className="w-full overflow-hidden h-[200px] border border-red-500 mb-4 rounded-[12px]">
-                    <img
+                  <div className="w-full overflow-hidden h-[200px] border border-gray-500 mb-4 rounded-[12px]">
+                    {/* <img
                       className="w-full max-w-full bg-cover "
                       src={data.cloudinary_thumbnail}
                       width="308"
                       height="200"
-                      alt=""
-                    />
+                      alt="product-image"
+                    /> */}
                   </div>
                   <div className="flex justify-between items-center gap-2 flex-wrap">
                     <p className="font-inter font-semibold leading-6 text-[.9375rem] text-[#1A1D1F]">

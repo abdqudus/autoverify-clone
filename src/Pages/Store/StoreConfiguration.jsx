@@ -14,18 +14,8 @@ const initialState = {
   terms: "",
   logo: "",
   code_warning_threshold: 15,
-  transaction_email: "",
 };
 
-// type StoreDetails = {
-//   address: string;
-//   domain: string;
-//   name: string;
-//   terms: string;
-//   logo: string;
-//   code_warning_threshold: number;
-//   transaction_email: string;
-// };
 const StoreConfiguration = () => {
   const { isLoading, data } = useGetFormFields();
   const navigate = useNavigate();
@@ -44,11 +34,13 @@ const StoreConfiguration = () => {
 
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
-    if (file) {
-      convertToBase64(file, storeDetails);
-      // window.a = storeDetails;
-    }
+    setStoreDetails(prev => ({ ...prev, logo: file }))
+    // storeDetails.logo = file;
+    // if (file) {
+    //   convertToBase64(file, storeDetails);
+    // }
   };
+
   console.log(storeDetails);
 
   const handleChange = (e) => {
@@ -123,7 +115,7 @@ const StoreConfiguration = () => {
                   </div>
                   <br />
                   <h3 className="text-sm leading-[22.4px] font-open-sans">
-                    Codebase Threashold
+                    Codebase Threshold
                   </h3>
                   <div className="flex mt-2">
                     <input
@@ -137,19 +129,6 @@ const StoreConfiguration = () => {
                     />
                   </div>
                   <br />
-                  <h3 className="text-sm leading-[22.4px] font-open-sans">
-                    Transaction Email
-                  </h3>
-                  <div className="flex mt-2">
-                    <input
-                      type="email"
-                      value={storeDetails?.transaction_email}
-                      onChange={(e) => handleChange(e)}
-                      name="transaction_email"
-                      className="w-[50px] h-[34px] flex-grow outline-0 border rounded-tl-[4px] rounded-bl-[4px] border-[#CCCCCC]  px-4"
-                      placeholder="Email to send transaction, if blank user email is used."
-                    />
-                  </div>
 
                   <div className="mt-4">
                     <p>Store name</p>

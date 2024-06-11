@@ -2,15 +2,8 @@ export const settingsNavItems = [
   { text: "Layout", route: "/settings/layout" },
   { text: "General Settings", route: "/settings/general-settings" },
   { text: "Personalized Messages", route: "/settings/personalised-messages" },
-  // { text: "Page Personalization", route: "/settings/page-personalization" },
   { text: "Payments", route: "/settings/payment-history" },
   { text: "Change Password", route: "/settings/change-password" },
-  {
-    text: "Two Factor Authentication",
-    route: "/settings/two-fa-auth",
-  },
-  { text: "Notifications", route: "/settings/notifications" },
-  // { text: "API", route: "/settings/api" },
 ];
 
 export const accountSettingsData = [

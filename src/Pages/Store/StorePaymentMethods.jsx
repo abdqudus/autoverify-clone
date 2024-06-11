@@ -7,7 +7,8 @@ import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { Paginator } from "../../utils/pagination";
 import { useState } from "react";
-
+import PaginatorBtn from "../../component/PaginatorBtn";
+import EntriesCount from "../../component/EntriesCount"
 const StorePaymentMethods = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
@@ -33,7 +34,7 @@ const StorePaymentMethods = () => {
 
   const { data } = useQuery({
     queryKey: ['payment-methods', page],
-    queryFn: () => getPaymentMethods(page)
+    queryFn: () => getPaymentMethods({ page: page, setPage: setPage })
   })
 
   console.log(data);
@@ -43,12 +44,16 @@ const StorePaymentMethods = () => {
       header="Store/Payment Methods"
     >
       <div className="mt-6">
-        <div className="mt-4">
+        <div className="my-4">
           <StoreNav />
           <div className="mt-4">
+
+            <EntriesCount />
+          </div>
+          <div className="mt-4">
             {/* <p>No accounts have been configured.</p> */}
-            <div>
-              <table className="w-full text-left">
+            <div className="overflow-scroll md:overflow-hidden">
+              <table className="w-full min-w-[500px] text-left">
                 <thead>
                   <tr className="bg-black text-white font-normal">
                     <th className="w-[10%] border border-black font-normal px-2 ">ID</th>
@@ -81,16 +86,20 @@ const StorePaymentMethods = () => {
                         <div className="flex justify-between items-center">
 
                           <button className="px-2 f  rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium ">active</button>
-                          <button className="px-2 f  rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium ">connected</button>
+                          <button className="px-2 f  rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium ">{d.is_connected ? 'linked' : 'not-linked'}</button>
                         </div>
                       </td>
                       <td className="border px-2">
-                        <button className="px-2 rounded-[2px] bg-white h-[20px]  text-sm font-medium text-blue-300">edit</button>
+                        <button className="px-2 rounded-[2px] bg-white h-[20px]  text-sm font-medium text-blue-300"><Link to={`${d.id}/edit`}>edit</Link></button>
                       </td>
                     </tr>
                   ))}
                 </tbody>
               </table>
+              <div className="flex justify-end mt-4">
+
+                <PaginatorBtn paginator={data?.paginator} />
+              </div>
             </div>
             <button className="vsm:w-full w-[250px] mt-12 font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]">
               <Link to='/products/payment-methods'>

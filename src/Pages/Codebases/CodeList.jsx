@@ -117,7 +117,8 @@ const CodeList = () => {
                           <p>ID</p>
                         </div>
                       </th>
-                      <th className="w-[20%]"></th>
+                      <th className="w-[10%]"></th>
+                      <th className="w-[10%]"></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -136,7 +137,17 @@ const CodeList = () => {
                               >
                                 <img src="/recycle.png" alt="" />
                                 <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                  base
+                                  delete
+                                </p>
+                              </button>
+
+                            </td>
+                            <td>
+                              <button
+                                className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#5cb85c]"
+                              >
+                                <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
+                                  {d.codes.length} codes
                                 </p>
                               </button>
                             </td>

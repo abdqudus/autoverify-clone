@@ -7,7 +7,6 @@ import {
   YAxis,
 } from "recharts";
 import { graphData } from "../../data";
-import Notifications from "../../component/Notifications";
 import QuantitySold from "../../component/QuantitySold";
 
 const Statistics = () => {
@@ -54,7 +53,6 @@ const Statistics = () => {
             <QuantitySold />
           </div>
         </div>
-        <Notifications />
         <div>
           {/* Parent of right div */}
 
