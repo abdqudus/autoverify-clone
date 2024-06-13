@@ -186,5 +186,63 @@
   "storeNav": {
     "paymentMethod": "Payment Method",
     "storeConfiguration": "Store configuration"
+  },
+  "storeConfiguration": {
+    "header": "Store/Configuration",
+    "subheader": "Store Configuration",
+    "storeAddress": "Store address",
+    "yourDomain": "Your domain",
+    "storeName": "Store name",
+    "codebaseThreshold": "Codebase Threshold",
+    "recommendedLogoSize": "Recommended size of the logo is 200px x 48px. Larger files will be scaled to 48px height.",
+    "changeLogo": "Change logo",
+    "terms": "Terms",
+    "saveStoreSettings": "Save store settings",
+    "advancedIntegration": "Advanced integration",
+    "advancedIntegrationDetails": " For advanced integration we recommend solutions using our API",
+    "processOrderOnWebsite": "If you want process of order to appear on your website, learn easier integration procedure:",
+    "storeDocumentation": "store documentation.",
+    "apiDocumentation": "API documentation.",
+    "integrationProblem": "In case of problems with integration contact us."
+  },
+  "newBaseCodes": {
+    "header": "Code Base/New Base Code",
+    "subheader": "New Codes",
+    "name": "Name",
+    "addNewBase": "Add new base",
+    "title": "Code bases",
+    "description": "Codebases store codes and files, which are then sent to the client.",
+    "standard": "Standard base: one code to one customer (e.g.: when you are selling top-up cards)",
+    "recursive": "Recursive codebase: allows you to send the same code to all customers (e.g.: when you are selling eBooks)",
+    "multiBase": "Multibase: allows your customer to select base from which he wants to get code (e.g.: when you are selling 10 games in 1 auction)"
+  },
+  "codeList": {
+    "header": "Code Base/Code List",
+    "subheader": "Code List",
+    "id": "ID",
+    "baseName": "Base name",
+    "options": "Options",
+    "delete": "delete",
+    "codes": "Codes",
+    "edit": "Edit",
+    "showingEntries": "Showing 1 of 1 entries",
+    "exportCSV": "Export code base (CSV)",
+    "newCodebase": "New codebase",
+    "show-bases": "Show bases",
+    "active-monitoring": " with active monitoring",
+    "no-active-monitoring": "Without active monitoring",
+    "available-codes": "With available codes",
+    "no-available-codes": "With codes available",
+    "what-is-this": "What is this?",
+    "codebases": "Codebases",
+    "use": "are used to store the codes and files that you want to sell."
+  },
+  "codeBaseExport": {
+    "header": "Code Base/Export Code",
+    "subheader": "Export of code bases",
+    "description": "You can generate export of selected code bases. The export file will be generated and sent in ZIP format to the e-mail address provided. The sent archive will contain text files with codes that have not been used and are currently in the database.",
+    "selectCodeBases": "Select code bases for export (select all):",
+    "emailAddress": "Email address to send message with copy:",
+    "generateExport": "Generate export"
   }
 }

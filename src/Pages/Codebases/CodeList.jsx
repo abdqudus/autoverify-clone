@@ -10,8 +10,10 @@ import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tansta
 import PaginatorBtn from "../../component/PaginatorBtn";
 import Modal from "../../component/Modal";
 import Spinner from "../../component/Spinner";
+import { useTranslation } from "react-i18next";
 
 const CodeList = () => {
+  const { t } = useTranslation()
   const modal = useRef()
   const navigate = useNavigate();
   const queryClient = useQueryClient()
@@ -69,8 +71,8 @@ const CodeList = () => {
   }
   return (
     <DashBoardSubRoutesWrapper
-      header="Code Base/Code List"
-      subheader="Code List"
+      header={t("codeList.header")}
+      subheader={t("codeList.subheader")}
     >
       <div className="mt-6">
         <div className="md:grid grid-cols-[1fr_215px]">
@@ -82,22 +84,13 @@ const CodeList = () => {
                   <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
                     <tr className="">
                       <th className="border-r w-[15%]  md:border-r-0  border-white">
-                        <div className="flex h-[50px] justify-center items-center gap-2 px-4 ">
-                          <img src="/double-triangle.png" alt="" />
-                          <p>ID</p>
-                        </div>
+                        <p>{t("codeList.id")}</p>
                       </th>
                       <th className="border-r w-[65%] md:border-r-0  border-white">
-                        <div className="flex h-[50px] justify-center items-center gap-2 px-4 ">
-                          <img src="/arrow-down-red.png" alt="" />
-                          <p>Base name</p>
-                        </div>
+                        <p>{t("codeList.baseName")}</p>
                       </th>
                       <th className="border-r w-[10%]  md:border-r-0  border-white">
-                        <div className="flex h-[50px] justify-center items-center gap-2 px-4 ">
-                          <img src="/double-triangle.png" alt="" />
-                          <p>ID</p>
-                        </div>
+                        <p>{t("codeList.options")}</p>
                       </th>
                       <th className="w-[10%]"></th>
                       <th className="w-[10%]"></th>
@@ -118,8 +111,7 @@ const CodeList = () => {
                             >
                               <img src="/recycle.png" alt="" />
                               <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                delete
-                              </p>
+                                {t("codeList.delete")} </p>
                             </button>
 
                           </td>
@@ -128,14 +120,14 @@ const CodeList = () => {
                               className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#5cb85c]"
                             >
                               <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                {d.codes.length} codes
+                                {d.codes.length}  {t("codeList.codes")}
                               </p>
                             </button>
                           </td>
                           <td>
                             <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
                               <Link to={`/codebase/show/${d.id}/manage`}>
-                                edit
+                                {t("codeList.edit")}
                               </Link>
                             </button>
                           </td>
@@ -147,7 +139,7 @@ const CodeList = () => {
               </div>
               <div className="mt-3 md:mt-6 font-poppins font-normal pb-3 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
                 <p className="text-[.875rem] leading-[22.4px] text-[#333333]">
-                  Showing 1 of 1 entries
+                  {t("codeList.showingEntries")}
                 </p>
                 <PaginatorBtn paginator={codebases?.paginator} />
               </div>
@@ -157,31 +149,30 @@ const CodeList = () => {
                 onClick={() => { navigate("/codebase/export-code"); }}
                 className="hidden sm:flex md:w-[262px] justify-center text-white text-sm w-full gap-2 items-center font-open-sans h-[34px] rounded-[4px] bg-[#5BC0DE] border border-[#46B8DA]">
                 <img src="/download-icon.png" alt="" />
-                <span> Export code base (CSV)</span>
+                <span>  {t("codeList.exportCSV")} </span>
               </button>
               <button
                 onClick={() => { navigate("/codebase/new-base-code"); }}
                 className="bg-[#428BCA] md:w-[262px] h-[34px] text-white text-sm font-normal flex justify-center items-center w-full rounded-[4px] border border-[#3276B1]">
-                New codebase
+                {t("codeList.newCodebase")}
               </button>
             </div>
           </div>
           <div className="show-bases md:self-start bg-[#F5F5F5] border border-[#E3E3E3] rounded-[4px] mt-3 flex flex-col gap-4 p-4">
-            <h3>Show bases</h3>
+            <h3>  {t("codeList.show-bases")}</h3>
             <div className="flex flex-col gap-2">
               <button className="w-full h-[20.5px] rounded-[2.63px] text-[.65625rem] font-bold font-open-sans text-white bg-[#5BC0DE]">
-                with active monitoring
+                {t("codeList.active-monitoring")}
               </button>
               <button className="w-full h-[20.5px] rounded-[2.63px] text-[.65625rem] font-bold font-open-sans text-white bg-[#999999]">
-                without active monitoring
+                {t("codeList.no-active-monitoring")}
               </button>
             </div>
             <div className="flex flex-col gap-2 mt-4">
               <button className="w-full h-[20.5px] rounded-[2.63px] text-[.65625rem] font-bold font-open-sans text-white bg-[#5CB85C]">
-                with available codes
-              </button>
+                {t("codeList.availabel-codes")}   </button>
               <button className="w-full h-[20.5px] rounded-[2.63px] text-[.65625rem] font-bold font-open-sans text-white bg-[#E74C3C]">
-                without codes available
+                {t("codeList.no-available-codes")}
               </button>
             </div>
           </div>
@@ -189,11 +180,11 @@ const CodeList = () => {
         <div className="mt-6 md:flex md:justify-end ">
           <div className="what-is-this border md:w-[238px] bg-[#F5F5F5] p-4 rounded-[4px]  border-[#F5F5F5]">
             <h3 className="leading-[19.8px] font-open-sans text-lg font-normal text-[#333333]">
-              What is this?
+              {t("codeList.what-is-this")}
             </h3>
             <p className="font-open-sans text-sm mt-4  leading-[22.4px]">
-              <span className="font-bold">Codebases</span> are used to store the
-              codes and files that you want to sell.
+              <span className="font-bold">  {t("codeList.codebases")}</span> are used to store the
+              {t("codeList.use")}
             </p>
           </div>
         </div>

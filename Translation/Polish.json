@@ -184,5 +184,64 @@
   "storeNav": {
     "paymentMethod": "Metody płatności",
     "storeConfiguration": "Konfiguracja sklepu"
+  },
+  "storeConfiguration": {
+    "header": "Sklep/Konfiguracja",
+    "subheader": "Konfiguracja sklepu",
+    "storeAddress": "Adres sklepu",
+    "yourDomain": "Twój domena",
+    "storeName": "Nazwa sklepu",
+    "codebaseThreshold": "Progi kodu",
+    "recommendedLogoSize": "Zalecany rozmiar logo to 200px x 48px. Większe pliki będą skalowane do wysokości 48px.",
+    "changeLogo": "Zmień logo",
+    "terms": "Warunki",
+    "saveStoreSettings": "Zapisz ustawienia sklepu",
+    "advancedIntegration": "zaawansowana integracja",
+    "advancedIntegrationDetails": "Dla zaawansowanych integracji polecamy rozwiązania wykorzystujące nasze API",
+    "processOrderOnWebsite": "Jeśli chcesz, aby proces zamówienia pojawił się na Twojej stronie internetowej, poznaj łatwiejszą procedurę integracji:",
+    "storeDocumentation": "dokumentacja sklepu.",
+    "apiDocumentation": "dokumentacja API.",
+    "integrationProblem": "W przypadku problemów z integracją skontaktuj się z nami."
+  },
+  "newBaseCodes": {
+    "header": "Kod bazy / Nowa baza kodowa",
+    "subheader": "Nowe kody",
+    "name": "Nazwa",
+    "addNewBase": "Dodaj nową bazę",
+    "title": "Bazy kodowe",
+    "description": "Bazy kodowe przechowują kody i pliki, które są następnie wysyłane do klienta.",
+    "standard": "Standardowa baza: jeden kod dla jednego klienta (np. gdy sprzedajesz karty doładowujące)",
+    "recursive": "Rekurencyjna baza kodowa: umożliwia wysłanie tego samego kodu do wszystkich klientów (np. gdy sprzedajesz eBooki)",
+    "multiBase": "Multi-baza: umożliwia klientowi wybór bazy, z której chce otrzymać kod (np. gdy sprzedajesz 10 gier w 1 aukcji)"
+  },
+
+  "codeList": {
+    "header": "Baza kodów/Lista kodów",
+    "subheader": "Lista kodów",
+    "id": "ID",
+    "baseName": "Nazwa bazy",
+    "options": "Opcje",
+    "delete": "Usuń",
+    "codes": "Kody",
+    "edit": "Edytuj",
+    "showingEntries": "Pokaż 1 z 1 pozycji",
+    "exportCSV": "Eksportuj bazę kodów (CSV)",
+    "newCodebase": "Nowa baza kodowa",
+    "show-bases": "Pokaż bazy",
+    "active-monitoring": "z aktywnym monitorowaniem",
+    "no-active-monitoring": "bez aktywnego monitorowania",
+    "available-codes": "z dostępnymi kodami",
+    "no-available-codes": "bez dostępnych kodów",
+    "what-is-this": "Co to jest?",
+    "codebases": "Bazy kodu",
+    "use": "służą do przechowywania kodów i plików, które chcesz sprzedać."
+  },
+  "codeBaseExport": {
+    "header": "Baza kodów/Eksport kodów",
+    "subheader": "Eksport baz kodów",
+    "description": "Możesz wygenerować eksport wybranych baz kodów. Plik eksportu zostanie wygenerowany i wysłany w formacie ZIP na podany adres e-mail. Wysłany archiwum zawiera pliki tekstowe z kodami, które nie zostały jeszcze użyte i są obecnie w bazie danych.",
+    "selectCodeBases": "Wybierz bazy kodów do eksportu (zaznacz wszystkie):",
+    "emailAddress": "Adres e-mail do wysłania wiadomości z kopią:",
+    "generateExport": "Generuj eksport"
   }
 }
