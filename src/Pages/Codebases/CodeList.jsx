@@ -1,23 +1,25 @@
 import { Link } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
-import useGetCodebases from "../../customHooks/useGetCodebases";
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useNavigate } from "react-router-dom";
 import EntriesCount from "../../component/EntriesCount";
 import { Paginator } from "../../utils/pagination";
-import { useState } from "react";
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useRef, useState } from "react";
+import { keepPreviousData, useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import PaginatorBtn from "../../component/PaginatorBtn";
+import Modal from "../../component/Modal";
+import Spinner from "../../component/Spinner";
 
 const CodeList = () => {
-  // const { data } = useGetCodebases();
+  const modal = useRef()
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient()
   const [page, setPage] = useState(0);
   const [forceReload, setForceReload] = useState(0);
 
   const deleteCodebase = async (id) => {
+    console.log('object')
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
       navigate("/login");
@@ -54,8 +56,17 @@ const CodeList = () => {
     placeholderData: keepPreviousData,
   });
 
-  // console.log('codebases', codebases);
-
+  const { isPending, isSuccess, mutate } = useMutation(
+    {
+      mutationFn: deleteCodebase
+    })
+  if (isPending) {
+    modal?.current?.open()
+  }
+  if (isSuccess) {
+    modal.current.close();
+    queryClient.invalidateQueries({ queryKey: ['codebases'] })
+  }
   return (
     <DashBoardSubRoutesWrapper
       header="Code Base/Code List"
@@ -66,35 +77,6 @@ const CodeList = () => {
           <div>
             <div className="show-and-table md:mt-12 md:px-3">
               <EntriesCount />
-              {/* <div className="show md:flex justify-between items-center"> */}
-              {/* <div className="flex gap-2 flex-wrap">
-                  <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-                    show
-                  </p>
-                  <input
-                    className="w-[70px] h-[33px] rounded-[4px] border border-[#CCCCCC]"
-                    type="text"
-                    name=""
-                    id=""
-                  />
-                  <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-                    entries
-                  </p>
-                </div> */}
-              {/* <div className="mt-3 md:mt-0 md:flex-row md:items-center flex gap-2 flex-wrap">
-                  <label
-                    htmlFor="search-products"
-                    className="font-semibold font-open-sans text-[.875rem] leading-[22.4px] text-[#333333"
-                  >
-                    Search:
-                  </label>
-                  <input
-                    type="text"
-                    id="search-products"
-                    className="rounded-[4px] max-w-full border border-[#CCCCCC]"
-                  />
-                </div> */}
-              {/* </div> */}
               <div className="max-w-full border border-[#DDDDDD] bg-[#F4F4F480]  overflow-x-scroll md:overflow-hidden mt-3">
                 <table className="min-w-[550px] w-full">
                   <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
@@ -123,44 +105,42 @@ const CodeList = () => {
                   </thead>
                   <tbody>
                     {
-                      codebases ?
-                        codebases.data.map((d) => (
-                          <tr className="h-[48px] text-center ">
-                            <td className="px-2 border-r">{d.id}</td>
-                            <td className="px-2 border-r">
-                              <Link to={`/codebase/show/${d.id}`}>{d.name}</Link>
-                            </td>
-                            <td className="px-2 border-r">
-                              <button
-                                onClick={() => deleteCodebase(d.id)}
-                                className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]"
-                              >
-                                <img src="/recycle.png" alt="" />
-                                <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                  delete
-                                </p>
-                              </button>
+                      codebases?.data.map((d) => (
+                        <tr key={d.id} className="h-[48px] text-center ">
+                          <td className="px-2 border-r">{d.id}</td>
+                          <td className="px-2 border-r">
+                            <Link to={`/codebase/show/${d.id}`}>{d.name}</Link>
+                          </td>
+                          <td className="px-2 border-r">
+                            <button
+                              onClick={() => mutate(d.id)}
+                              className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#E74C3C]"
+                            >
+                              <img src="/recycle.png" alt="" />
+                              <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
+                                delete
+                              </p>
+                            </button>
 
-                            </td>
-                            <td>
-                              <button
-                                className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#5cb85c]"
-                              >
-                                <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
-                                  {d.codes.length} codes
-                                </p>
-                              </button>
-                            </td>
-                            <td>
-                              <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
-                                <Link to={`/codebase/show/${d.id}/manage`}>
-                                  edit
-                                </Link>
-                              </button>
-                            </td>
-                          </tr>
-                        )) :
-                        <p>loading... </p>
+                          </td>
+                          <td>
+                            <button
+                              className="w-[70.08px] text-white flex justify-center items-center gap-3  h-[19.5px] rounded-[2.63px] bg-[#5cb85c]"
+                            >
+                              <p className="text-[.65625rem] leading-[10.5px]  font-open-sans font-bold">
+                                {d.codes.length} codes
+                              </p>
+                            </button>
+                          </td>
+                          <td>
+                            <button className="text-[#4CA2C7] h-[21px] border text-[.75rem] font-open-sans leading-[15px] w-[39.39px] border-[#C9C9C9]">
+                              <Link to={`/codebase/show/${d.id}/manage`}>
+                                edit
+                              </Link>
+                            </button>
+                          </td>
+                        </tr>
+                      ))
                     }
                   </tbody>
                 </table>
@@ -222,6 +202,9 @@ const CodeList = () => {
           <img src="/download-icon.png" alt="" />
           <span> Export code base (CSV)</span>
         </button>
+        <Modal ref={modal}>
+          <Spinner />
+        </Modal>
       </div>
     </DashBoardSubRoutesWrapper >
   );

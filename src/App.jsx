@@ -21,7 +21,8 @@ const Store = lazy(() => import("./Pages/Store/Store.jsx"));
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import Succesful from "./Pages/Succesful.jsx";
 import Fail from "./Pages/Fail.jsx";
-
+import ForgotPassword from "./Pages/ForgotPassword.jsx";
+import '../i18next.jsx'
 const App = () => {
   const queryClient = new QueryClient();
   return (
@@ -99,6 +100,7 @@ const App = () => {
                   </Suspense>
                 }
               />
+              <Route element={<ForgotPassword />} path="/forgot-password" />
               <Route path="/rest/order-viewer/buy/:product_id" element={<BuyProduct />} />
               <Route path="/404" element={<ProductNotFound />} />
             </Routes>

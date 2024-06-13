@@ -1,0 +1,188 @@
+{
+  "login": {
+    "line1": "Zaloguj się do Panelu",
+    "line2": "Nazwa użytkownika",
+    "line3": "Hasło",
+    "line4": "Zaloguj się",
+    "line5": "Dołączanie do",
+    "line6": "Zapomniałeś hasła",
+    "line7": "Rozpocznij swoją podróż tutaj",
+    "line8": "tylko kilka kliknięć i zaczynamy"
+  },
+  "forgetpwd": {
+    "line1": "Hasło tymczasowe zostało wysłane na Twój adres e-mail",
+    "line2": "Zaloguj się przy użyciu tego tymczasowego hasła i, jeśli chcesz, możesz go użyć do zresetowania nowego hasła",
+    "line3": "Przejdź do strony logowania",
+    "line4": "Prosimy o wpisanie poniżej swojego adresu e-mail",
+    "line5": "Jeśli adres e-mail jest poprawny, otrzymasz tymczasowe hasło, które posłuży do ustawienia nowego hasła",
+    "line6": "Proszę podać swój adres e-mail",
+    "line7": "Przetwarzanie",
+    "line8": "Uzyskaj hasło tymczasowe"
+  },
+  "sidebar": {
+    "dashboard": "Panel",
+    "products": "Produkty",
+    "allProducts": "Wszystkie Produkty",
+    "createNew": "Utwórz Nowy",
+    "paymentMethods": "Metody Płatności",
+    "customers": "Klienci",
+    "newTransaction": "Nowa Transakcja",
+    "listOfTransactions": "Lista Transakcji",
+    "salesStatistics": "Statystyki Sprzedaży",
+    "salesSettings": "Ustawienia Sprzedaży",
+    "store": "Sklep",
+    "codeBases": "Bazy Kodów",
+    "newBaseCodes": "Nowe Bazy Kodów",
+    "codeList": "Lista Kodów",
+    "exportCode": "Eksport Kodów",
+    "marketing": "Marketing",
+    "newEmailCampaign": "Nowa Kampania Email",
+    "listOfEmailCampaign": "Lista Kampanii Email",
+    "newShipment": "Nowa Wysyłka",
+    "listOfAutomaticShipment": "Lista Automatycznych Wysyłek",
+    "ebay": "Ebay",
+    "connectedAccounts": "Połączone Konta",
+    "automaticMonitoring": "Automatyczne Monitorowanie",
+    "ebayConfigurations": "Konfiguracje Ebay",
+    "settings": "Ustawienia",
+    "layout": "Układ"
+  },
+  "main-dashboard": {
+    "header": "Pulpit nawigacyjny",
+    "subheader": "Główny pulpit nawigacyjny",
+    "sold-codes": "łącznie sprzedanych kodów",
+    "month-sold-codes": "sprzedane kody w tym miesiącu",
+    "month-income": "przychód w tym miesiącu",
+    "today-income": "dzisiejszy przychód"
+  },
+  "bar": {
+    "stat": "Statystyki",
+    "prod-sale": "Sprzedaż produktów",
+    "past-days": "Ostatnie 7 dni"
+  },
+  "line": {
+    "qty-sold": "Ilość sprzedanych kodów",
+    "start-date": "Data rozpoczęcia",
+    "end-date": "Data zakończenia",
+    "see-full-stat": "Zobacz pełne statystyki"
+  },
+  "all-prod": {
+    "header": "Pulpit nawigacyjny/Produkty",
+    "subheader": "Produkty",
+    "ID": "ID",
+    "product-name": "Nazwa produktu",
+    "price": "Cena",
+    "status": "Status",
+    "integrate-info": "Jeśli chcesz zintegrować platformę Automater ze swoim sklepem internetowym lub sprzedawać produkty za pośrednictwem podstrony sprzedaży, musisz najpierw dodać je do systemu.",
+    "new-prod": "Nowy produkt",
+    "after-adding": "Po dodaniu produktu otrzymasz unikalny link do strony sprzedaży. Możesz go umieścić na swojej stronie internetowej lub w sklepie."
+  },
+  "entries-count": {
+    "show": "pokaż",
+    "entries": "wpisy",
+    "num-of-entries": "Wyświetlanie 1 z 1 wpisów"
+  },
+  "delete": {
+    "delete": "Usuń",
+    "sure": "Czy na pewno chcesz usunąć",
+    "deleting": "Usuwanie",
+    "cancel": "Anuluj"
+  },
+  "paginator": {
+    "previous": "Poprzedni",
+    "next": "Następny"
+  },
+  "productDetails": {
+    "header": "Panel/Produkty/",
+    "subheader": "Szczegóły produktu",
+    "description": "Opis",
+    "overview": "Przegląd",
+    "thumbnail": "Miniatura",
+    "sellPage": "Strona sprzedaży",
+    "productName": "Nazwa produktu",
+    "price": "Cena",
+    "buyProductLink": "Twój produkt można kupić pod adresem"
+  },
+
+  "productDetailExtension": {
+    "statusHeader": "Status",
+    "productInStock": "Produkt jest dostępny",
+    "pauseSaleButton": "Zatrzymaj sprzedaż",
+    "managementHeader": "Zarządzanie",
+    "showDetails": "Pokaż szczegóły",
+    "productSettings": "Ustawienia produktu",
+    "deleteProduct": "Usuń produkt",
+    "statisticsHeader": "Statystyki",
+    "purchases": "zakupów",
+    "soldProducts": "sprzedanych produktów",
+    "allValue": "całkowita wartość"
+  },
+
+  "newProduct": {
+    "header": "Deska rozdzielcza/Produkty/nowość",
+    "subheader": "Nowy produkt",
+    "productName": "Nazwa produktu",
+    "productDescription": "Opis produktu",
+    "description": "Opis produktu znajdziesz na stronie transakcyjnej. Dodaj tutaj najważniejsze informacje o swoim produkcie.",
+    "priceAndCurrency": "Cena i waluta",
+    "settingsLayout": "Układ ustawień",
+    "chooseLayout": "Wybierz układ, z którego ustawienia będą przesyłane do monitorowania.",
+    "addNewLayout": "Kliknij tutaj, aby dodać nowy układ ustawień.",
+    "codeBase": "Baza kodów",
+    "chooseCodebase": "Wybierz bazę kodów, z której kody będą wysyłane do klientów.",
+    "addNewCodebase": "Kliknij tutaj, aby dodać nową bazę kodów.",
+    "addNewProduct": "Dodaj nowy produkt",
+    "trademarksAndInfringements": {
+      "header": "Znaki towarowe i naruszenia",
+      "content": "W nazwach, opisach produktów i zdjęciach nie możesz używać zarejestrowanych znaków towarowych firm (np. Netflix Inc.). Sklepy łamiące ten zakaz będą automatycznie zablokowane."
+    },
+    "advancedIntegration": {
+      "header": "Zaawansowana integracja",
+      "documentationLink": "dokumentacja sklepu",
+      "apiLink": "dokumentacja API",
+      "contactUs": "W przypadku problemów z integracją skontaktuj się z nami."
+    },
+    "invalidPrice": "Nieprawidłowa cena",
+    "inputAllFields": "Wypełnij wszystkie pola",
+    "pleaseAddCodes": "Proszę dodać kody, aby kontynuować"
+  },
+  "general": {
+    "goToLoginError": "Przejdź do logowania",
+    "serverError": "Serwer zwrócił:",
+    "noneOption": "Brak"
+  },
+  "new-payment-method": {
+    "header": "Panel sterowania/Produkty/Nowe konta",
+    "subheader": "Nowa metoda płatności",
+    "accountName": "Nazwa konta",
+    "enterAccountName": "Wprowadź nazwę konta",
+    "accountType": "Typ konta",
+    "selectAccountType": "Wybierz operatora płatności, z którym chcesz połączyć swoje konto",
+    "accountStatus": "Status konta",
+    "accountActive": "Konto aktywne",
+    "accountInactive": "Konto nieaktywne",
+    "paymentMethods": "Metody płatności",
+    "addNewAccount": "Dodaj nowe konto",
+    "paymentMethodsDesc": "Możesz połączyć swoje konto Automater z operatorem płatności, aby umożliwić sprzedaż produktów przez sklep internetowy.",
+    "connectedPaymentAccounts": "Podłączone konta płatności są używane do dokonywania płatności za pośrednictwem sklepu internetowego w Automater i za pośrednictwem strony internetowej z zakupami.",
+    "usingOwnOnlineStore": "Jeśli używasz własnego sklepu internetowego (np. Magento lub Shoper.pl), nie dodawaj tutaj konta. Płatności są dokonywane bezpośrednio przez sklep."
+  },
+  "store-payment-methods": {
+    "header": "Sklep/Metody Płatności",
+    "subheader": "Metoda płatności w sklepie",
+    "id": "ID",
+    "accountName": "Nazwa konta",
+    "accountType": "Typ konta",
+    "status": "Status",
+    "active": "Aktywny",
+    "linked": "Połączony",
+    "notLinked": "Niepołączony",
+    "edit": "edytuj",
+    "addNewAccount": "Dodaj nowe konto",
+    "noAccountsConfigured": "Nie skonfigurowano żadnych kont."
+  },
+  "storeNav": {
+    "paymentMethod": "Metody płatności",
+    "storeConfiguration": "Konfiguracja sklepu"
+  }
+}

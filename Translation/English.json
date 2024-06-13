@@ -1,0 +1,190 @@
+{
+  "login": {
+    "line1": "Login to Dashboard",
+    "line2": "Username",
+    "line3": "Password",
+    "line4": "Proceed to sign in",
+    "line5": "Signing in",
+    "line6": "Forgot your password",
+    "line7": "Start Your Journey Here",
+    "line8": "just a couple of clicks and we start"
+  },
+  "forgetpwd": {
+    "line1": "A temporary password has been sent to your email.",
+    "line2": "Login with this temporary password, and feel free to use it to reset a new password if you wish.",
+    "line3": "Go to login page",
+    "line4": "Kindly enter your email address below",
+    "line5": "If email is correct, you would receive a temporary password that would be used to set a new password",
+    "line6": "Kindly enter your email address",
+    "line7": "Processing",
+    "line8": "Get temporary password"
+  },
+  "sidebar": {
+    "dashboard": "Dashboard",
+    "products": "Products",
+    "allProducts": "All Products",
+    "createNew": "Create New",
+    "paymentMethods": "Payments Methods",
+    "customers": "Customers",
+    "newTransaction": "New Transaction",
+    "listOfTransactions": "List of Transactions",
+    "salesStatistics": "Sales Statistics",
+    "salesSettings": "Sales Settings",
+    "store": "Store",
+    "codeBases": "Code Bases",
+    "newBaseCodes": "New Base Codes",
+    "codeList": "Code List",
+    "exportCode": "Export Code",
+    "marketing": "Marketing",
+    "newEmailCampaign": "New Email Campaign",
+    "listOfEmailCampaign": "List Of Email Campaign",
+    "newShipment": "New Shipment",
+    "listOfAutomaticShipment": "List Of Automatic Shipment",
+    "ebay": "Ebay",
+    "connectedAccounts": "Connected Accounts",
+    "automaticMonitoring": "Automatic Monitoring",
+    "ebayConfigurations": "Ebay Configurations",
+    "settings": "Settings",
+    "layout": "Layout"
+  },
+  "main-dashboard": {
+    "header": "Dashboard",
+    "subheader": "Main Dashboard",
+    "sold-codes": "total sold codes",
+    "month-sold-codes": "sold code this month",
+    "month-income": "income this month",
+    "today-income": "income today"
+  },
+  "bar": {
+    "stat": "Statistics",
+    "prod-sale": "Product sales",
+    "past-days": "Last 7 days"
+  },
+  "line": {
+    "qty-sold": " Quantity of sold codes",
+    "start-date": "date from",
+    "end-date": "end date",
+    "see-full-stat": "see full statistics"
+  },
+
+  "all-prod": {
+    "header": "Dashboard/Products",
+    "subheader": "Products",
+    "ID": "ID",
+    "product-name": "Product name",
+    "price": "price",
+    "new-prod": "New product",
+    "status": "status",
+    "after-adding": " After adding the product you will receive a unique link to the sales page. You can put it on your website or in the store.",
+    "integrate-info": "If you want to integrate the Automater platform with your online store or sell products through the sales sub page, you must first add them to the system."
+  },
+  "entries-count": {
+    "show": "show",
+    "entries": "entries",
+    "num-of-entries": "Showing 1 of 1 entries"
+  },
+  "delete": {
+    "delete": "Delete",
+    "sure": "Are you sure you want to be delete",
+    "deleting": "Deleting",
+    "cancel": "Cancel"
+  },
+
+  "productDetails": {
+    "header": "Dashboard/Products/",
+    "subheader": "Product Details",
+    "description": "Description",
+    "overview": "Overview",
+    "thumbnail": "Thumbnail",
+    "sellPage": "Sell-page",
+    "productName": "Product name",
+    "price": "Price",
+    "buyProductLink": "Your product can be purchased at"
+  },
+  "paginator": {
+    "previous": "Previous",
+    "next": "Next"
+  },
+
+  "productDetailExtension": {
+    "statusHeader": "Status",
+    "productInStock": "Product is in stock",
+    "pauseSaleButton": "Pause sale",
+    "managementHeader": "Management",
+    "showDetails": "Show details",
+    "productSettings": "Product settings",
+    "deleteProduct": "Delete product",
+    "statisticsHeader": "Statistics",
+    "purchases": "purchases",
+    "soldProducts": "sold products",
+    "allValue": "all value"
+  },
+
+  "newProduct": {
+    "header": "Dashboard/Products/new",
+    "subheader": "New Product",
+    "productName": "Product name",
+    "productDescription": "Product description",
+    "description": " Product description will be found in transaction website. Add the most important information about your product here.",
+    "priceAndCurrency": "Price and currency",
+    "settingsLayout": "Settings layout",
+    "chooseLayout": "Choose layout from which settings will be submitted to monitoring.",
+    "addNewLayout": "Click here to add new settings layout.",
+    "codeBase": "Code base",
+    "chooseCodebase": "Choose codebase from which codes will be sent to customers.",
+    "addNewCodebase": "Click here to add new codebase.",
+    "addNewProduct": "Add new product",
+    "trademarksAndInfringements": {
+      "header": "Trademarks and infringements",
+      "content": "In the names, product descriptions and photos, you can not use registered trademarks of companies (eg Netflix Inc.). Shops that break this prohibition will be automatically blocked."
+    },
+    "advancedIntegration": {
+      "header": "Advanced integration",
+      "documentationLink": "store documentation",
+      "apiLink": "API documentation",
+      "contactUs": "In case of problems with integration contact us."
+    },
+    "invalidPrice": "Invalid price",
+    "inputAllFields": "Input all fields",
+    "pleaseAddCodes": "Please add codes to continue"
+  },
+  "general": {
+    "goToLoginError": "Go to login",
+    "serverError": "Server returned with:",
+    "noneOption": "None"
+  },
+  "new-payment-method": {
+    "header": "Dashboard/Products/New Accounts",
+    "subheader": "New payment method",
+    "accountName": "Account name",
+    "enterAccountName": "Enter account name",
+    "accountType": "Account type",
+    "selectAccountType": "Select the payment Operator you want to connect your account with",
+    "accountStatus": "Account status",
+    "accountActive": "Account active",
+    "accountInactive": "Account inactive",
+    "paymentMethods": "Payment methods",
+    "addNewAccount": "Add new account",
+    "paymentMethodsDesc": "You can connect your Automater account with a payment operator to allow the sale of products through the online store.",
+    "connectedPaymentAccounts": "Connected payment accounts are used for payments to be made via the online store in Automater and through the shopping website.",
+    "usingOwnOnlineStore": "If you are using your own online store (e.g. Magento or Shoper.pl), do not add an account here. Payments are then made directly by the shop."
+  },
+  "store-payment-methods": {
+    "header": "Store/Payment Methods",
+    "subheader": "Payment Method in store",
+    "id": "ID",
+    "accountName": "Account name",
+    "accountType": "Account type",
+    "status": "Status",
+    "active": "Active",
+    "linked": "Linked",
+    "notLinked": "Not linked",
+    "edit": "edit",
+    "addNewAccount": "Add new account",
+    "noAccountsConfigured": "No accounts have been configured."
+  },
+  "storeNav": {
+    "paymentMethod": "Payment Method",
+    "storeConfiguration": "Store configuration"
+  }
+}

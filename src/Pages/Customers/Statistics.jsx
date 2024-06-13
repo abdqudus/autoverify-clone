@@ -8,12 +8,13 @@ import {
 } from "recharts";
 import { graphData } from "../../data";
 import QuantitySold from "../../component/QuantitySold";
+import { t } from "i18next";
 
 const Statistics = () => {
   return (
     <div className="my-6 bg-white py-4 sm:px-4 ">
       <h3 className="font-semibold ml-4 sm:ml-0  mb-5 text-[1rem] text-[#333B69] leading-[19.36px] font-inter">
-        Statistics
+        {t('bar.stat')}
       </h3>
       <div className="grid lg:grid-cols-[1fr_256px] gap-4">
         {" "}
@@ -27,11 +28,11 @@ const Statistics = () => {
                 <div className="flex items-center gap-2">
                   <span className="h-8 w-4 bg-[#CABDFF] rounded-[4px]"></span>
                   <p className="text-[#1A1D1F] text-lg font-semibold leading-8">
-                    Product sales
+                    {t('bar.prod-sale')}
                   </p>
                 </div>
                 <div className="h-[40px] py-2 px-4 flex gap-3 justify-center items-center bg-[#EFEFEF]">
-                  <p className="font-semibold text-sm leading-6">Last 7 days</p>
+                  <p className="font-semibold text-sm leading-6">{t('bar.past-days')}</p>
                   <img src="/arrow-down.png" alt="" />
                 </div>
               </header>

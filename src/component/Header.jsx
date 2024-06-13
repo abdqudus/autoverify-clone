@@ -2,6 +2,7 @@ import { useRef } from "react";
 import HambugerItems from "./HambugerItems";
 import { closeHamburger, handleHamburgerClick } from "../utils/hambuger";
 import UseHamburgerContext from "../contexts/UseHamburgerContext";
+import LanguageSelect from "./LanguageSelect";
 
 const Header = () => {
   const { dispatch } = UseHamburgerContext();
@@ -31,7 +32,7 @@ const Header = () => {
         <h3 className="text-[2.5rem]  leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>
-        <div className="flex  justify-between gap-6 items-center">
+        {/* <div className="flex  justify-between gap-6 items-center">
           <div className="flex gap-2 items-center">
             <img
               className="hidden md:block"
@@ -48,7 +49,8 @@ const Header = () => {
             />
             <img src="/dp.png" alt="" />
           </div>
-        </div>
+        </div> */}
+        <LanguageSelect  />
         <HambugerItems
           inputRef={inputRef}
           closeHamburger={(e) => {

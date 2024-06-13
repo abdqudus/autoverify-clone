@@ -1,18 +1,21 @@
-import UseHamburgerContext from "../contexts/UseHamburgerContext";
-import DropDown from "./DropDown";
+import React from 'react';
+import UseHamburgerContext from '../contexts/UseHamburgerContext';
+import DropDown from './DropDown';
+
 const ProductsMenu = ({ menu }) => {
   const { state, dispatch } = UseHamburgerContext();
   const { text, src, dropDownItems, srcActive } = menu;
   const { expandedSection } = state;
   const handleExpansion = () => {
     dispatch({
-      type: "SET_EXPANDED_SECTION",
-      payload: expandedSection == text ? "" : text,
+      type: 'SET_EXPANDED_SECTION',
+      payload: expandedSection === text ? '' : text,
     });
   };
+
   return (
     <div
-      className={`transition-[height] group border-gray-500 overflow-hidden relative ${expandedSection == text ? "h-[162px]" : "h-[48px]"
+      className={`transition-[height] group border-gray-500 overflow-hidden relative ${expandedSection === text ? 'h-[162px]' : 'h-[48px]'
         }`}
     >
       <div
@@ -35,7 +38,7 @@ const ProductsMenu = ({ menu }) => {
               <img
                 src="/arrow-down.png"
                 alt=""
-                className={`${expandedSection === text ? "rotate-180" : "rotate-0"
+                className={`${expandedSection === text ? 'rotate-180' : 'rotate-0'
                   } transition`}
               />
             </span>

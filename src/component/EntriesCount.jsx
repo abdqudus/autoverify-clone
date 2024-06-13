@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { getLimit, setLimit } from '../utils/pagination';
 import { useQuery } from '@tanstack/react-query';
+import { useTranslation } from 'react-i18next';
 
 const EntriesCount = () => {
     const [count, setCount] = useState(5);
-
+    const { t } = useTranslation()
     const prefillCount = () => {
         return getLimit(5);
     };
@@ -30,7 +31,7 @@ const EntriesCount = () => {
     return (
         <div className="flex items-center gap-2 flex-wrap mt-4">
             <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-                show
+                {t('entries-count.show')}
             </p>
             <select value={count} onChange={handleCount} className="bg-white border text-[#444444] w-[100px] border-[#333333] h-[34px] rounded-[4px]">
                 <option value={3}>3</option>
@@ -41,7 +42,7 @@ const EntriesCount = () => {
                 <option value={100}>100</option>
             </select>
             <p className="font-poppins font-semibold text-[.875rem] leading-[22.4px] text-[#333333]">
-                entries
+                {t('entries-count.entries')}
             </p>
         </div>
     );

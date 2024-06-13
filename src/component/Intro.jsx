@@ -1,10 +1,13 @@
 import { useState } from "react";
 import * as tokenUtil from "../utils/tokenUtil";
-import { useNavigate } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
+import Spinner from '../component/Spinner'
+import { useLanguageContext } from "../contexts/languageContext";
 const Intro = () => {
+  const { t } = useLanguageContext();
   const navigate = useNavigate();
   const [credential, setCredential] = useState({ username: "", password: "" });
+  const [isLoading, setIsLoading] = useState(false)
   const onLoginSuccess = () => {
     navigate("/");
   };
@@ -13,6 +16,7 @@ const Intro = () => {
   };
 
   const handleLogin = async () => {
+    setIsLoading(true)
     const { username, password } = credential;
     if (username && password) {
       const res = await tokenUtil.loginUser(credential);
@@ -33,11 +37,11 @@ const Intro = () => {
     <div className="mt-12 md:mt-[6rem] px-2 flex flex-col-reverse md:grid grid-cols-3/2 gap-4 auto-rows-fr justify-between  sm:w-[85%] sm:mx-auto">
       <form className="h-[420px] relative max-w-[550px] shadow-form-shadow p-4 px-8 rounded-md bg-white flex flex-col gap-4 ">
         <h3 className="text-black hidden sm:block font-semibold !leading-9 text-xl">
-          Login to Dashboard
+          {t('login.line1')}
         </h3>
         <div className="flex flex-col justify-between sm:gap-1 gap-4 ">
           <label htmlFor="username">
-            Username <span className="text-[#C70000]">*</span>
+            {t('login.line2')} <span className="text-[#C70000]">*</span>
           </label>
           <input
             name="username"
@@ -49,7 +53,7 @@ const Intro = () => {
         </div>
         <div className="flex flex-col sm:gap-1 gap-4 justify-between">
           <label htmlFor="password">
-            Password <span className="text-[#C70000]">*</span>
+            {t('login.line3')} <span className="text-[#C70000]">*</span>
           </label>
           <input
             type="password"
@@ -65,13 +69,18 @@ const Intro = () => {
           onClick={handleLogin}
           className="max-w-[204px] px-4 shadow-login-shadow font-bold text-[15px] leading-[22.5px] text-center h-[39px] mt-3 rounded-[5px] bg-[#0076C8] text-white"
         >
-          Proceed to Signin
+          {isLoading ? <span className=" flex gap-4 justify-center items-center">
+            <span>{t('login.line5')} </span>
+            <Spinner h="h-4" w="w-4" />
+          </span> :
+            t('login.line4')
+          }
+
         </button>
-        <p className="ml-auto mt-4 sm:hidden text-[#474B4D] text-[.875rem] tracking-wider leading-[21px]">
-          Don't have an account yet?{" "}
-          <a href="#" className="text-[#044E82] font-semibold">
-            Register
-          </a>
+        <p>
+          <Link to='/forgot-password'>
+            {t('login.line6')}?
+          </Link>
         </p>
         <div className="absolute -z-10 top-[89%]">
           <img src="/square-dot.svg" alt="" />
@@ -88,17 +97,17 @@ const Intro = () => {
         </div>
         <div className="sm:mt-4 my-8">
           <p className="font-semibold text-[2rem] leading-[40px] text-center">
-            Start Your Journey Here
+            {t('login.line7')}
           </p>
           <p className="text-xl font-normal text-center leading-[30px]">
-            just a couple of clicks and we start
+            {t('login.line8')}
           </p>
         </div>
       </div>
       <h3 className="text-black sm:hidden my-8 mt-10 text-center font-semibold !leading-9 text-xl">
-        Login to Dashboard
+        {t('login.line1')}
       </h3>
-    </div>
+    </div >
   );
 };
 

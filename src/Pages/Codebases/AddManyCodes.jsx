@@ -24,12 +24,11 @@ const AddManyCodes = () => {
 
 
   const addToCodeBase = async () => {
-    // textVal
     console.log('useparam id', id);
     const access_token = await _checkLog();
     const endpoint = new base.CodebaseEndpoint(access_token, {});
     const res = endpoint.handle_text_file(textVal, id);
-    console.log(res);
+    navigate(`/codebase/show/${id}/manage`);
   }
 
   return (

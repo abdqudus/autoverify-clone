@@ -1,23 +1,26 @@
-import { NavLink } from "react-router-dom";
-import UseHamburgerContext from "../contexts/UseHamburgerContext";
-import { closeSideBar } from "../utils/hambuger";
+import React from 'react';
+import { NavLink } from 'react-router-dom';
+import UseHamburgerContext from '../contexts/UseHamburgerContext';
+import { closeSideBar } from '../utils/hambuger';
 
 const Menu = ({ menu, children }) => {
   const { state, dispatch } = UseHamburgerContext();
   const { refs } = state;
   const { text, hasDropDown, src, newHeight, linkTo, srcActive } = menu;
   const { expandedSection } = state;
+
   const handleExpansion = () => {
     dispatch({
-      type: "SET_EXPANDED_SECTION",
-      payload: expandedSection == text ? "" : text,
+      type: 'SET_EXPANDED_SECTION',
+      payload: expandedSection === text ? '' : text,
     });
   };
+
   if (hasDropDown) {
-    const isText = expandedSection == text;
+    const isText = expandedSection === text;
     return (
       <div
-        className={`transition-[height] group overflow-hidden relative  ${isText ? newHeight : "h-[48px]"
+        className={`transition-[height] group overflow-hidden relative  ${isText ? newHeight : 'h-[48px]'
           }`}
       >
         <div
@@ -35,7 +38,7 @@ const Menu = ({ menu, children }) => {
             <img
               src="/arrow-down.png"
               alt=""
-              className={`${isText ? "rotate-180" : "rotate-0"} transition`}
+              className={`${isText ? 'rotate-180' : 'rotate-0'} transition`}
             />
           </div>
         </div>
@@ -44,22 +47,15 @@ const Menu = ({ menu, children }) => {
     );
   }
   return (
-    <div
-      className=""
-      onClick={() => closeSideBar(refs.divRef, refs.inputRef)}
-    >
+    <div onClick={() => closeSideBar(refs.divRef, refs.inputRef)}>
       <NavLink className="group" to={linkTo}>
-        <div
-          className={`flex px-4 gap-4 text-[.9375rem] 
-         font-semibold h-[48px] py-[12px] items-center`}
-        >
+        <div className="flex px-4 gap-4 text-[.9375rem] font-semibold h-[48px] py-[12px] items-center">
           <img src={src} alt="" className="sm:group-[.active]:hidden" />
           <img
             src={srcActive}
             alt=""
             className="hidden sm:group-[.active]:block"
           />
-
           <p className="leading-6 sm:group-[.active]:text-[#2D60FF] text-[#6F767E]">
             {text}
           </p>

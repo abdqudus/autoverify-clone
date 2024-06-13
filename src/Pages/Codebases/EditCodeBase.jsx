@@ -26,6 +26,18 @@ const EditCodeBase = () => {
   const { id } = useParams();
   const CodeBaseID = id;
 
+  class CodebasePaginator extends Paginator {
+    async _get_list(limit, offset) {
+      return await this.endpoint.codes(
+        this.codebase_id,
+        limit,
+        offset,
+        this.reverseWhat,
+        this.toReverse,
+      )
+    }
+  }
+
   useEffect(() => {
     const handleKeyDown = (event) => {
       if (event.key === 'Enter' && isFocused) {
@@ -57,8 +69,9 @@ const EditCodeBase = () => {
   }
 
   const fetchCodes = async (page) => {
-    const endpoint = new base.CodeEndpoint(await _checkLog(), {});
-    const paginator = new Paginator(endpoint, page);
+    const endpoint = new base.CodebaseEndpoint(await _checkLog(), {});
+    const paginator = new CodebasePaginator(endpoint, page);
+    paginator.codebase_id = id;
     const res = (await paginator.current()).results;
     // window.paginator = paginator;
     return {

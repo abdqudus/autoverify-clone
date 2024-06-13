@@ -12,13 +12,14 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Paginator } from "../../utils/pagination";
 import PaginatorBtn from "../../component/PaginatorBtn";
 import DeleteModal from "../../component/DeleteModal";
+import { useTranslation } from "react-i18next";
 
 const AllProducts = () => {
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
   const [tobeDeleted, setTobeDeleted] = useState({ name: '', id: null })
   const [showModal, setShowModal] = useState(false);
-
+  const { t } = useTranslation()
   const fetchProducts = async (page) => {
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
@@ -59,11 +60,11 @@ const AllProducts = () => {
   }
 
   return (
-    <DashBoardSubRoutesWrapper header="Dashboard/Products" subheader="Products">
+    <DashBoardSubRoutesWrapper header={t('all-prod.header')} subheader={t('all-prod.subheader')}>
       <div className="border border-[#DDDDDD]  mt-8 p-3">
         <EntriesCount />
         <div className="max-w-full bg-[#F4F4F480] md:min-h-[406px] md:shadow-card-shadow overflow-x-scroll md:overflow-hidden mt-6">
-          <table className="min-w-[550px] w-full">
+          <table className="min-w-[550px] w-full text-left">
             <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
               <tr>
                 <th className="border-r md:border-r-0 pl-2 border-white">
@@ -77,18 +78,14 @@ const AllProducts = () => {
                     className="sr-only"
                   />
                 </th>
-                <th className="flex h-[50px] items-center gap-2 justify-center border-r  md:border-r-0  border-white">
-                  <img src="/double-triangle.png" alt="" />
-                  <p>ID</p>
+                <th className="border-r mx-4 px-4 md:border-r-0  border-white">
+                  {t('all-prod.ID')}
                 </th>
                 <th className="border-r  md:border-r-0 ">
-                  <div className="flex px-2 items-center gap-2 ">
-                    <img src="/double-triangle.png" alt="" />
-                    <p>Product name</p>
-                  </div>
+                  {t('all-prod.product-name')}
                 </th>
-                <th className="border-r  md:border-r-0 ">Price</th>
-                <th className="border-r  md:border-r-0 ">Status</th>
+                <th className="border-r mx-4 md:border-r-0 ">{t('all-prod.price')}</th>
+                <th className="border-r  md:border-r-0 ">{t('all-prod.status')}</th>
                 <th></th>
               </tr>
             </thead>
@@ -96,7 +93,7 @@ const AllProducts = () => {
               {/* {products.length >= 0 && <Spinner />} */}
               {/* {JSON.stringify(data)} */}
               {data ? data.map((p) => (
-                <tr key={p.product_id} className="h-[48px] text-center ">
+                <tr key={p.product_id} className="h-[48px] text-left ">
                   <td className="pl-2">
                     <label htmlFor={`check-${p.product_id}`}>
                       <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
@@ -109,7 +106,10 @@ const AllProducts = () => {
                     />
                   </td>
                   <td>
-                    <Link to={p.product_id}>{p.product_id}</Link>
+                    <span className="block w-[80px] overflow-hidden text-ellipsis whitespace-nowrap">
+
+                      <Link to={p.product_id}>{p.product_id}</Link>
+                    </span>
                   </td>
                   <td>{p.name}</td>
                   <td>{p.price}</td>
@@ -147,47 +147,26 @@ const AllProducts = () => {
         </div>
         <div className="mt-3 font-poppins font-normal pb-3 flex flex-col  gap-3">
           <p className="text-[.875rem] leading-[22.4px] text-[#333333]">
-            Showing 1 of 1 entries
+            {t('entries-count.num-of-entries')}
           </p>
 
           <PaginatorBtn paginator={data?.paginator} />
-          <div className="h-[96.39px] md:h-[74px] bg-[#F5F5F5] flex justify-center items-center rounded-[4px] border border-[#E3E3E3]">
-            <div className="md:justify-between  md:flex px-4 items-center w-full">
-              <p className="text-[#333333] text-[.75rem] leading-[22.4px] font-normal font-poppins">
-                apply the changes to the selected records:
-              </p>
-              <div className="flex gap-1 mt-1">
-                <select className="w-[125px] h-[34px] border border-[#CCCCCC]  rounded-[4px]">
-                  <option value="---">---</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                  <option value="option3">Option 3</option>
-                </select>
-                <button className="w-[45.47px] h-[34px] text-white rounded-[4px] bg-[#5CB85C]">
-                  OK
-                </button>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
       <div className="md:flex justify-between md:py-8">
         <NavLink to="/products/new-product">
           <button className="font-poppins my-8 md:my-0 rounded-[4px] text-[.75rem] text-white font-normal leading-5 flex justify-center items-center w-full md:w-[219px] h-[34px] bg-[#428BCA]">
-            New product
+            {t('all-prod.new-prod')}
           </button>
         </NavLink>
         <div className="min-h-[246.53px] md:w-[368px] shadow-product-shadow font-poppins font-normal text-[#333333] rounded-[4px] border border-[#E3E3E3] p-[10px] bg-[#F5F5F5]">
           <p className="text-[.875rem]  leading-[19.8px]">Products</p>
           <p className="my-5 text-[.75rem] leading-[22.4px]">
-            If you want to integrate the Automater platform with your online
-            store or sell products through the sales sub page, you must first
-            add them to the system.
+            {t('all-prod.integrate-info')}
           </p>
           <p className="text-[.75rem] leading-[22.4px]">
-            After adding the product you will receive a unique link to the sales
-            page. You can put it on your website or in the store.
-          </p>
+            {t('all-prod.after-adding')} </p>
         </div>
       </div>
       <DeleteModal onDelete={onDelete} tobeDeleted={tobeDeleted} showModal={showModal} setShowModal={setShowModal} />

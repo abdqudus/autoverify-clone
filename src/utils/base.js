@@ -34,6 +34,9 @@ const user_endpoints = {
   partial_update: "/api/v1/users/{id}/",
   delete: "/api/v1/users/{id}/",
   me: "/api/v1/users/me/",
+  change_password: "/api/v1/users/password_reset/",
+  reset_and_send_password_to_email:
+    "/api/v1/users/reset_and_send_password_to_email/",
 };
 
 const general_settings_endpoints = {
@@ -61,6 +64,9 @@ const codebase_endpoints = {
   download_sent_codes: "/api/v1/codebases/{id}/download_sent_codes/",
   download_unsent_codes: "/api/v1/codebases/{id}/download_unsent_codes/",
   handle_text_file: "/api/v1/bulk-codes/handle_text_file/",
+  delete_sent_files_from_base:
+    "/api/v1/codebases/{id}/delete_sent_files_from_base/",
+  codes: "/api/v1/codebases/{id}/codes/",
 };
 
 const code_endpoints = {
@@ -97,6 +103,11 @@ const ebay_account_endpoints = {
   activate: "/api/v1/ebay_connector/{account_id}/activate_account/",
 };
 
+const payment_history_endpoints = {
+  list: "/api/v1/payment_history/",
+  read: "/api/v1/payment_history/{id}",
+};
+
 const store_setting_endpoints = {
   get_settings: "/api/v1/store_settings/get_settings/",
   update_settings: "/api/v1/store_settings/update_settings/",
@@ -129,8 +140,9 @@ export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms * 1000));
 }
 
-const DEFAULT_ERROR_METHOD = (res) => {
+const DEFAULT_ERROR_METHOD = (res, content) => {
   console.warn("you are suppose to handle this error", res);
+  console.warn(content);
 };
 
 function _formatDate(date) {
@@ -266,7 +278,7 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
         }
       } else {
         try {
-          error(res);
+          error(res, resource);
         } catch (error) {
           console.error("Error call back throwed an error", error);
           console.error(
@@ -369,7 +381,9 @@ export class ProductEndpoint extends _RequestEndpoint {
     }
     return list;
   }
-
+  async grand_list(...args) {
+    return await super.list(...args);
+  }
   async list_unpaginated(...args) {
     return await this.list(null, ...args);
   }
@@ -422,6 +436,26 @@ export class CodebaseEndpoint extends ProductEndpoint {
       code_list: text,
       codebase_id: codebase_id,
     });
+  }
+
+  async delete_sent_files_from_base(codebase_id) {
+    const endpoint = _join(
+      this.endpoints.delete_sent_files_from_base.replace(
+        `{${this.id_name}}`,
+        codebase_id
+      )
+    );
+    return await this.put(endpoint, {});
+  }
+
+  async codes(codebase_id, ...list_arguments) {
+    const endpoint = _join(
+      this.endpoints.codes.replace(`{${this.id_name}}`, codebase_id)
+    );
+    console.log("codebase_id", codebase_id);
+    console.log("endpoint ", endpoint);
+    console.log("...list_arguments", list_arguments);
+    return await this.grand_list(endpoint, ...list_arguments);
   }
 }
 
@@ -503,6 +537,23 @@ export class UserEndpoint extends ProductEndpoint {
     const endpoint = _join(this.endpoints.me);
     return await this.get(endpoint, {});
   }
+
+  async change_password(new_password, repeat_new_password, old_password) {
+    const endpoint = _join(this.endpoints.change_password);
+    return await this.put(endpoint, {
+      new_password: new_password,
+      repeat_new_password: repeat_new_password,
+      old_password: old_password,
+    });
+  }
+
+  async reset_and_send_password_to_email(email) {
+    const endpoint = _join(this.endpoints.reset_and_send_password_to_email);
+
+    return await this.put(endpoint, {
+      email: email,
+    });
+  }
 }
 
 export class GeneralSettingsEndpoint extends ProductEndpoint {
@@ -526,6 +577,11 @@ export class PersonalSettingsEndpoint extends GeneralSettingsEndpoint {
 
 export class CodeEndpoint extends ProductEndpoint {
   endpoints = code_endpoints;
+  id_name = "id";
+}
+
+export class PaymentHistory extends ProductEndpoint {
+  endpoints = payment_history_endpoints;
   id_name = "id";
 }
 

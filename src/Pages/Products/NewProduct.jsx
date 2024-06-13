@@ -6,10 +6,12 @@ import * as base from "../../utils/base";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../component/Loader";
+import { useTranslation } from "react-i18next";
 
 const UNPAGINATE = null;
 
 const NewProduct = () => {
+  const { t } = useTranslation()
   const navigate = useNavigate();
   const { data = { codebases: [], layouts: [] }, isPending } = useQuery({
     queryKey: ["new-product"],
@@ -124,12 +126,12 @@ const NewProduct = () => {
   return (
     <DashBoardSubRoutesWrapper
       font="font-poppins"
-      header="Dashboard/Products/New"
-      subheader="New Product"
+      header={t('newProduct.header')}
+      subheader={t('newProduct.subheader')}
     >
       <div className="mt-4 flex flex-col gap-2">
         <p className=" font-open-sans font-normal leading-[22.4px] text-sm text-[#333333]">
-          Product name
+          {t('newProduct.productName')}
         </p>
         <input
           name="name"
@@ -140,15 +142,14 @@ const NewProduct = () => {
         />
       </div>
       <div className="text-sm mt-2 text-[#333333] leading-[22.4px]  font-open-sans font-normal ">
-        <p>Product description</p>
+        <p>{t('newProduct.productDescription')}</p>
         <p>
-          Product description will be found in transaction website. Add the most
-          important information about your product here.
+          {t('newProduct.description')}
         </p>
         <TextEditor val={{ textVal, setTextVal }} />
       </div>
       <div className="mt-4">
-        <p>Price and currency</p>
+        <p>{t('newProduct.priceAndCurrency')}</p>
         <div className="md:flex gap-6 mt-2">
           <input
             type="number"
@@ -166,13 +167,13 @@ const NewProduct = () => {
         </div>
       </div>
       <div className="text-[#333333] mt-4 font-open-sans font-normal text-[.875rem]">
-        <p>Settings layout</p>
+        <p>{t('newProduct.settingsLayout')}</p>
         <p className="mt-1 leading-[22.4px]">
-          Choose layout from which settings will be submitted to monitoring.
+          {t('newProduct.chooseLayout')}
           <a
             onClick={(e) => navigate_to_create_layout()}
             className="text-[#428BCA] pl-1">
-            Click here to add new settings layout.
+            {t('newProduct.addNewLayout')}
           </a>
         </p>
         <select
@@ -195,14 +196,14 @@ const NewProduct = () => {
         </select>
       </div>
       <div className="text-[#333333] mt-4 font-open-sans font-normal text-[.875rem]">
-        <p>Code base</p>
+        <p>  {t('newProduct.codeBase')}</p>
         <p className="mt-1 leading-[22.4px]">
-          Choose codebase from which codes will be sent to customers.
+          {t('newProduct.chooseCodebase')}
           <a
             onClick={(e) => navigate_to_create_codes()}
             className="text-[#428BCA] pl-1"
           >
-            Click here to add new codebase.
+            {t('newProduct.addNewCodebase')}.
           </a>
         </p>
         <select
@@ -225,9 +226,9 @@ const NewProduct = () => {
       <div className="mt-10 p-0">
         <button
           onClick={handleSendDetails}
-          className=" font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] w-[138.11px] bg-[#5CB85C] border border-[#4CAE4C]"
+          className=" font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] max-w-max px-2 bg-[#5CB85C] border border-[#4CAE4C]"
         >
-          Add new product
+          {t('newProduct.addNewProduct')}
         </button>
       </div>
       <div className="flex mt-[137px] lgs:-mt-4 lgs:justify-end flex-col lgs:flex-row gap-4">
