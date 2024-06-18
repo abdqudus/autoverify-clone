@@ -12,6 +12,12 @@ import Table from "../../component/Table";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import Loader from "../../component/Loader";
+import { Paginator } from "../../utils/pagination";
+import * as tokenUtil from "../../utils/tokenUtil";
+import * as base from "../../utils/base";
+import EntriesCount from "../../component/EntriesCount";
+import PaginatorBtn from "../../component/PaginatorBtn";
+import { useTranslation } from "react-i18next";
 
 const PaymentHistory = () => {
   const [page, setPage] = useState(0);
@@ -46,10 +52,13 @@ const PaymentHistory = () => {
       paginator: paginator,
     };
   }
-
+  const { t } = useTranslation()
   const { isLoading, data } = useQuery({
     queryKey: ['payment-history', page],
-    queryFn: () => getPaymentHistory(page),
+    queryFn: () => getPaymentHistory({
+      page: page,
+      setPage: setPage
+    }),
   });
 
   console.log(data);
@@ -65,17 +74,20 @@ const PaymentHistory = () => {
           </LayoutNavigations>
 
           <div className="mt-6 md:mt-0">
-            <p className="text-sm leading-[22.4px]">
-              Below is the account top-ups history and invoices issued. Invoices
-              are issued up to 7 days from the moment of topping up.
+            <EntriesCount />
+            <p className="text-sm mt-4 leading-[22.4px]">
+              {t('payment-history.open-transaction')}
             </p>
             {isLoading ?
               <Loader />
               :
               <Table
                 header={paymentHistoryHeader}
-                body={<PaymentHistoryTableBody body={paymentHistoryBody} />}
+                body={<PaymentHistoryTableBody body={data} />}
               />}
+            <div className="flex mt-5 justify-end">
+              <PaginatorBtn paginator={data?.paginator} />
+            </div>
           </div>
         </SettingsWrapper>
       </div>

@@ -45,6 +45,7 @@ const ProductsMenu = ({ menu }) => {
           </span>
         </div>
       </div>
+    
       <DropDown dropDownItems={dropDownItems} />
     </div>
   );

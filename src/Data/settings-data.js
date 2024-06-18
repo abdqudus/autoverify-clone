@@ -1,27 +1,33 @@
 export const settingsNavItems = [
-  { text: "Layout", route: "/settings/layout" },
-  { text: "General Settings", route: "/settings/general-settings" },
-  { text: "Personalized Messages", route: "/settings/personalised-messages" },
-  { text: "Payments", route: "/settings/payment-history" },
-  { text: "Change Password", route: "/settings/change-password" },
+  { textKey: "navigation.layout", route: "/settings/layout" },
+  {
+    textKey: "navigation.generalSettings",
+    route: "/settings/general-settings",
+  },
+  {
+    textKey: "navigation.personalizedMessages",
+    route: "/settings/personalised-messages",
+  },
+  { textKey: "navigation.payments", route: "/settings/payment-history" },
+  { textKey: "navigation.changePassword", route: "/settings/change-password" },
 ];
 
 export const accountSettingsData = [
   {
     text: "Username (if you want to change this address, contact us)",
     placeholder: "sample username",
-    id: "username",
+    id: "Username",
     readOnly: true,
   },
   {
     text: "First name",
     placeholder: "Tekena",
-    id: "first_name",
+    id: "First name",
   },
   {
     text: "Last name",
     placeholder: "West",
-    id: "last_name",
+    id: "Last Name",
   },
   {
     text: "Email",
@@ -31,11 +37,11 @@ export const accountSettingsData = [
   },
 ];
 export const paymentHistoryHeader = [
-  { text: "Invoice number", size: "w-[40%]" },
-  { text: "Code", size: "w-[10%]" },
-  { text: "Amount", size: "w-[10%]" },
-  { text: "Quantity", size: "w-[10%]" },
-  { text: "Date", size: "w-[30%]" },
+  { text: "payment-history.invoice-number", size: "w-[40%]" },
+  { text: "payment-history.customer", size: "w-[10%]" },
+  { text: "payment-history.amount", size: "w-[10%]" },
+  { text: "payment-history.quantity", size: "w-[10%]" },
+  { text: "payment-history.date", size: "w-[30%]" },
 ];
 export const paymentHistoryBody = [
   {

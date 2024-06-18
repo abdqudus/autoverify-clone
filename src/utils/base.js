@@ -17,6 +17,15 @@ const product_endpoints = {
   buy: "/api/v1/public_store/{product_id}/",
 };
 
+const email_campaign_endpoints = {
+  list: "/api/v1/campaigns/",
+  create: "/api/v1/campaigns/",
+  read: "/api/v1/campaigns/{id}/",
+  update: "/api/v1/campaigns/{id}/",
+  partial_update: "/api/v1/campaigns/{id}/",
+  delete: "/api/v1/campaigns/{id}/",
+};
+
 const layout_endpoints = {
   list: "/api/v1/layouts/",
   create: "/api/v1/layouts/",
@@ -49,6 +58,11 @@ const personal_settings_endpoints = {
   update_settings: "/api/v1/personal_settings/update_settings/",
 };
 
+const ebay_settings_endpoints = {
+  get_settings: "/api/v1/ebay_settings/get_settings/",
+  update_settings: "/api/v1/ebay_settings/update_settings/",
+};
+
 const checkout_endpoints = {
   checkout: "/api/v1/checkout-endpoint/checkout/",
 };
@@ -76,6 +90,11 @@ const code_endpoints = {
   update: "/api/v1/codes/{id}/",
   partial_update: "/api/v1/codes/{id}/",
   delete: "/api/v1/codes/{id}/",
+};
+
+const custom_transaction_endpoints = {
+  list: "/api/v1/create_custom_transaction/",
+  create_transaction: "/api/v1/create_custom_transaction/create_transaction/",
 };
 
 const csrf_token_endpoint = {
@@ -115,6 +134,7 @@ const store_setting_endpoints = {
 
 const statistics = {
   get_data: "/api/v1/statistics/statistics/",
+  summary: "/api/v1/statistics/summary/",
 };
 
 const cloudinary_link =
@@ -136,6 +156,27 @@ export const getDomain = () => {
   return `${protocol}//${hostname}${port ? `:${port}` : ""}`;
 };
 
+export function createAndClickLink(url, external) {
+  const link = document.createElement("a");
+  link.href = url;
+
+  if (!url || url === ".") {
+    link.href = location.href;
+  }
+
+  if (external) {
+    link.target = "_blank";
+  }
+
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
+}
+
+export function reloadPage() {
+  createAndClickLink("");
+}
+
 export function sleep(ms) {
   return new Promise((resolve) => setTimeout(resolve, ms * 1000));
 }
@@ -145,7 +186,7 @@ const DEFAULT_ERROR_METHOD = (res, content) => {
   console.warn(content);
 };
 
-function _formatDate(date) {
+export function _formatDate(date) {
   // Get the year, month, and day from the date object
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0"); // getMonth() returns 0-based month
@@ -373,7 +414,7 @@ export class ProductEndpoint extends _RequestEndpoint {
     }
 
     // return unpaginated data
-    let paginated_res = await super.list(endpoint, 10000); // get as much as possible
+    let paginated_res = await super.list(endpoint, 1000); // get as much as possible
     const list = paginated_res.results;
     while (paginated_res.next !== null) {
       paginated_res = await this._fetch(paginated_res.next, "GET", undefined);
@@ -493,6 +534,13 @@ export class StoreSetting extends ProductEndpoint {
 export class EbayAccount extends ProductEndpoint {
   endpoints = ebay_account_endpoints;
   id_name = "account_id";
+
+  async activate(id, payload) {
+    const endpoint = _join(
+      this.endpoints.activate.replace(`{${this.id_name}}`, id)
+    );
+    return await this.post(endpoint, payload);
+  }
 }
 
 export class Statistics extends ProductEndpoint {
@@ -512,6 +560,11 @@ export class Statistics extends ProductEndpoint {
     const last7days = new Date();
     now.setDate(now.getDate() - 7);
     return await this.get_data(now, last7days);
+  }
+
+  async summary() {
+    const endpoint = _join(this.endpoints.summary);
+    return await this.get(endpoint, {});
   }
 }
 
@@ -575,6 +628,10 @@ export class PersonalSettingsEndpoint extends GeneralSettingsEndpoint {
   endpoints = personal_settings_endpoints;
 }
 
+export class EbaySettingsEndpoint extends GeneralSettingsEndpoint {
+  endpoints = ebay_settings_endpoints;
+}
+
 export class CodeEndpoint extends ProductEndpoint {
   endpoints = code_endpoints;
   id_name = "id";
@@ -582,6 +639,21 @@ export class CodeEndpoint extends ProductEndpoint {
 
 export class PaymentHistory extends ProductEndpoint {
   endpoints = payment_history_endpoints;
+  id_name = "id";
+}
+
+export class CustomTransactionEndpoint extends ProductEndpoint {
+  endpoints = custom_transaction_endpoints;
+  id_name = "id";
+
+  async create_transaction(data) {
+    const endpoint = _join(this.endpoints.create_transaction);
+    return await this.post(endpoint, data);
+  }
+}
+
+export class Campaign extends ProductEndpoint {
+  endpoints = email_campaign_endpoints;
   id_name = "id";
 }
 

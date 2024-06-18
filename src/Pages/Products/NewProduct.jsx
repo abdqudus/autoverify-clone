@@ -54,11 +54,13 @@ const NewProduct = () => {
     });
   };
 
-  window.layout = newLayout.layout;
+  // window.layout = newLayout.layout;
 
   const handleSendDetails = async () => {
-    const { name, price } = newProd;
+    const { name, price, layout } = newProd;
     let { codebase } = newProd;
+    console.log('new product', newProd)
+    console.log('new layout', newLayout)
 
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
@@ -100,6 +102,7 @@ const NewProduct = () => {
       alert("input all field");
     }
   };
+
   const fetchCodebases = async () => {
     const access_token = await tokenUtil.getToken();
 
@@ -111,8 +114,6 @@ const NewProduct = () => {
 
     endpoint = new base.LayoutEndpoint(access_token, {});
     const layout = await endpoint.list(UNPAGINATE);
-
-    console.log('layout', layout);
 
     return {
       codebases: codebase,
@@ -138,7 +139,7 @@ const NewProduct = () => {
           type="text"
           required
           onChange={(e) => setProductDetails(e)}
-          className=" border border-[#CCCCCC] w-full"
+          className=" border border-[#CCCCCC] px-2 w-full"
         />
       </div>
       <div className="text-sm mt-2 text-[#333333] leading-[22.4px]  font-open-sans font-normal ">
@@ -158,11 +159,11 @@ const NewProduct = () => {
             onChange={(e) => setProductDetails(e)}
             value={newProd.price}
             min="0"
-            className="w-full md:w-[186.22px] border h-[34px] border-[#CCCCCC] rounded-[4px]"
+            className="w-full px-2  md:w-[186.22px] border h-[34px] border-[#CCCCCC] rounded-[4px]"
           />
           <input
             type="text"
-            className="w-full md:w-[186.22px] border h-[34px] border-[#CCCCCC] rounded-[4px]"
+            className="w-full md:w-[186.22px] px-2 border h-[34px] border-[#CCCCCC] rounded-[4px]"
           />
         </div>
       </div>
@@ -172,7 +173,7 @@ const NewProduct = () => {
           {t('newProduct.chooseLayout')}
           <a
             onClick={(e) => navigate_to_create_layout()}
-            className="text-[#428BCA] pl-1">
+            className="text-[#428BCA] cursor-pointer pl-1">
             {t('newProduct.addNewLayout')}
           </a>
         </p>
@@ -201,7 +202,7 @@ const NewProduct = () => {
           {t('newProduct.chooseCodebase')}
           <a
             onClick={(e) => navigate_to_create_codes()}
-            className="text-[#428BCA] pl-1"
+            className="cursor-pointer text-[#428BCA] pl-1"
           >
             {t('newProduct.addNewCodebase')}.
           </a>

@@ -168,40 +168,6 @@ const ProductSettings = () => {
                 ))}
               </select>
             </div>
-            {/* <div className="sale-limit-div mt-6 ">
-              <h3 className="text-[#333333] mt-2 font-normal font-poppins text-[.75rem] leading-[22.4px]">
-                Sale limit
-              </h3>
-              <div className="flex gap-2 justify-between items-center flex-wrap text-[#333333] font-normal font-poppins text-[.875rem]">
-                <p className="flex gap-2 items-center">
-                  <input type="radio" name="sale-limit" id="limit-1" />
-                  <label htmlFor="limit-1">
-                    always offer the product for sale
-                  </label>
-                </p>
-                <p className="flex gap-2 items-center">
-                  <input type="radio" name="sale-limit" id="limit-2" />
-                  <label htmlFor="limit-2">
-                    only sell as many codes as there are in the codebase
-                  </label>
-                </p>
-              </div>
-            </div>
-            <div className="payment-type-div">
-              <h3 className="text-[#333333] mt-2 font-normal font-poppins text-[.75rem] leading-[22.4px]">
-                Allow payment only by
-              </h3>
-              <select
-                id="payment-type"
-                className=" border border-[#CCCCCC] mt-2 text-[#444444] w-full"
-              >
-                {paymentMethod?.map((m) => (
-                  <option key={m.id} value={m.id}>
-                    {m.account_name}
-                  </option>
-                ))}
-              </select>
-            </div> */}
             <div className="product-description-div mt-6">
               <h3 className="text-[#333333] mb-4 font-normal font-poppins text-[.75rem] leading-[22.4px]">
                 Product description

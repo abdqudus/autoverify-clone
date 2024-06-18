@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { getLimit, setLimit } from '../utils/pagination';
 import { useQuery } from '@tanstack/react-query';
 import { useTranslation } from 'react-i18next';
+import { reloadPage } from '../utils/base';
 
 const EntriesCount = () => {
     const [count, setCount] = useState(5);
@@ -25,7 +26,7 @@ const EntriesCount = () => {
         const selectedCount = Number(event.target.value);
         setCount(selectedCount);
         setLimit(selectedCount);
-        location.reload();
+        reloadPage();
     };
 
     return (

@@ -6,7 +6,7 @@ import Configuration from "./Configuration";
 const Ebay = () => {
   return (
     <Routes>
-      <Route path="connected-accounts" element={<ConnectedAccounts />} />
+      <Route path="accounts" element={<ConnectedAccounts />} />
       <Route path="automatic-monitoring" element={<AutomaticMonitoring />} />
       <Route path="configurations" element={<Configuration />} />
     </Routes>

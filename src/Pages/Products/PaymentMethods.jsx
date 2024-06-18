@@ -4,12 +4,14 @@ import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useTranslation } from "react-i18next";
+import Spinner from "../../component/Spinner";
 
 const PaymentMethods = () => {
   const success_activation_url = `${base.getDomain()}/success`; // URL WHEN ACTIVATION IS SUCCESSUFL
   const unsuccess_activation_url = `${base.getDomain()}/fail`; // URL WHEN ACTIVATION FAILS
   const navigate = useNavigate();
   const { t } = useTranslation()
+  const [isLoading, setIsLoading] = useState(false)
   const [account, setAccount] = useState({
     name: "",
     type: "STRIPE",
@@ -19,6 +21,7 @@ const PaymentMethods = () => {
     setAccount((acct) => ({ ...acct, [e.target.name]: e.target.value }));
   };
   const addNewAccount = async () => {
+    setIsLoading(true)
     if (!account.name) {
       alert("Enter account name");
     }
@@ -55,8 +58,8 @@ const PaymentMethods = () => {
       console.error(res);
       throw Error(res);
     }
-    window.location.replace(res.redirect_link);
-    // window.location.href = res.redirect_link;
+    base.createAndClickLink(res.redirect_link);
+    setIsLoading(false)
   };
   return (
     <DashBoardSubRoutesWrapper
@@ -140,10 +143,15 @@ const PaymentMethods = () => {
         </div>
       </div>
       <button
+        disabled={isLoading}
         onClick={addNewAccount}
-        className="w-[128.72px] font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]"
+        className="w-[128.72px] disabled:cursor-not-allowed disabled:opacity-50 font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]"
       >
-        {t('new-payment-method.addNewAccount')}
+        <span className="flex justify-center items-center gap-2">
+          {!isLoading && <span>{t('new-payment-method.addNewAccount')}</span>}
+          {isLoading && <Spinner w="w-5" h='h-5' />}
+        </span>
+
       </button>
       <div className="md:flex gap-6 mt-4 md:px-4">
         <div className="text-[#333333] md:max-w-[408px] shadow-form-shadow mt-4  bg-[#E3E3E3] border border-[#E3E3E3] p-4 rounded-[4px] font-poppins font-normal ">

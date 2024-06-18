@@ -27,7 +27,7 @@ const MarketingNav = () => {
           </p>
         </NavLink>
       </div>
-      <div className="group">
+      {/* <div className="group">
         <NavLink to="/marketing/new-shipment">
           <p className="text-sm leading-[21px]  cursor-pointer flex items-center gap-1 text-[#1E1E1E]">
             <span> New Shipment</span>
@@ -50,7 +50,7 @@ const MarketingNav = () => {
             />
           </p>
         </NavLink>
-      </div>
+      </div> */}
     </div>
   );
 };

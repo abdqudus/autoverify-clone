@@ -29,7 +29,7 @@ const Header = () => {
           <img src="/hamburger.png" className="lgs:hidden" />
         </label>
 
-        <h3 className="text-[2.5rem]  leading-[41.52px] font-bold text-center text-[#4A99D3]">
+        <h3 className="text-[2.5rem] hidden sm:block  leading-[41.52px] font-bold text-center text-[#4A99D3]">
           LOGO
         </h3>
         {/* <div className="flex  justify-between gap-6 items-center">
@@ -50,7 +50,13 @@ const Header = () => {
             <img src="/dp.png" alt="" />
           </div>
         </div> */}
-        <LanguageSelect  />
+        <div className="flex  justify-between gap-4 items-center px-2">
+
+          <LanguageSelect />
+          <div className="w-[40px] cursor-pointer h-[40px] relative rounded-full bg-blue-500 text-white flex justify-center items-center">A
+
+          </div>
+        </div>
         <HambugerItems
           inputRef={inputRef}
           closeHamburger={(e) => {

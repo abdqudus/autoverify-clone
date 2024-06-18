@@ -3,16 +3,18 @@ import Input from "./Input";
 import LayoutNavigations from "./LayoutNavigations";
 import SettingsWrapper from "./SettingsWrapper";
 import { TextEditor } from "./TextEditor";
-
 import { useNavigate } from "react-router-dom";
 import * as tokenUtil from "../utils/tokenUtil";
 import * as base from "../utils/base";
+import { useTranslation } from "react-i18next";
 
 const NewSettingsLayOut = ({ setIsNewSetting }) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [textVal, setTextVal] = useState("");
-  const [isValidyChecked, setIsValidityChecked] = useState(false)
-  const [layoutSettings, setLayoutSettings] = useState({ name: '', subject: '', msgContent: textVal })
+  const [isValidyChecked, setIsValidityChecked] = useState(false);
+  const [layoutSettings, setLayoutSettings] = useState({ name: '', subject: '', msgContent: textVal });
+
   const handleSaveLayout = async () => {
     setIsValidityChecked(true);
     const access_token = await tokenUtil.getToken();
@@ -24,12 +26,14 @@ const NewSettingsLayOut = ({ setIsNewSetting }) => {
       message: layoutSettings.msgContent,
       subject: layoutSettings.subject,
       name: layoutSettings.name,
-    })
-    setIsNewSetting(false)
-  }
+    });
+    setIsNewSetting(false);
+  };
+
   const handleChange = (e) => {
-    setLayoutSettings(prev => ({ ...prev, [e.target.id]: e.target.value }))
-  }
+    setLayoutSettings(prev => ({ ...prev, [e.target.id]: e.target.value }));
+  };
+
   return (
     <div className="mt-6">
       <SettingsWrapper>
@@ -37,47 +41,41 @@ const NewSettingsLayOut = ({ setIsNewSetting }) => {
         <div>
           <div className="mt-6 md:mt-0">
             <h2 className="text-[#2980B9] font-open-sans text-[1.11625rem] leading-[19.8px] mb-3">
-              New layout
+              {t('newSettingsLayout.newLayout')}
             </h2>
             <h3 className="text-[#333333] font-open-sans text-[1.11625rem] leading-[19.8px]">
-              Configuration template
+              {t('newSettingsLayout.configurationTemplate')}
             </h3>
-            <h4 className="font-bold text-sm mt-4">Layout name</h4>
+            <h4 className="font-bold text-sm mt-4">{t('newSettingsLayout.layoutName')}</h4>
             <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              Choose name that will help you identify layout in future.
+              {t('newSettingsLayout.chooseName')}
             </p>
-            {isValidyChecked && !layoutSettings.name && <p className="text-red-500 text-sm">Kindly enter a name</p>}
+            {isValidyChecked && !layoutSettings.name && <p className="text-red-500 text-sm">{t('newSettingsLayout.enterName')}</p>}
             <Input handleChange={(e) => handleChange(e)} value={layoutSettings.name} id="name" />
           </div>
           <div className="mt-4">
-            <h4 className="font-bold text-sm mt-2">Subject</h4>
+            <h4 className="font-bold text-sm mt-2">{t('newSettingsLayout.subject')}</h4>
             <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              Message with code to customer will have this subject.
+              {t('newSettingsLayout.messageWithCode')}
             </p>
-            {isValidyChecked && !layoutSettings.subject && <p className="text-red-500 text-sm">Kindly enter a subject</p>}
+            {isValidyChecked && !layoutSettings.subject && <p className="text-red-500 text-sm">{t('newSettingsLayout.enterSubject')}</p>}
             <Input id="subject" placeholder="Successfull Order" handleChange={(e) => handleChange(e)} value={layoutSettings.subject} />
           </div>
         </div>
       </SettingsWrapper>
       <SettingsWrapper>
         <div className="md:col-start-2">
-
           <div className="mt-6">
-            <h4 className="font-bold text-sm mt-4">Message content</h4>
-            {isValidyChecked && !layoutSettings.msgContent && <p className="text-red-500 text-sm">Kindly enter a content</p>}
-            <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2">
-              Message with this content will be send to customer. In this blank
-              you can use <span className="font-bold">tags</span> , which will
-              be exchanged e.g. [CODES] for code.
-            </p>
-
+            <h4 className="font-bold text-sm mt-4">{t('newSettingsLayout.messageContent')}</h4>
+            {isValidyChecked && !layoutSettings.msgContent && <p className="text-red-500 text-sm">{t('newSettingsLayout.enterContent')}</p>}
+            <p className="block text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-2" dangerouslySetInnerHTML={{ __html: t('newSettingsLayout.messageWithContent') }} />
             <TextEditor val={{ textVal, setTextVal, setLayoutSettings }} />
             <button onClick={handleSaveLayout} className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[100.25px] rounded-[4px] text-white">
-              Save layout
+              {t('newSettingsLayout.saveLayout')}
             </button>
           </div>
         </div>
-        <div className="tags md:col-start-1 md:row-start-1 md:row-end-2 bg-[#F5F5F5] mt-6 border border-[#E3E3E3] p-4">
+        {/* <div className="tags md:col-start-1 md:row-start-1 md:row-end-2 bg-[#F5F5F5] mt-6 border border-[#E3E3E3] p-4">
           <h3 className="text-[#333333] font-open-sans text-[1.11625rem] leading-[19.8px]">
             Tags in message
           </h3>
@@ -140,7 +138,7 @@ const NewSettingsLayOut = ({ setIsNewSetting }) => {
             If the code you are sending is a graphic file then the [CODE_IMAGE]
             tag will display the file directly in the message.
           </p>
-        </div>
+        </div> */}
       </SettingsWrapper>
     </div>
   );

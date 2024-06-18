@@ -58,7 +58,7 @@ const BuyProduct = () => {
             endpoint.del_header('Authorization');
             const res = await endpoint.checkout(paymentObj);
             if ('checkout_link' in res) {
-                window.location.href = res.checkout_link;
+                base.createAndClickLink(res.checkout_link);
             } else {
                 alert('Unable to checkout');
             }

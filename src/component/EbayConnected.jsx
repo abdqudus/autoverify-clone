@@ -1,10 +1,50 @@
-const EbayConnected = ({ data }) => {
+import EntriesCount from '../component/EntriesCount'
+import PaginatorBtn from '../component/PaginatorBtn'
+import * as tokenUtil from '../utils/tokenUtil';
+import * as base from '../utils/base';
+import ConnectedAcctElement from './ConnectedAcctElement';
+import { useNavigate } from 'react-router-dom';
+
+const EbayConnected = ({ data, paginator }) => {
+  const navigate = useNavigate();
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate('/login');
+    }
+    return access_token;
+  };
+
+  const createNewAcct = async () => {
+    const access_token = await _checkLog();
+    const endpoint = new base.EbayAccount(access_token, {});
+    const acct = await endpoint.create({
+      'is_active': true,
+    });
+    if ('account_id' in acct) {
+      const payload = {
+        "success_url": `${base.getDomain()}/ebay/accounts`,
+        "cancel_url": `${base.getDomain()}/fail`
+      }
+      const res = await endpoint.activate(acct.account_id, payload);
+      if ('ebay_login_url' in res) {
+        base.createAndClickLink(res.ebay_login_url);
+      } else {
+        alert('could not activate account id:' + acct.account_id);
+      }
+    } else {
+      alert('could not create account');
+    }
+  }
+
   return (
     <div className="mt-4">
+      <EntriesCount />
       <div className="lg:grid mt-8 grid-cols-[1fr_300px] gap-4">
         <div>
           <h1 className="text-[#333333] sm:w-[60%] pb-2 border-b border-[#CCCCCC]  text-[1rem] font-open-sans leading-[17.68px]">
-            Connected Accounts
+            Accounts
           </h1>
           <div className="">
             <div className="border max-w-full overflow-x-scroll md:overflow-hidden mt-3  border-[#DDDDDD]">
@@ -28,37 +68,14 @@ const EbayConnected = ({ data }) => {
                 </thead>
                 <tbody>
                   {data.map((d, i) => (
-                    <tr
-                      key={d.account_id}
-                      className={`h-[48px] border ${i % 2 !== 0 ? "bg-white" : "bg-[#f9f9f9]"
-                        }   w-full `}
-                    >
-                      <td className="px-3 border-r text-ellipsis">
-                        <p className="w-[5rem] whitespace-nowrap overflow-hidden text-ellipsis">
-                          {" "}
-                          {d.account_id}
-                        </p>
-                      </td>
-                      <td className="px-3 border-r">{d.name}</td>
-                      <td className="px-3 border-r">
-                        <button className=" px-3 py-1 rounded-[5px] bg-[#5cb85c] flex justify-center items-center text-white font-open-sans text-[.75rem] leading-[15px]">
-                          edit
-                        </button>
-                      </td>
-                      <td className="px-3 border-r">
-                        <button className="  px-3 py-1 rounded-[5px] bg-[#5cb85c] flex justify-center items-center text-white font-open-sans text-[.75rem] leading-[15px]">
-                          active
-                        </button>
-                      </td>
-                      <td className="px-3">
-                        <button className="px-2 h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#e57a55] font-open-sans text-[.75rem] leading-[15px]">
-                          Delete
-                        </button>
-                      </td>
-                    </tr>
+                    <ConnectedAcctElement key={d.account_id} d={d} i={i} />
                   ))}
                 </tbody>
               </table>
+            </div>
+            <div className="flex justify-end mt-6">
+
+              <PaginatorBtn paginator={paginator} />
             </div>
           </div>
         </div>
@@ -66,11 +83,12 @@ const EbayConnected = ({ data }) => {
           <h3 className="mt-4 lg:mt-0 pb-2 border-b border-[#CCCCCC] ">
             Connect new account
           </h3>
-          <button className="w-full  px-3 h-[34px] bg-[#5cb85c] text-white border border-[#4cae4c] rounded-[4px]">
+          <button onClick={createNewAcct} className="w-full  px-3 h-[34px] bg-[#5cb85c] text-white border border-[#4cae4c] rounded-[4px]">
             Connect new account
           </button>
         </div>
       </div>
+
     </div>
   );
 };

@@ -78,8 +78,7 @@ const EditPaymentMethod = () => {
                 "return_url": on_unsuccessfull_stripe_account_link,
             });
             if (res.redirect_link) {
-                // return res.redirect_link;
-                window.location.href = res.redirect_link;
+                base.createAndClickLink(res.redirect_link);
             } else {
                 alert('Error: could not connect account at this time');
             }

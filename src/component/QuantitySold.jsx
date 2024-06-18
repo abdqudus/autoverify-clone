@@ -1,8 +1,49 @@
 import { t } from "i18next";
 import LineGraph from "./LineGraph";
-
+import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import * as tokenUtil from "../utils/tokenUtil";
+import * as base from "../utils/base";
+import Loader from "./Loader";
+import { useRef, useState } from "react";
 const QuantitySold = () => {
-  //
+
+  const navigate = useNavigate();
+
+
+  const [range, setRange] = useState({ start: '', end: '' })
+  let _end_date = new Date();
+  let _start_date = new Date();
+  _start_date.setDate(_start_date.getDate() - 40);// subtract some days from end date
+  _start_date = _start_date;
+
+  const _checkLog = async () => {
+    const access_token = await tokenUtil.getToken();
+    if (access_token === null) {
+      navigate("/login");
+    }
+    return access_token;
+  }
+
+  const getLineGraphData = async () => {
+    const access_token = await _checkLog();
+    const endpoint = new base.Statistics(access_token, {});
+
+    if (range.start && range.end) {
+      const _start_date = new Date(range.start)
+      const _end_date = new Date(range.end)
+      return await endpoint.get_data(_start_date, _end_date);
+    }
+    return await endpoint.get_data(_start_date, _end_date);
+
+  }
+  const { data, isLoading } = useQuery({ queryFn: getLineGraphData, queryKey: ['line-graph', range.start, range.end] })
+  const timeRangeRef = useRef({})
+
+  const getRangeGraph = async (range) => {
+    setRange(range)
+  }
+
   return (
     <div className="bg-[#D5D5D5]  shadow-graph self-start rounded-[8px]">
       <div className="bg-[#FCFCFC] px-3">
@@ -11,30 +52,37 @@ const QuantitySold = () => {
             {t('line.qty-sold')}
           </h3>
         </header>
-        <div className="flex flex-col lgs:grid lgs:gap-y-1 lgs:gap-x-4 lgs:items-center lgs:grid-cols-3 py-4 px-2 mb-3">
-          <div className="flex border-2 lgs:shadow-card-shadow border-[#CCCCCC] h-[34px] rounded-[4px]">
-            <p className="basis-[100px] pl-1 bg-[#B5E4CA] font-open-sans font-normal text-[#555555] text-[.875rem] leading-[14px] flex justify-center items-center">
-              {t('line.start-date')}
+        <div className="flex flex-col gap-3 lgs:grid lgs:gap-y-1 lgs:gap-x-4 lgs:items-center lgs:grid-cols-3 py-4 px-2 mb-3">
+
+          <div className="flex rounded-[4px] h-[34px] items-center">
+            <p className="border  whitespace-nowrap max-w-max  font-open-sans font-normal text-[#555555] text-[.875rem] leading-[14px]  px-2 flex justify-center items-center h-[34px] bg-[#B5E4CA] ">
+              <span>
+                {t('line.start-date')}
+              </span>
             </p>
-            <p className="flex-grow  font-open-sans font-normal text-[#555555]  text-[.875rem] pl-3 flex  items-center">
-              17-02-2024
-            </p>
+            <input type="date" onChange={e => timeRangeRef.current = { ...timeRangeRef.current, start: e.target.value }} className="h-[34px] rounded-r-[4px] border-[#CCCCCC] border-2  px-2 " />
           </div>
-          <div className="flex border-2 lgs:shadow-card-shadow  border-[#CCCCCC] h-[34px] rounded-[4px]">
-            <p className="basis-[100px] pl-1 bg-[#B5E4CA] font-open-sans font-normal text-[#555555]  text-[.875rem] leading-[14px] flex justify-center items-center">
-              {t('line.end-date')}
+          <div className="flex rounded-[4px] h-[34px]  items-center">
+            <p className="border whitespace-nowrap max-w-max font-open-sans font-normal text-[#555555] text-[.875rem] leading-[14px]  px-2 flex justify-center items-center h-[34px] bg-[#B5E4CA] ">
+              <span>
+                {t('line.end-date')}
+              </span>
             </p>
-            <div className="flex-grow font-open-sans font-normal text-[#555555]  text-[.875rem] pl-3 flex  items-center">
-              <p>24-02-2024</p>
-            </div>
+            <input type="date" onChange={e => timeRangeRef.current = { ...timeRangeRef.current, end: e.target.value }} className="h-[34px] rounded-r-[4px] border-[#CCCCCC] border-2  px-2 " />
           </div>
 
-          <div className=" lgs:shadow-card-shadow lgs:justify-self-end lgs:bg-white w-[150px] self-end h-[30px] border-[#CCCCCC] border lgs:border-2 rounded-[3px] flex items-center justify-center font-normal text-[#333333] text-[.75rem] leading-[18px]">
+          <button onClick={() => getRangeGraph(timeRangeRef.current)} className="bg-transparent h-[34px]  border border-[#B5E4CA]  rounded-[3px] px-2 max-w-max">
             <p>{t('line.see-full-stat')}</p>
-          </div>
+          </button>
           <span className="h-6 lgs:col-span-4 border-b-2 border-b-[#EEEEEE] "></span>
         </div>
-        <LineGraph />
+        {isLoading ?
+          <div className="flex justify-center items-center ">
+            <Loader />
+          </div>
+          :
+          <LineGraph data={data} />
+        }
       </div>
     </div>
   );

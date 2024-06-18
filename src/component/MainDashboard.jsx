@@ -19,7 +19,7 @@ const MainDashboard = () => {
       navigate("/login");
     }
     const endpoint = new base.Statistics(access_token, {});
-    return await endpoint.get_last_7_days();
+    return await endpoint.summary();
   }
   const { isLoading, data } = useQuery({
     queryKey: ["statistics"],
@@ -28,17 +28,16 @@ const MainDashboard = () => {
   if (isLoading) {
     return <Loader />
   }
+  console.log('main statistic data', data)
   if (data) {
     const { total_sold_codes, currency, sold_codes_this_month, income_today, income_this_month } = data
-
     return (
       <DashBoardSubRoutesWrapper header={t('main-dashboard.header')} subheader={t('main-dashboard.subheader')}>
         <div className="cards px-3 mt-6 grid font-inter grid-cols-resp gap-4">
-
           <Cards quantity={total_sold_codes} text={t('main-dashboard.sold-codes')} />
           <Cards quantity={sold_codes_this_month} text={t('main-dashboard.month-sold-codes')} />
           <Cards quantity={income_this_month} text={t('main-dashboard.month-income')} currency={currency} />
-          <Cards quantity={income_today} text={t('main-dashboard.month-sold-codes')} currency={currency} />
+          <Cards quantity={income_today} text={t('main-dashboard.today-income')} currency={currency} />
         </div>
         <Statistics />
       </DashBoardSubRoutesWrapper>

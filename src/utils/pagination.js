@@ -30,6 +30,16 @@ class Pager {
     }
   }
 
+  firstPage(){
+    const { setPage } = this.pageUseState;
+    setPage(0);
+  }
+
+  lastPage(){
+    const { setPage } = this.pageUseState;
+    setPage(this.paginator.no_pages);
+  }
+
   refresh() {
     // const { setPage, page } = this.pageUseState;
     // setPage((page) => page);

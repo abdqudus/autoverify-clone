@@ -20,12 +20,12 @@ const Menu = ({ menu, children }) => {
     const isText = expandedSection === text;
     return (
       <div
-        className={`transition-[height] group overflow-hidden relative  ${isText ? newHeight : 'h-[48px]'
+        className={`transition-[height]  group overflow-hidden relative  ${isText ? newHeight : 'h-[48px]'
           }`}
       >
         <div
           onClick={handleExpansion}
-          className="flex px-4 gap-4 text-[.9375rem] transition md:group-has-[.active]:text-[#2D60FF] text-[#6F767E]  font-semibold py-[12px] items-center"
+          className="flex  px-4 gap-4 text-[.9375rem] transition md:group-has-[.active]:text-[#2D60FF] text-[#6F767E]  font-semibold py-[12px] items-center"
         >
           <img src={src} alt="" className="sm:group-has-[.active]:hidden" />
           <img

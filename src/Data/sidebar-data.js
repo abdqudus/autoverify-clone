@@ -152,9 +152,8 @@ export const sideBarItems = [
       { text: "sidebar.newTransaction", route: "customers/new-transaction" },
       { text: "sidebar.listOfTransactions", route: "customers/transactions" },
       { text: "sidebar.salesStatistics", route: "customers/sales-statistics" },
-      { text: "sidebar.salesSettings", route: "customers/sales-settings" },
     ],
-    newHeight: "h-[208px]",
+    newHeight: "h-[128px]",
   },
   {
     src: "/store.png",
@@ -193,13 +192,13 @@ export const sideBarItems = [
         text: "sidebar.listOfEmailCampaign",
         route: "marketing/list-of-email-campaign",
       },
-      { text: "sidebar.newShipment", route: "marketing/new-shipment" },
-      {
-        text: "sidebar.listOfAutomaticShipment",
-        route: "marketing/list-of-automatic-shipment",
-      },
+      // { text: "sidebar.newShipment", route: "marketing/new-shipment" },
+      // {
+      //   text: "sidebar.listOfAutomaticShipment",
+      //   route: "marketing/list-of-automatic-shipment",
+      // },
     ],
-    newHeight: "h-[215px]",
+    newHeight: "h-[135px]",
   },
   {
     srcActive: "/codebases.svg",
@@ -208,7 +207,7 @@ export const sideBarItems = [
     isActive: false,
     hasDropDown: true,
     dropDownItems: [
-      { text: "sidebar.connectedAccounts", route: "ebay/connected-accounts" },
+      { text: "sidebar.connectedAccounts", route: "ebay/accounts" },
       {
         text: "sidebar.automaticMonitoring",
         route: "ebay/automatic-monitoring",

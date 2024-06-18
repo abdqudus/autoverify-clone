@@ -49,9 +49,9 @@ const AllProducts = () => {
       placeholderData: keepPreviousData,
     });
 
-  const onDelete = async (product) => {
+  const onDelete = async (id) => {
     const endpoint = new base.ProductEndpoint(await _checkLog(), {});
-    return await endpoint.delete(product.id);
+    return await endpoint.delete(id);
   };
 
   const handleClickDelete = async (name, id) => {
@@ -67,7 +67,7 @@ const AllProducts = () => {
           <table className="min-w-[550px] w-full text-left">
             <thead className="bg-black text-white font-open-sans px-2 font-semibold text-[.75rem] h-[50px]">
               <tr>
-                <th className="border-r md:border-r-0 pl-2 border-white">
+                <th className=" pl-2 border-white">
                   <label htmlFor="check-all">
                     <span className="w-[18px] h-[18px] border border-[#DDDDDD] block"></span>
                   </label>
@@ -78,14 +78,14 @@ const AllProducts = () => {
                     className="sr-only"
                   />
                 </th>
-                <th className="border-r mx-4 px-4 md:border-r-0  border-white">
+                <th className="mx-4 px-4   border-white">
                   {t('all-prod.ID')}
                 </th>
-                <th className="border-r  md:border-r-0 ">
+                <th className="  ">
                   {t('all-prod.product-name')}
                 </th>
-                <th className="border-r mx-4 md:border-r-0 ">{t('all-prod.price')}</th>
-                <th className="border-r  md:border-r-0 ">{t('all-prod.status')}</th>
+                <th className="mx-4  ">{t('all-prod.price')}</th>
+                <th className="  ">{t('all-prod.status')}</th>
                 <th></th>
               </tr>
             </thead>
@@ -115,7 +115,7 @@ const AllProducts = () => {
                   <td>{p.price}</td>
                   <td className="">
                     <button className="bg-[#5CB85C] text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                      {p.is_active ? "active" : "inactive"}
+                      {p.is_active ? t('active') : t("inactive")}
                     </button>
                   </td>
                   <td>
@@ -124,14 +124,14 @@ const AllProducts = () => {
                         className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]"
                       >
                         <Link to={p.product_id}>
-                          Edit
+                          {t('edit')}
                         </Link>
                       </button>
                       <button
                         onClick={() => handleClickDelete(p.name, p.product_id)}
                         className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] ml-[50px] lg:ml-[119px] w-[52.88px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#DB5555]"
                       >
-                        Delete
+                        {t('delete.delete')}
                       </button>
                     </div>
                   </td>

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const DeleteModal = ({ showModal, onDelete, tobeDeleted, setShowModal, queryKey, navigateAfterwards }) => {
   const queryClient = useQueryClient();
@@ -17,7 +18,11 @@ const DeleteModal = ({ showModal, onDelete, tobeDeleted, setShowModal, queryKey,
     mutationFn: (product) => onDelete(product),
     onSuccess: () => {
       closeModal();
-      queryClient.invalidateQueries(queryKey || ['projects']); // You can use a default queryKey here
+      return queryClient.invalidateQueries(queryKey || ['projects']); // You can use a default queryKey here
+
+
+    },
+    onSettled: () => {
       if (navigateAfterwards) {
         navigate(navigateAfterwards);
       }
@@ -31,8 +36,9 @@ const DeleteModal = ({ showModal, onDelete, tobeDeleted, setShowModal, queryKey,
 
   const handleDelete = async () => {
     setIsDeleting(true);
-    mutate(tobeDeleted);
+    mutate(tobeDeleted.id);
   };
+
 
   return (
     <>
@@ -70,12 +76,19 @@ const DeleteModal = ({ showModal, onDelete, tobeDeleted, setShowModal, queryKey,
                     {t('delete.cancel')}
                   </button>
                   <button
-                    className="text-red-500 background-transparent border border-red-500 ml-3 font-bold uppercase rounded px-6 py-3 text-sm mr-1 mb-1 ease-linear transition-all duration-150"
+                    className="text-red-500 background-transparent border disabled:cursor-not-allowed border-red-500 ml-3 font-bold uppercase rounded px-6 py-3 text-sm mr-1 mb-1 ease-linear transition-all duration-150"
                     type="button"
                     onClick={handleDelete}
                     disabled={isDeleting}
                   >
-                    {isDeleting ? t('delete.deleting') : t('delete.delete')}
+                    {
+                      isDeleting ?
+                        <span className="flex justify-center items-center gap-2">
+                          <span>{t('delete.deleting')}</span>
+                          <Spinner h="h-5" w="w-5" />
+                        </span> :
+                        <span>{t('delete.delete')}</span>
+                    }
                   </button>
                 </div>
               </div>

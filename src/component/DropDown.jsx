@@ -10,7 +10,7 @@ const DropDown = ({ dropDownItems }) => {
         return (
           <p
             key={i.text}
-            className="dropdown-route flex items-center justify-between has-[.active]:text-[#1A1D1F]  group has-[.active]:bg-[#EFEFEF] has-[.active]:rounded-[12px] leading-6 py-[6px] px-4 border-collapse"
+            className="dropdown-route flex items-center justify-between has-[.active]:text-[#1A1D1F]  group has-[.active]:text-sm has-[.active]:bg-[#EFEFEF] has-[.active]:rounded-[12px] leading-6 py-[6px] px-4 border-collapse"
             onClick={() => closeSideBar(refs.divRef, refs.inputRef)}
           >
             <NavLink className="peer group" to={i.route}>

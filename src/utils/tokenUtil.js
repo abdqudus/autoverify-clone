@@ -1,3 +1,5 @@
+import { createAndClickLink, getDomain } from "./base";
+
 const TOKEN_NAME = "jwtToken";
 const DEFAULT_ACCESS_EXPIRY = 55 / 60; // 55mins
 const DEFAULT_REFRESH_EXPIRY = (24 * 60 - 5) / 60; // 5mins less of 24hrs
@@ -91,6 +93,43 @@ export function _now_timestamp() {
   return Math.floor(new Date().getTime() / 1000);
 }
 
+export function _toTimeStamp(date) {
+  return Math.floor(date.getTime() / 1000);
+}
+
+// Function to convert Unix timestamp to Date object
+export function _unixToDate(unixTimestamp) {
+  // Multiply by 1000 to convert seconds to milliseconds
+  return new Date(unixTimestamp * 1000);
+}
+
+export function stringToDate(dateString) {
+  // convert string of format yyyy-mm-dd to date object
+  const [year, month, day] = dateString.split("-").map(Number);
+
+  // Create a new Date object
+  const date = new Date(year, month - 1, day);
+  return date;
+}
+
+export function dateToString(date) {
+  // convert date object to yyyy-mm-dd string
+  const year = date.getFullYear();
+  let month = (date.getMonth() + 1).toString();
+  let day = date.getDate().toString();
+
+  // Add leading zeros to month and day if necessary
+  if (month.length < 2) {
+    month = "0" + month;
+  }
+  if (day.length < 2) {
+    day = "0" + day;
+  }
+
+  // Combine year, month, and day into the yyyy-mm-dd format
+  return `${year}-${month}-${day}`;
+}
+
 function setTokenInStorage(tokens) {
   tokens = _complete_tokens(tokens);
   const token_string = JSON.stringify(tokens);
@@ -182,4 +221,13 @@ export async function getToken() {
   } else {
     return jwtToken.access;
   }
+}
+
+export function gotToLogout() {
+  createAndClickLink(`${getDomain()}/login`);
+}
+
+export function logoutUser() {
+  localStorage.removeItem(TOKEN_NAME);
+  gotToLogout();
 }
