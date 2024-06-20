@@ -1,7 +1,12 @@
 import * as tokenUtil from "../../../utils/tokenUtil";
 import * as base from "../../../utils/base";
 
-export const saveStoreSettings = async (navigate, storeDetails) => {
+export const saveStoreSettings = async (
+  navigate,
+  storeDetails,
+  setIsSaving
+) => {
+  setIsSaving(true);
   const access_token = await tokenUtil.getToken();
   if (access_token === null) {
     navigate("/login");
@@ -27,4 +32,5 @@ export const saveStoreSettings = async (navigate, storeDetails) => {
       cloudinary_thumbnail: cloudinary_thumbnail,
     });
   }
+  setIsSaving(false);
 };

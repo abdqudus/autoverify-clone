@@ -118,6 +118,7 @@
     "statusHeader": "Status",
     "productInStock": "Product is in stock",
     "pauseSaleButton": "Pause sale",
+    "resumeSaleButton": "Resume sale",
     "managementHeader": "Management",
     "showDetails": "Show details",
     "productSettings": "Product settings",

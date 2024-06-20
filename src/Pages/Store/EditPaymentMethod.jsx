@@ -46,7 +46,7 @@ const EditPaymentMethod = () => {
             "account_name": details.acctName,
             "is_active": details.isActive,
         });
-        console.log(res);
+        navigate('/store/payment-methods');
         return res;
     }
 
@@ -158,8 +158,12 @@ const EditPaymentMethod = () => {
                             </div>
                         </div>
                         <div className="mt-4 flex-wrap md:justify-end flex gap-3">
-                            <button onClick={() => deleteAcctDetails(acctDetails)} className='rounded-[4px] p-2 text-white text-sm font-normal bg-red-400'>Delete account</button>
-                            <button onClick={() => mutate(acctDetails)} className='rounded-[4px] p-2 text-white text-sm font-normal bg-green-400'>Save settings</button>
+                            <button disabled={deletePending || isPending} onClick={() => deleteAcctDetails(acctDetails)} className='rounded-[4px] disabled:cursor-not-allowed disabled:opacity-50 p-2 text-white text-sm font-normal bg-red-400'>
+                                {deletePending ? <Spinner w='w-5' h='h-5' /> : 'Delete account'}
+                            </button>
+                            <button disabled={deletePending || isPending} onClick={() => mutate(acctDetails)} className='rounded-[4px]  disabled:cursor-not-allowed disabled:opacity-50  p-2 text-white text-sm font-normal bg-green-400'>
+                                {isPending ? <Spinner w='w-5' h='h-5' /> : 'Save settings'}
+                            </button>
                         </div>
                         <div className='mt-4'>
                             <button onClick={connectAccount} disabled={data.is_connected} className={`rounded-[4px] p-2 w-full text-white ${data.is_connected ? 'bg-gray-300 cursor-not-allowed' : 'bg-blue-400'} `}>{data.is_connected ? 'Account connected' : 'Connect your account'}</button>
@@ -178,9 +182,7 @@ const EditPaymentMethod = () => {
                         </p>
                     </div>
                 </div>
-                <Modal ref={modal} >
-                    <Spinner />
-                </Modal>
+
             </div>
         </DashBoardSubRoutesWrapper >
     )

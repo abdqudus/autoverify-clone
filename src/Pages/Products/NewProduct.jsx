@@ -53,7 +53,7 @@ const NewProduct = () => {
       description: textVal,
     });
   };
-
+  const [isLoading, setIsLoading] = useState(false)
   // window.layout = newLayout.layout;
 
   const handleSendDetails = async () => {
@@ -81,6 +81,7 @@ const NewProduct = () => {
       }
       const endpoint = new base.ProductEndpoint(access_token, {});
       try {
+        setIsLoading(true)
         const res = await endpoint.create({
           name: name,
           price: price,
@@ -226,8 +227,9 @@ const NewProduct = () => {
       </div>
       <div className="mt-10 p-0">
         <button
+          disabled={isLoading}
           onClick={handleSendDetails}
-          className=" font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] max-w-max px-2 bg-[#5CB85C] border border-[#4CAE4C]"
+          className="disabled:cursor-not-allowed disabled:opacity-50 font-open-sans font-normal text-[.875rem] leading-5 text-white rounded-[4px] h-[34px] max-w-max px-2 bg-[#5CB85C] border border-[#4CAE4C]"
         >
           {t('newProduct.addNewProduct')}
         </button>

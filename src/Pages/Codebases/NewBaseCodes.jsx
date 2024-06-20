@@ -3,11 +3,11 @@ import { useState } from "react";
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next"; // Import useTranslation hook
-
+import { useTranslation } from "react-i18next";
+import Spinner from '../../component/Spinner'
 const NewBaseCodes = () => {
-  const { t } = useTranslation(); // Initialize useTranslation hook
-
+  const { t } = useTranslation();
+  const [isLoading, setIsLoading] = useState(false)
   const [newCodeBase, setNewCodeBase] = useState({
     name: "",
   });
@@ -21,6 +21,7 @@ const NewBaseCodes = () => {
   };
 
   const handleSendDetails = async () => {
+    setIsLoading(true)
     const codebaseName = newCodeBase.name;
     const access_token = await tokenUtil.getToken();
 
@@ -59,10 +60,11 @@ const NewBaseCodes = () => {
         </div>
         <div className="my-5 flex justify-end sm:justify-start">
           <button
+            disabled={isLoading}
             onClick={handleSendDetails}
-            className="max-w-max px-2 h-[34px] font-open-sans rounded-[4px] border block border-[#4CAE4C] bg-[#5CB85C] text-white text-sm leading-5"
+            className="max-w-max disabled:cursor-not-allowed disabled:opacity-50 px-2 h-[34px] font-open-sans rounded-[4px] border block border-[#4CAE4C] bg-[#5CB85C] text-white text-sm leading-5"
           >
-            {t("newBaseCodes.addNewBase")}
+            {isLoading ? <Spinner w="w-5" h="h-5" /> : t("newBaseCodes.addNewBase")}
           </button>
         </div>
         <div className="mt-4 sm:flex">

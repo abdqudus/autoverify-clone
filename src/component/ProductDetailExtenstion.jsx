@@ -5,14 +5,16 @@ import { useState } from 'react';
 import * as tokenUtil from '../utils/tokenUtil';
 import * as base from '../utils/base';
 import { useTranslation } from 'react-i18next';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import Spinner from './Spinner';
 
 const ProductDetailExtenstion = ({ bg, border, data }) => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient()
   const [showModal, setShowModal] = useState(false);
   const [tobeDeleted, setTobeDeleted] = useState(null);
   const navigate = useNavigate();
   const { id } = useParams();
-
   const _checkLog = async () => {
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
@@ -21,10 +23,11 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
     return access_token;
   };
 
-  const onDelete = async (product) => {
+  const onDelete = async (id) => {
+    console.log(id)
     const endpoint = new base.ProductEndpoint(await _checkLog(), {});
-    console.log('deleting this product ...', product);
-    await endpoint.delete(product.id);
+    console.log('deleting this product ...', id);
+    await endpoint.delete(id);
     setShowModal(false);
     // Optionally, you can navigate to another route after deletion
     navigate('/products/all-products/');
@@ -53,10 +56,11 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
     setTobeDeleted({ name, id });
     setShowModal(true);
   };
+  const { mutate, isPending } = useMutation({ mutationFn: handlePause, onSuccess: () => queryClient.invalidateQueries({ queryKey: ['product'], }) })
 
   return (
     <div className="mt-[30px] justify-self-end  lg:mt-4 md:flex gap-4 lg:flex-col items-start justify-between">
-      <div className="max-w-[250px] lg:w-full p-4 text-[#333333] font-open-sans  min-h-[146.19px] rounded-[4px] bg-[#F5F5F5] border border-[#E3E3E3]">
+      {data.is_active !== undefined && <div className="max-w-[250px] lg:w-full p-4 text-[#333333] font-open-sans  min-h-[146.19px] rounded-[4px] bg-[#F5F5F5] border border-[#E3E3E3]">
         <p className="text-[#333333] font-open-sans text-lg left-[19.8px]">
           {t('productDetailExtension.statusHeader')}
         </p>
@@ -64,12 +68,14 @@ const ProductDetailExtenstion = ({ bg, border, data }) => {
           {t('productDetailExtension.productInStock')}
         </p>
         <button
-          onClick={handlePause}
-          className={`w-full h-[34px] text-white ${bg} ${border}  rounded-[4px]`}
+          onClick={() => mutate()}
+          disabled={isPending}
+          className={`w-full ${isPending && 'flex justify-center items-center'} h-[34px] disabled:cursor-not-allowed disabled:opacity-50 ${!data?.is_active ? 'bg-green-500' : bg} text-white ${border}  rounded-[4px]`}
         >
-          {t('productDetailExtension.pauseSaleButton')}
+          {!isPending && <span>{data?.is_active ? t('productDetailExtension.pauseSaleButton') : t('productDetailExtension.resumeSaleButton')}</span>}
+          {isPending && <Spinner w='w-4' h='h-4' />}
         </button>
-      </div>
+      </div>}
       <div className="mt-[4rem] md:mt-0">
         <p className="text-[#333333] pb-1 border-b  font-open-sans text-lg left-[19.8px]">
           {t('productDetailExtension.managementHeader')}

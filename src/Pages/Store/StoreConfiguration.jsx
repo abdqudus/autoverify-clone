@@ -8,6 +8,7 @@ import useGetFormFields from "./custom-hooks-and-utils/useGetFormFields";
 import { saveStoreSettings } from "./custom-hooks-and-utils/saveStoreSettings";
 import { convertToBase64 } from "../../utils/convertToBase64";
 import { useTranslation } from "react-i18next";
+import Spinner from "../../component/Spinner";
 const initialState = {
   address: "",
   domain: "",
@@ -23,6 +24,7 @@ const StoreConfiguration = () => {
   const navigate = useNavigate();
   const [textVal, setTextVal] = useState("");
   const [selectedImage, setSelectedImage] = useState("");
+  const [isSaving, setIsSaving] = useState(false)
 
   useEffect(() => {
     if (data) {
@@ -37,10 +39,7 @@ const StoreConfiguration = () => {
   const handleImageChange = (e) => {
     const file = e.target.files?.[0];
     setStoreDetails(prev => ({ ...prev, logo: file }))
-    // storeDetails.logo = file;
-    // if (file) {
-    //   convertToBase64(file, storeDetails);
-    // }
+
   };
 
   console.log(storeDetails);
@@ -161,10 +160,11 @@ const StoreConfiguration = () => {
                       val={{ textVal, setTextVal, setStoreDetails }}
                     />
                     <button
-                      onClick={() => saveStoreSettings(navigate, storeDetails)}
-                      className="max-w-max px-2 mt-4 text-sm leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C] text-white"
+                      disabled={isSaving}
+                      onClick={() => saveStoreSettings(navigate, storeDetails, setIsSaving)}
+                      className="max-w-max disabled:opacity-50 disabled:cursor-not-allowed px-2 mt-4 text-sm leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C] text-white"
                     >
-                      {t('storeConfiguration.saveStoreSettings')}
+                      {isSaving ? <Spinner w="w-5" h="h-5" /> : t('storeConfiguration.saveStoreSettings')}
                     </button>
                   </div>
                 </div>

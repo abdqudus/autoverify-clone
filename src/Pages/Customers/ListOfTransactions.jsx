@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { Paginator } from "../../utils/pagination";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
+import { formatDate } from "../../utils/utils";
 
 const ListOfTransactions = () => {
 
@@ -137,7 +138,7 @@ const ListOfTransactions = () => {
                     </td>
                     <td className="text-left pr-4 ">{d.currency + d.amount_paid}</td>
                     <td className="text-[#1A1D1F] text-left pr-4  text-sm leading-6 font-semibold font-inter">
-                      {d.date_created}
+                      {formatDate(d.date_created)}
                     </td>
                     <td className=""></td>
                   </tr>

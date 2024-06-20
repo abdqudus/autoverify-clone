@@ -14,17 +14,13 @@ import PaginatorBtn from "../../component/PaginatorBtn";
 
 const EditCodeBase = () => {
   const navigate = useNavigate();
-  // const [codes, setCodes] = useState(initialCodes);
   const [inputVal, setInputVal] = useState('');
   const [codeDeleted, setCodeDeleted] = useState(null)
   const [editText, setEditText] = useState('')
   const [codeToEdit, setCodeToEdit] = useState(null)
   const [checkAll, setCheckAll] = useState(false)
-  // const [checkBox, setCheckedBox]=useState(null)
-  // const [checkedBoxes, setCheckedBoxes] = useState('none')
   const [isFocused, setIsFocused] = useState(false);
   const { id } = useParams();
-  const CodeBaseID = id;
 
   class CodebasePaginator extends Paginator {
     async _get_list(limit, offset) {
@@ -127,7 +123,7 @@ const EditCodeBase = () => {
     setCodeToEdit(code)
   }
   return (
-    <DashBoardSubRoutesWrapper header='Edit Codebase' additionalHeader='Dashboard Code bases Edit base "Abdqudus Gbadamosibbb"'>
+    <DashBoardSubRoutesWrapper header='Edit Codebase' additionalHeader={`Dashboard/Code bases/ Edit base  ${id}`}>
       <div className="mt-6">
         <CodebaseWrapper>
           <div>

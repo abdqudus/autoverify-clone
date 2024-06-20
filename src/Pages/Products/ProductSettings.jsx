@@ -23,7 +23,7 @@ const ProductSettings = () => {
     codebase,
   } = useGetProductSettings(id);
 
-
+  console.log(data)
   console.log(data);
   const handleProductSettings = async () => {
     const thumbnail = data.thumbnail
@@ -31,15 +31,6 @@ const ProductSettings = () => {
     if (access_token === null) {
       navigate("/login");
     }
-    // const form_data = new FormData();
-    // form_data.set("thumbnail", thumbnail, thumbnail.name);
-    // const endpoint = new base.ProductEndpoint(access_token, {});
-    // await endpoint.setup_for_upload();
-    // console.log(endpoint.headers);
-    // if (!endpoint.csrf_token) {
-    //   console.error("could not get csrf token");
-    //   throw Error("could not get csrf token");
-    // }
 
     const endpoint = new base.ProductEndpoint(access_token, {});
     const res = await endpoint.partial_update(id, {
@@ -185,6 +176,7 @@ const ProductSettings = () => {
         <ProductDetailExtenstion //rhs
           bg="bg-[#5CB85C] "
           border="border-[#4CAE4C] "
+          data={data}
         />
       </div>
     </DashBoardSubRoutesWrapper>

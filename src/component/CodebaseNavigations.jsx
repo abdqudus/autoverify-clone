@@ -31,6 +31,9 @@ const CodebaseNavigations = ({ id }) => {
   }
 
   const handleDeleteSentFiles = async (id) => {
+    if (isDeletingSentFIles) {
+      return
+    }
     const access_token = await _checkLog();
     const endpoint = new base.CodebaseEndpoint(access_token, {});
     const res = await endpoint.delete_sent_files_from_base(id);
@@ -40,13 +43,7 @@ const CodebaseNavigations = ({ id }) => {
   const { mutate, isSuccess, isPending } = useMutation({ mutationFn: () => deleteCodebase(id) })
   const { mutate: deleteSentFile, isSuccess: deleteSentFileSuccess, isPending: isDeletingSentFIles } = useMutation({ mutationFn: () => handleDeleteSentFiles(id) })
 
-  if (isSuccess || deleteSentFileSuccess) {
-    modal?.current?.close();
 
-  }
-  if (isPending || isDeletingSentFIles) {
-    modal?.current?.open()
-  }
 
   return (
     <div className="mt-3">
@@ -79,20 +76,18 @@ const CodebaseNavigations = ({ id }) => {
             </div>
           </NavLink>
         </div>
-        <div onClick={() => deleteSentFile(id)} className="w-full mt-5 group-has-[.active]:text-[#FFFFFF] group-has-[.active]:bg-[#e74c3c] md-[250px] mb-2 cursor-pointer h-[42.39px] font-poppins text-sm font-normal text-[#000000] leading-[22.4px] rounded-[4px]   bg-[#EEEEEE] flex px-4 items-center">
-          <p>Delete sent files from base</p>
+        <div onClick={() => deleteSentFile(id)} className="w-full justify-center  has-[.disabled]:cursor-not-allowed  mt-5 group-has-[.active]:text-[#FFFFFF] group-has-[.active]:bg-[#e74c3c] md-[250px] mb-2 cursor-pointer h-[42.39px] font-poppins text-sm font-normal text-[#000000] leading-[22.4px] rounded-[4px]   bg-[#EEEEEE] flex px-4 items-center">
+          <button disabled={isDeletingSentFIles} >{isDeletingSentFIles ? <Spinner w="w-5" h="h-5" /> : 'Delete sent files from base'}</button>
         </div>
         <div className="my-4 px-4 py-6 rounded-[4px] bg-[#EEEEEE]">
           <h4>Activated monitorings</h4>
           <p className="mt-4">No monitoring using this codebase</p>
         </div>
-        <button onClick={() => mutate(id)} className="px-4 py-2 w-full bg-[#e74c3c] font-poppins text-sm font-normal leading-[22.4px] rounded-[4px]   text-white">
-          delete codebase
+        <button disabled={isPending} onClick={() => mutate(id)} className="disabled:cursor-not-allowed flex justify-center items-center disabled:opacity-50 px-4 py-2 w-full bg-[#e74c3c] font-poppins text-sm font-normal leading-[22.4px] rounded-[4px]   text-white">
+          {isPending ? <Spinner w="w-5" h='h-5' /> : 'delete codebase'}
         </button>
       </div>
-      <Modal ref={modal}>
-        <Spinner />
-      </Modal>
+
     </div>
   );
 };

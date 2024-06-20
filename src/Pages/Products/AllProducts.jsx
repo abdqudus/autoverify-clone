@@ -90,9 +90,8 @@ const AllProducts = () => {
               </tr>
             </thead>
             <tbody>
-              {/* {products.length >= 0 && <Spinner />} */}
-              {/* {JSON.stringify(data)} */}
-              {data ? data.map((p) => (
+
+              {data?.map((p) => (
                 <tr key={p.product_id} className="h-[48px] text-left ">
                   <td className="pl-2">
                     <label htmlFor={`check-${p.product_id}`}>
@@ -136,7 +135,7 @@ const AllProducts = () => {
                     </div>
                   </td>
                 </tr>
-              )) : 'data is loading'}
+              ))}
             </tbody>
           </table>
           {isPending && (

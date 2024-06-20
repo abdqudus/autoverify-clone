@@ -188,7 +188,6 @@ const Configuration = () => {
             <button
               type="button"
               disabled={saveLoading}
-              // onClick={handleSave}
               onClick={() => mutate()}
               // 
               className="w-[146px] disabled:opacity-50 disabled:cursor-not-allowed mt-8 h-[34px] rounded-[4px] text-white font-open-sans text-[.75rem] leading-5 font-normal bg-[#5CB85C] border border-[#4CAE4C]"

@@ -5,15 +5,14 @@ import * as base from "../../utils/base";
 import { useTranslation } from 'react-i18next';
 import DashBoardSubRoutesWrapper from '../../component/DashBoardSubRoutesWrapper';
 import { useQuery } from '@tanstack/react-query';
-
+import Spinner from '../../component/Spinner'
 const NewTransaction = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [details, setDetails] = useState({ product: '', customerEmail: "", paid: false, mobileNum: '', quantity: '', price: '', currency: '' })
+  const [isSaving, setIsSaving] = useState(false)
 
-
-  /////////////
 
   const _checkLog = async () => {
     const access_token = await tokenUtil.getToken();
@@ -76,6 +75,7 @@ const NewTransaction = () => {
   }
 
   const submit = async (data) => {
+    setIsSaving(true)
     const access_token = await _checkLog();
     const endpoint = new base.CustomTransactionEndpoint(access_token, {}, OnServerError);
     const res = await endpoint.create_transaction({
@@ -224,8 +224,8 @@ const NewTransaction = () => {
           </div>
         </div>
         <div className="btn mt-2">
-          <button onClick={handleSubmit} className="w-[160.33px] text-[.75rem] vsm:max-w-full h-[34px] rounded-[4px] border bg-[#5CB85C] border-[#4CAE4C] text-white">
-            {t('new-transaction.addTransactionButton')}
+          <button disabled={isSaving} onClick={handleSubmit} className="w-[160.33px] flex justify-center items-center disabled:cursor-not-allowed disabled:opacity-50 text-[.75rem] vsm:max-w-full h-[34px] rounded-[4px] border bg-[#5CB85C] border-[#4CAE4C] text-white">
+            {isSaving ? <Spinner w='w-5' h='h-5' /> : t('new-transaction.addTransactionButton')}
           </button>
         </div>
         <div className="add-transaction md:ml-auto md:w-[348px] shadow-product-shadow p-5 text-[.75rem] leading-[22.4px] bg-[#F5F5F5] border border-[#E3E3E3] rounded-[4px]">

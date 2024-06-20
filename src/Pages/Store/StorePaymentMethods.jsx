@@ -97,9 +97,9 @@ const StorePaymentMethods = () => {
                       <td className="border px-2">
                         <div className="flex justify-between items-center">
                           <button className="px-2 f rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium">
-                            {t("store-payment-methods.active")}
+                            {d.is_active ? t("store-payment-methods.active") : t("inactive")}
                           </button>
-                          <button className="px-2 f rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium">
+                          <button className="px-2 f rounded-[2px] ml-2 bg-green-500 h-[20px] text-sm text-white font-medium">
                             {d.is_connected
                               ? t("store-payment-methods.linked")
                               : t("store-payment-methods.notLinked")}
@@ -108,7 +108,7 @@ const StorePaymentMethods = () => {
                       </td>
                       <td className="border px-2">
                         <button className="px-2 rounded-[2px] bg-white h-[20px] text-sm font-medium text-blue-300">
-                          <Link to={`/${d.id}/edit`}>{t("store-payment-methods.edit")}</Link>
+                          <Link to={`${d.id}/edit`}>{t("store-payment-methods.edit")}</Link>
                         </button>
                       </td>
                     </tr>

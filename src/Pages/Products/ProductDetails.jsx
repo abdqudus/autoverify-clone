@@ -43,7 +43,6 @@ const ProductDetails = () => {
   if (isPending) {
     return <Loader />;
   }
-
   if (isError) {
     return <p>{t('general.notFound')}</p>;
   }

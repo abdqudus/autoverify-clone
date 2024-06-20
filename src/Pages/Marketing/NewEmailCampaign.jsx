@@ -102,7 +102,7 @@ const NewEmailCampaign = () => {
               {t('newEmailCampaign.purchasedProductLabel')}
             </label>
             <input
-              className="w-full border h-[34px] border-[#CCCCCC] rounded-[4px]"
+              className="w-full px-2 border h-[34px] border-[#CCCCCC] rounded-[4px]"
               type="text"
               id="recipients"
               value={recipients}
@@ -121,7 +121,7 @@ const NewEmailCampaign = () => {
                 {t('newEmailCampaign.purchasedFrom')}
               </label>
               <input
-                className="border border-[#CCCCCC] rounded-[4px] h-[34px]"
+                className="border px-2 border-[#CCCCCC] rounded-[4px] h-[34px]"
                 type="text"
                 id="from"
                 value={purchasedFrom}
@@ -139,7 +139,7 @@ const NewEmailCampaign = () => {
                 {t('newEmailCampaign.purchasedTo')}
               </label>
               <input
-                className="border border-[#CCCCCC] rounded-[4px] h-[34px]"
+                className="border px-2 border-[#CCCCCC] rounded-[4px] h-[34px]"
                 type="text"
                 id="to"
                 value={purchasedTo}
@@ -149,7 +149,6 @@ const NewEmailCampaign = () => {
                 <span className="text-red-500 text-sm">{errors.purchasedTo}</span>
               )}
             </div>
-            {/* Other form fields remain unchanged */}
           </div>
         </div>
 
@@ -158,9 +157,9 @@ const NewEmailCampaign = () => {
             {t('newEmailCampaign.configureMessage')}
           </h3>
           <div className="flex gap-3 flex-col">
-            <label htmlFor="Shipping-name">{t('newEmailCampaign.shippingName')} *</label>
+            <label htmlFor="Shipping-name">{t('newEmailCampaign.shippingName')} </label>
             <input
-              className="w-full border h-[34px] border-[#CCCCCC] rounded-[4px]"
+              className="w-full px-2 border h-[34px] border-[#CCCCCC] rounded-[4px]"
               type="text"
               id="Shipping-name"
               value={shippingName}
@@ -175,7 +174,7 @@ const NewEmailCampaign = () => {
               {t('newEmailCampaign.emailAddressLabel')}
             </label>
             <input
-              className="w-full border h-[34px] border-[#CCCCCC] rounded-[4px]"
+              className="w-full px-2 border h-[34px] border-[#CCCCCC] rounded-[4px]"
               type="text"
               id="email-address"
               value={emailAddress}

@@ -120,6 +120,7 @@
     "statusHeader": "Status",
     "productInStock": "Produkt jest dostępny",
     "pauseSaleButton": "Zatrzymaj sprzedaż",
+    "resumeSaleButton": "wznowić sprzedaż ",
     "managementHeader": "Zarządzanie",
     "showDetails": "Pokaż szczegóły",
     "productSettings": "Ustawienia produktu",
