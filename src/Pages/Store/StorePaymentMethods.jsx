@@ -99,7 +99,7 @@ const StorePaymentMethods = () => {
                           <button className="px-2 f rounded-[2px] bg-green-500 h-[20px] text-sm text-white font-medium">
                             {d.is_active ? t("store-payment-methods.active") : t("inactive")}
                           </button>
-                          <button className="px-2 f rounded-[2px] ml-2 bg-green-500 h-[20px] text-sm text-white font-medium">
+                          <button className="px-2 f rounded-[2px] min-w-max whitespace-nowrap ml-2 bg-green-500 h-[20px] text-sm text-white font-medium">
                             {d.is_connected
                               ? t("store-payment-methods.linked")
                               : t("store-payment-methods.notLinked")}

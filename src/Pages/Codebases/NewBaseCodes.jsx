@@ -21,6 +21,7 @@ const NewBaseCodes = () => {
   };
 
   const handleSendDetails = async () => {
+
     setIsLoading(true)
     const codebaseName = newCodeBase.name;
     const access_token = await tokenUtil.getToken();
@@ -60,7 +61,7 @@ const NewBaseCodes = () => {
         </div>
         <div className="my-5 flex justify-end sm:justify-start">
           <button
-            disabled={isLoading}
+            disabled={isLoading || newCodeBase.name == ''}
             onClick={handleSendDetails}
             className="max-w-max disabled:cursor-not-allowed disabled:opacity-50 px-2 h-[34px] font-open-sans rounded-[4px] border block border-[#4CAE4C] bg-[#5CB85C] text-white text-sm leading-5"
           >
@@ -93,7 +94,7 @@ const NewBaseCodes = () => {
           </div>
         </div>
       </div>
-    </DashBoardSubRoutesWrapper>
+    </DashBoardSubRoutesWrapper >
   );
 };
 
