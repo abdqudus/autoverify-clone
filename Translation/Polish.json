@@ -305,7 +305,9 @@
     "messageContent": "Treść wiadomości",
     "enterContent": "Proszę wprowadzić treść",
     "messageWithContent": "Wiadomość z tą treścią zostanie wysłana do klienta. W tym miejscu możesz użyć <span className='font-bold'>tagów</span>, które zostaną wymienione np. [CODES] na kod.",
-    "saveLayout": "Zapisz układ"
+    "saveLayout": "Zapisz układ",
+    "saveAuction": "Zapisz aukcję",
+    "auctionTip": "Należy zauważyć, że to nie tworzy aukcji na eBay, ale raczej informuje AutoReply, którą aukcję na eBay ma monitorować Możesz wolać synchronizować zamiast tego"
   },
   "navigation": {
     "layout": "Układ",

@@ -11,7 +11,7 @@ import DeleteModal from "./DeleteModal";
 import EntriesCount from "./EntriesCount";
 import PaginatorBtn from "./PaginatorBtn";
 
-const LayoutList = ({ setIsNewSetting }) => {
+const LayoutList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
@@ -113,10 +113,10 @@ const LayoutList = ({ setIsNewSetting }) => {
           </div>
           <div className="btn mt-12">
             <button
-              onClick={() => setIsNewSetting(true)}
+
               className="h-[34px] md:w-[230px] w-full border border-[#3276B1] bg-[#428BCA] rounded-[4px] text-sm leading-5 font-open-sans text-white"
             >
-              {t('layoutList.newSettingsTemplate')}
+              <Link to='/settings/layout?q=new'>{t('layoutList.newSettingsTemplate')}</Link>
             </button>
           </div>
           <DeleteModal showModal={showModal} tobeDeleted={tobeDeleted} onDelete={onDelete} setShowModal={setShowModal} />

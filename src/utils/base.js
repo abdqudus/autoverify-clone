@@ -17,6 +17,16 @@ const product_endpoints = {
   buy: "/api/v1/public_store/{product_id}/",
 };
 
+const auction_endpoints = {
+  list: "/api/v1/ebay_connector/{account_id}/auctions/",
+  create: "/api/v1/ebay_connector/{account_id}/auctions/",
+  read: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  partial_update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  delete: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  sync: "/api/v1/ebay_connector/{account_id}/auctions/sync/",
+};
+
 const email_campaign_endpoints = {
   list: "/api/v1/campaigns/",
   create: "/api/v1/campaigns/",
@@ -256,6 +266,10 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
     return await this._fetch(url, "GET", undefined, callback);
   }
 
+  pre_render_url(endpoint) {
+    return endpoint;
+  }
+
   async post(endpoint, body, callback) {
     return await this._fetch(endpoint, "POST", body, callback);
   }
@@ -269,6 +283,8 @@ class _RequestEndpoint extends _BaseRequestEndpoint {
   }
 
   async _fetch(endpoint, method, body, callback) {
+    endpoint = this.pre_render_url(endpoint);
+
     const error = this.error;
 
     if (!_isHttpMethod(method)) {
@@ -377,6 +393,10 @@ export class ProductEndpoint extends _RequestEndpoint {
   endpoints = product_endpoints;
   id_name = "product_id";
   cloudinary_upload_preset = "autoverify_upload_preset";
+
+  pre_render_url(endpoint) {
+    return super.pre_render_url(endpoint);
+  }
 
   async update_image(id, image) {
     const form = new FormData();
@@ -655,6 +675,18 @@ export class CustomTransactionEndpoint extends ProductEndpoint {
 export class Campaign extends ProductEndpoint {
   endpoints = email_campaign_endpoints;
   id_name = "id";
+}
+
+export class Auction extends ProductEndpoint {
+  endpoints = auction_endpoints;
+  id_name = "id";
+  account_id = undefined;
+  account_id_name = "account_id";
+
+  pre_render_url(endpoint) {
+    // this is needed because auction endpoints usually have 2 ids `account_id` and `id`
+    return endpoint.replace(`{${this.account_id_name}}`, this.account_id);
+  }
 }
 
 // async function test() {

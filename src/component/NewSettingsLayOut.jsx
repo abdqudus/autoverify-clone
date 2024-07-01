@@ -75,70 +75,7 @@ const NewSettingsLayOut = ({ setIsNewSetting }) => {
             </button>
           </div>
         </div>
-        {/* <div className="tags md:col-start-1 md:row-start-1 md:row-end-2 bg-[#F5F5F5] mt-6 border border-[#E3E3E3] p-4">
-          <h3 className="text-[#333333] font-open-sans text-[1.11625rem] leading-[19.8px]">
-            Tags in message
-          </h3>
-          <p className="mt-6 text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans ">
-            Tags below can be used in message and will be replaced for:
-          </p>
-          <ul className="px-4 text-[#333333] flex flex-col gap-1 text-sm leading-[22.4px] font-open-sans">
-            <li>
-              <span className="font-bold">[CODES] </span>- code downloaded from
-              base
-            </li>
-            <li>
-              <span className="font-bold">[THUMBNAIL] </span>- the product image
-            </li>
-            <li>
-              <span className="font-bold">[TITLE] </span>- product name
-            </li>
-            <li>
-              <span className="font-bold">[PRICE_PER_PRODUCT] </span>- price per product
-            </li>
-            <li>
-              <span className="font-bold">[TOTAL_PRICE] </span>- the aggregrate price
-            </li>
-            <li>
-              <span className="font-bold">[QUANTITY] </span>- quantity ordered
-            </li>
-            <li>
-              <span className="font-bold">[CURRENCY] </span>- currency
-            </li>
-            <li>
-              <span className="font-bold">[TRANSACTION_ID] </span>- Transaction ID
-            </li>
-            <li>
-              <span className="font-bold">[BUYER_EMAIL] </span>-customer e-mail
-              address
-            </li>
-            <li>
-              <span className="font-bold">[BUYER_PHONE] </span>-customer mobile
-              number
-            </li>
-            <li>
-              <span className="font-bold">[BUYER_NAME] </span>-customer name
-            </li>
-          </ul>
-          <p className="text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-3">
-            tags that only can be used for eBay transaction:
-          </p>
-          <ul className="px-4 text-[#333333] flex flex-col gap-1 text-sm leading-[22.4px] font-open-sans">
-            <li>
-              <span className="font-bold">[EBAY_USER] </span>- username
-            </li>
-            <li>
-              <span className="font-bold">[PAYPAL_MAIL] </span>- paypal address
-            </li>
-            <li>
-              <span className="font-bold">[EBAY_OFFID] </span>- auction number
-            </li>
-          </ul>
-          <p className="text-[#333333] mb-2 text-sm leading-[22.4px] font-open-sans mt-3">
-            If the code you are sending is a graphic file then the [CODE_IMAGE]
-            tag will display the file directly in the message.
-          </p>
-        </div> */}
+
       </SettingsWrapper>
     </div>
   );

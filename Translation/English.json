@@ -301,7 +301,9 @@
     "messageContent": "Message content",
     "enterContent": "Kindly enter content",
     "messageWithContent": "Message with this content will be sent to the customer. In this blank, you can use <span className='font-bold'>tags</span>, which will be exchanged e.g. [CODES] for code.",
-    "saveLayout": "Save layout"
+    "saveLayout": "Save layout",
+    "saveAuction": "Save auction",
+    "auctionTip": "Note, that this doesn't create an auction on Ebay, but rather tells AutoReply which eBay auction to monitor. You may prefer to synchronise instead."
   },
 
   "navigation": {

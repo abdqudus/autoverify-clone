@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import DashBoardSubRoutesWrapper from "../../component/DashBoardSubRoutesWrapper";
 
 const AutomaticMonitoring = () => {
@@ -76,7 +77,9 @@ const AutomaticMonitoring = () => {
             </div>
             <div className="mt-4 sm:flex-row sm:justify-between sm:items-start flex flex-col">
               <button className="sm:w-[173px] w-full mt-8 h-[34px] rounded-[4px] text-white font-open-sans text-[.75rem] leading-5 font-normal bg-[#428BCA] border border-[#3276B1]">
-                new automatic shipment
+                <Link to='new-automatic-monitoring'>
+                  New Automatic Shipment
+                </Link>
               </button>
               <div className="border mt-3 p-4 border-[#E3E3E3] rounded-[4px] sm:w-[330px] bg-[#F5F5F5]">
                 <h3 className="text-[1.118125rem] leading-[19.8px]  text-[#333333]">
