@@ -123,7 +123,7 @@ const ListOfTransactions = () => {
                     <td className="text-left pr-4 ">
                       {d.paid ?
                         <button className="bg-[#5CB85C] max-w-max px-2 h-[19px] text-center text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
-                          t{'paid'}
+                          {t('paid')}
                         </button>
                         :
                         <button className="bg-[#F83B2F] max-w-max px-2 h-[19px] text-center text-white text-[.65625rem] md:w-[149.39px] md:h-[18.5px] rounded-[2.63px]">
