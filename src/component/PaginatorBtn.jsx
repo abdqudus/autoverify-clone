@@ -21,9 +21,7 @@ const PaginatorBtn = ({ paginator }) => {
                 <span className="hidden md:block">←</span>
                 <span>{t('paginator.previous')}</span>
             </p>
-            <p className="w-[34.02px] md:hidden bg-[#E74C3C] flex items-center justify-center text-white">
-                1
-            </p>
+
             <p
                 onClick={next}
                 className="w-[74.36px] cursor-pointer flex-grow gap-1 text-[#999999] border border-[#DDDDDD] flex items-center justify-center rounded-tr-[4px] rounded-br-[4px]"

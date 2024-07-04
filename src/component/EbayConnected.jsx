@@ -4,10 +4,12 @@ import * as tokenUtil from '../utils/tokenUtil';
 import * as base from '../utils/base';
 import ConnectedAcctElement from './ConnectedAcctElement';
 import { useNavigate } from 'react-router-dom';
+import { toastError } from '../utils/toast';
+import { useTranslation } from 'react-i18next';
 
 const EbayConnected = ({ data, paginator }) => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation()
   const _checkLog = async () => {
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
@@ -31,10 +33,10 @@ const EbayConnected = ({ data, paginator }) => {
       if ('ebay_login_url' in res) {
         base.createAndClickLink(res.ebay_login_url);
       } else {
-        alert('could not activate account id:' + acct.account_id);
+        toastError(t('could-not-activate-acct') + acct.account_id);
       }
     } else {
-      alert('could not create account');
+      toastError(t('could-not-create-acct'));
     }
   }
 
@@ -44,7 +46,7 @@ const EbayConnected = ({ data, paginator }) => {
       <div className="lg:grid mt-8 grid-cols-[1fr_300px] gap-4">
         <div>
           <h1 className="text-[#333333] sm:w-[60%] pb-2 border-b border-[#CCCCCC]  text-[1rem] font-open-sans leading-[17.68px]">
-            Accounts
+            {t('accounts')}
           </h1>
           <div className="">
             <div className="border max-w-full overflow-x-scroll md:overflow-hidden mt-3  border-[#DDDDDD]">
@@ -52,16 +54,16 @@ const EbayConnected = ({ data, paginator }) => {
                 <thead className="bg-[#2c2c2c] text-white font-open-sans px-2  text-[.75rem]">
                   <tr>
                     <th className=" py-2 w-[10%]  text-white text-left px-2  border-white  text-[.75rem] font-semibold">
-                      ID
+                      {t('all-prod.ID')}
                     </th>
                     <th className=" w-[45%]  text-white text-left px-2  border-white  text-[.75rem] font-semibold">
-                      Ebay username
+                      {t('ebay-username')}
                     </th>
                     <th className=" w-[15%]  text-white text-left px-2  border-white  text-[.75rem] font-semibold">
-                      Connection
+                      {t('connection')}
                     </th>
                     <th className=" w-[15%]  text-white text-left px-2  border-white  text-[.75rem] font-semibold">
-                      Status
+                      {t('all-prod.status')}
                     </th>
                     <th className=" w-[15%]  text-white text-left px-2  border-white  text-[.75rem] font-semibold"></th>
                   </tr>
@@ -81,10 +83,10 @@ const EbayConnected = ({ data, paginator }) => {
         </div>
         <div className="flex flex-col gap-4">
           <h3 className="mt-4 lg:mt-0 pb-2 border-b border-[#CCCCCC] ">
-            Connect new account
+            {t('connect-new-acct')}
           </h3>
           <button onClick={createNewAcct} className="w-full  px-3 h-[34px] bg-[#5cb85c] text-white border border-[#4cae4c] rounded-[4px]">
-            Connect new account
+            {t('connect-new-acct')}
           </button>
         </div>
       </div>

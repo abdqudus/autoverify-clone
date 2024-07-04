@@ -6,6 +6,8 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
+import { useMutation } from "@tanstack/react-query";
+import { toastError } from "../../utils/toast";
 
 const NewEmailCampaign = () => {
   const { t } = useTranslation();
@@ -32,12 +34,12 @@ const NewEmailCampaign = () => {
   const handleSubmit = async () => {
     let newErrors = {};
 
-    if (!recipients) newErrors.recipients = t("newEmailCampaign.validation.required");
-    if (!purchasedFrom) newErrors.purchasedFrom = t("newEmailCampaign.validation.required");
-    if (!purchasedTo) newErrors.purchasedTo = t("newEmailCampaign.validation.required");
-    if (!shippingName) newErrors.shippingName = t("newEmailCampaign.validation.required");
-    if (!emailAddress) newErrors.emailAddress = t("newEmailCampaign.validation.required");
-    if (!textVal) newErrors.textVal = t("newEmailCampaign.validation.required");
+    if (!recipients) newErrors.recipients = "newEmailCampaign.validation.required";
+    if (!purchasedFrom) newErrors.purchasedFrom = ("newEmailCampaign.validation.required");
+    if (!purchasedTo) newErrors.purchasedTo = ("newEmailCampaign.validation.required");
+    if (!shippingName) newErrors.shippingName = ("newEmailCampaign.validation.required");
+    if (!emailAddress) newErrors.emailAddress = ("newEmailCampaign.validation.required");
+    if (!textVal) newErrors.textVal = ("newEmailCampaign.validation.required");
 
     setErrors(newErrors);
 
@@ -63,11 +65,11 @@ const NewEmailCampaign = () => {
       if ('id' in res) {
         navigate('/marketing/list-of-email-campaign');
       } else {
-        alert('Campaign could not be created check your input');
+        toastError(t('newEmailCampaign.campaign-not-created'));
       }
     }
   };
-
+  const { mutate, isPending } = useMutation({ mutationFn: handleSubmit })
   return (
     <DashBoardSubRoutesWrapper
       header={t('newEmailCampaign.header')}
@@ -109,7 +111,7 @@ const NewEmailCampaign = () => {
               onChange={(e) => setRecipients(e.target.value)}
             />
             {errors.recipients && (
-              <span className="text-red-500 text-sm">{errors.recipients}</span>
+              <span className="text-red-500 text-sm">{t(errors.recipients)}</span>
             )}
           </div>
           <div className="mt-4 md:mt-6 md:grid grid-cols-3 gap-4">
@@ -128,7 +130,7 @@ const NewEmailCampaign = () => {
                 onChange={(e) => setPurchasedFrom(e.target.value)}
               />
               {errors.purchasedFrom && (
-                <span className="text-red-500 text-sm">{errors.purchasedFrom}</span>
+                <span className="text-red-500 text-sm">{t(errors.purchasedFrom)}</span>
               )}
             </div>
             <div className="flex flex-col gap-2 my-4 md:my-0">
@@ -146,7 +148,7 @@ const NewEmailCampaign = () => {
                 onChange={(e) => setPurchasedTo(e.target.value)}
               />
               {errors.purchasedTo && (
-                <span className="text-red-500 text-sm">{errors.purchasedTo}</span>
+                <span className="text-red-500 text-sm">{t(errors.purchasedTo)}</span>
               )}
             </div>
           </div>
@@ -166,7 +168,7 @@ const NewEmailCampaign = () => {
               onChange={(e) => setShippingName(e.target.value)}
             />
             {errors.shippingName && (
-              <span className="text-red-500 -mt-0 block text-sm">{errors.shippingName}</span>
+              <span className="text-red-500 -mt-0 block text-sm">{t(errors.shippingName)}</span>
             )}
           </div>
           <div className="flex gap-3 my-4 flex-col">
@@ -181,7 +183,7 @@ const NewEmailCampaign = () => {
               onChange={(e) => setEmailAddress(e.target.value)}
             />
             {errors.emailAddress && (
-              <span className="text-red-500 text-sm">{errors.emailAddress}</span>
+              <span className="text-red-500 text-sm">{t(errors.emailAddress)}</span>
             )}
           </div>
           <div className="flex gap-3 flex-col">
@@ -191,13 +193,13 @@ const NewEmailCampaign = () => {
             </label>
             <TextEditor val={{ textVal, setTextVal }} />
             {errors.textVal && (
-              <span className="text-red-500 text-sm">{errors.textVal}</span>
+              <span className="text-red-500 text-sm">{t(errors.textVal)}</span>
             )}
           </div>
           <div className="mt-4 sm:flex-row sm:justify-between sm:items-start flex flex-col">
-            <button
-              className="text-white font-open-sans h-[34px] text-sm border w-[123.47px] border-[#4CAE4C] bg-[#5CB85C] rounded-[4px]"
-              onClick={handleSubmit}
+            <button disabled={isPending}
+              className="text-white disabled:cursor-not-allowed disabled:opacity-50 font-open-sans h-[34px] text-sm border w-[123.47px] border-[#4CAE4C] bg-[#5CB85C] rounded-[4px]"
+              onClick={() => mutate()}
             >
               {t('newEmailCampaign.saveCampaign')}
             </button>

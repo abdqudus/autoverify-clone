@@ -5,7 +5,10 @@ import DeleteModal from './DeleteModal';
 import * as tokenUtil from '../utils/tokenUtil';
 import * as base from '../utils/base';
 import Spinner from './Spinner';
+import { useTranslation } from 'react-i18next';
+import { toastError } from '../utils/toast';
 const ConnectedAcctElement = ({ d, i }) => {
+    const { t } = useTranslation()
     const [tobeDeleted, setTobeDeleted] = useState({ name: '', id: null })
     const [showModal, setShowModal] = useState(false);
     const navigate = useNavigate();
@@ -51,7 +54,7 @@ const ConnectedAcctElement = ({ d, i }) => {
         if ('ebay_login_url' in res) {
             base.createAndClickLink(res.ebay_login_url);
         } else {
-            alert('could not activate account id:' + id);
+            toastError(t('could-not-activate-acct') + id);
         }
     }
     return (
@@ -76,7 +79,7 @@ const ConnectedAcctElement = ({ d, i }) => {
                             : "bg-[#E74C3C]"
                             } text-white rounded-[2.63px] min-w-[50px] max-w-max h-[24px] whitespace-nowrap  px-2  font-open-sans font-bold text-[.65625rem]`}
                     >
-                        {d.is_connected ? "connected" : "not" + " connected"}
+                        {d.is_connected ? t("connected") : t("not") + " " + t("connected")}
 
                     </button>
                 </td>
@@ -86,7 +89,7 @@ const ConnectedAcctElement = ({ d, i }) => {
                         : "bg-[#E74C3C]"
                         } text-white rounded-[2.63px] max-w-max h-[24px] whitespace-nowrap  px-2  font-open-sans font-bold text-[.65625rem]`}
                     >
-                        {!isPending ? d.is_active ? "active" : "inactive" : ''}
+                        {!isPending ? d.is_active ? t("active") : t("inactive") : ''}
                         {isPending &&
                             <div className='flex justify-center items-center'>
                                 <Spinner w='w-5' h='h-5' />
@@ -96,7 +99,7 @@ const ConnectedAcctElement = ({ d, i }) => {
                 </td>
                 <td className="px-3">
                     <button onClick={() => handleClickDelete(' Account ', d.account_id)} className="px-2 h-[21px] rounded-[5px] bg-white border border-[#C9C9C9] text-[#e57a55] font-open-sans text-[.75rem] leading-[15px]">
-                        Delete
+                        {t('delete.delete')}
                     </button>
                 </td>
 

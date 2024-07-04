@@ -3,16 +3,15 @@ import * as tokenUtil from "../utils/tokenUtil";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from '../component/Spinner'
 import { useLanguageContext } from "../contexts/languageContext";
+import { toastError, toastSuccess } from "../utils/toast";
 const Intro = () => {
   const { t } = useLanguageContext();
   const navigate = useNavigate();
   const [credential, setCredential] = useState({ username: "", password: "" });
   const [isLoading, setIsLoading] = useState(false)
   const onLoginSuccess = () => {
+    toastSuccess(t('login-success'))
     navigate("/");
-  };
-  const onLoginError = () => {
-    alert("the username or password is invalid");
   };
 
   const handleLogin = async () => {
@@ -21,11 +20,12 @@ const Intro = () => {
     if (username && password) {
       const res = await tokenUtil.loginUser(credential);
       if (res === null) {
-        onLoginError();
+        toastError(t('login-error'))
       } else {
         onLoginSuccess();
       }
     }
+    setIsLoading(false)
   };
   const handleChange = (e) => {
     setCredential((prev) => ({
@@ -66,8 +66,9 @@ const Intro = () => {
         </div>
         <button
           type="button"
+          disabled={isLoading}
           onClick={handleLogin}
-          className="max-w-[204px] px-4 shadow-login-shadow font-bold text-[15px] leading-[22.5px] text-center h-[39px] mt-3 rounded-[5px] bg-[#0076C8] text-white"
+          className="max-w-[204px] disabled:cursor-not-allowed disabled:opacity-50 px-4 shadow-login-shadow font-bold text-[15px] leading-[22.5px] text-center h-[39px] mt-3 rounded-[5px] bg-[#0076C8] text-white"
         >
           {isLoading ? <span className=" flex gap-4 justify-center items-center">
             <span>{t('login.line5')} </span>

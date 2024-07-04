@@ -8,10 +8,13 @@ import { useTranslation } from "react-i18next";
 
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import Spinner from "../../component/Spinner";
+import { toastSuccess } from "../../utils/toast";
 
 const PersonalisedMessages = () => {
   const { t } = useTranslation();
+  const queryClient = useQueryClient()
   const [msgDetails, setMsgDetails] = useState({ user_name: '', logo: null, redirect_address: '', msg_footer: '' });
   const [showImgPreview, setShowImgPreview] = useState(false);
   const [isImgLink, setIsImgLink] = useState(false);
@@ -38,7 +41,6 @@ const PersonalisedMessages = () => {
       setIsImgLink(true);
     }
   }, [data]);
-
   const handleChange = (e) => {
     if (e.target.id === 'logo') {
       const file = e.target.files?.[0];
@@ -53,6 +55,8 @@ const PersonalisedMessages = () => {
 
   const handleSubmit = async () => {
     const { logo, msg_footer, redirect_address, user_name } = msgDetails;
+    console.log('logo should be file', logo)
+
     const access_token = await tokenUtil.getToken();
     if (access_token === null) {
       navigate("/login");
@@ -61,16 +65,24 @@ const PersonalisedMessages = () => {
     const endpoint = new base.PersonalSettingsEndpoint(access_token, {});
     const cloudinary_url = await endpoint.update_image(undefined, logo);
 
-    await endpoint.update_settings({
+    const payload = {
       "sender_name": user_name,
-      "logo_cloudinary_url": cloudinary_url.secure_url,
+      "logo_cloudinary_url": cloudinary_url,
       "logo_redirect_url": redirect_address,
       "footer": msg_footer
-    });
+    }
 
-    alert(t('personalisedMessages.savedSuccessfully'));
+    await endpoint.update_settings(payload);
+
+    toastSuccess(t('personalisedMessages.savedSuccessfully'));
   };
-
+  const { mutate, isPending } = useMutation({
+    mutationFn: handleSubmit, onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: ["personalised-msg"], })
+      setShowImgPreview(false)
+    }
+  })
+  console.log(msgDetails)
   return (
     <DashBoardSubRoutesWrapper
       header={t('personalisedMessages.header')}
@@ -178,8 +190,10 @@ const PersonalisedMessages = () => {
                   {t('personalisedMessages.footerInfo')}
                 </p>
               </div>
-              <button onClick={handleSubmit} className="h-[34px] text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">
-                {t('personalisedMessages.saveChanges')}
+              <button disabled={isPending} onClick={() => mutate()} className="h-[34px] disabled:cursor-not-allowed disabled:opacity-50 text-sm font-open-sans leading-5 my-4 bg-[#5CB85C] border border-[#4CAE4C] w-[113.75px] rounded-[4px] text-white">
+                {isPending ? <div className="flex justify-center items-center">
+                  <Spinner h="h-5" w="w-5" />
+                </div> : t('personalisedMessages.saveChanges')}
               </button>
             </div>
             <div className="mssg-preview border md:self-start border-[#DCDCDC] rounded-[4px] p-4 bg-[#EEEEEE]">

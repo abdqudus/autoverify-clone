@@ -66,7 +66,6 @@ const NewPaymentMethod = () => {
                     type="radio"
                     id="acct-inactive"
                     name="account-activity"
-                    //   className=" border border-[#CCCCCC] w-full"
                   />
                 </div>
               </div>

@@ -8,6 +8,10 @@ import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import Loader from "../../component/Loader";
 import useGetProductSettings from "./custom-hooks/useGetProductSettings";
+import { toastSuccess } from "../../utils/toast";
+import { useMutation } from "@tanstack/react-query";
+import Spinner from "../../component/Spinner";
+import { t } from "i18next";
 
 const ProductSettings = () => {
   const [showNewImg, setShowNewImg] = useState(false);
@@ -42,7 +46,7 @@ const ProductSettings = () => {
       "is_active": true
     });
     endpoint.update_image(id, data.thumbnail); // made this non blocking to suppress errors
-    alert('Saved Succesffuly');
+    toastSuccess('Saved Succesffuly');
   };
 
   const handleImageChange = (e) => {
@@ -53,7 +57,7 @@ const ProductSettings = () => {
     setShowNewImg(true);
   };
   // const handleDescriptionChange = () => { };
-
+  const { mutate, isPending } = useMutation({ mutationFn: handleProductSettings })
   if (isLoading) {
     return <Loader />;
   }
@@ -165,11 +169,18 @@ const ProductSettings = () => {
               </h3>
               <TextEditor val={{ textVal, setTextVal, setProductDetails }} />
               <button
-                onClick={handleProductSettings}
-                className="bg-[#5CB85C] rounded-[4px] h-[34px] mt-6 font-poppins text-[.75rem] leading-5 text-white flex items-center justify-center border vsm:max-w-full w-[166.06px]  border-[#4CAE4C]"
+                disabled={isPending}
+                onClick={() => mutate()}
+                className="bg-[#5CB85C] disabled:cursor-not-allowed disabled:opacity-50 rounded-[4px] h-[34px] mt-6 font-poppins text-[.75rem] leading-5 text-white flex items-center justify-center border vsm:max-w-full w-[166.06px]  border-[#4CAE4C]"
               >
-                Save product settings
+                {isPending ?
+                  <div className="flex justify-center items-center">
+                    <Spinner w="w-5" h="h-5" />
+                  </div>
+                  : t('save-prod-settings')
+                }
               </button>
+
             </div>
           </div>
         </div>

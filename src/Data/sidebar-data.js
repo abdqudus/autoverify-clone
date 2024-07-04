@@ -69,11 +69,6 @@ export const sideBarItems = [
         text: "sidebar.listOfEmailCampaign",
         route: "marketing/list-of-email-campaign",
       },
-      // { text: "sidebar.newShipment", route: "marketing/new-shipment" },
-      // {
-      //   text: "sidebar.listOfAutomaticShipment",
-      //   route: "marketing/list-of-automatic-shipment",
-      // },
     ],
     newHeight: "h-[135px]",
   },
@@ -86,12 +81,13 @@ export const sideBarItems = [
     dropDownItems: [
       { text: "sidebar.connectedAccounts", route: "ebay/accounts" },
       {
-        text: "sidebar.automaticMonitoring",
-        route: "ebay/automatic-monitoring",
+        text: "sidebar.new-auction",
+        route: "ebay/new-auction",
       },
+      { text: "sidebar.auctions", route: "ebay/auctions" },
       { text: "sidebar.ebayConfigurations", route: "ebay/configurations" },
     ],
-    newHeight: "h-[150px]",
+    newHeight: "h-[190px]",
   },
   {
     srcActive: "/settings.svg",

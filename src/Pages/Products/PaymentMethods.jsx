@@ -5,6 +5,7 @@ import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useTranslation } from "react-i18next";
 import Spinner from "../../component/Spinner";
+import { toastError } from "../../utils/toast";
 
 const PaymentMethods = () => {
   const success_activation_url = `${base.getDomain()}/success`; // URL WHEN ACTIVATION IS SUCCESSUFL
@@ -23,11 +24,15 @@ const PaymentMethods = () => {
   const addNewAccount = async () => {
     setIsLoading(true)
     if (!account.name) {
-      alert("Enter account name");
+      toastError(t("acct-name-req"), 1000);
+      setIsLoading(false)
+      return
     }
 
     if (!account.type) {
-      alert("Select account type");
+      toastError("Select account type");
+      setIsLoading(false)
+      return
     }
 
     const access_token = await tokenUtil.getToken();
@@ -43,7 +48,7 @@ const PaymentMethods = () => {
       is_active: account.isActive,
     });
     if (!res.id) {
-      alert("something went wrong");
+      toastError("something went wrong");
       console.error(res);
       throw Error(res);
     }
@@ -54,7 +59,7 @@ const PaymentMethods = () => {
       return_url: unsuccess_activation_url,
     });
     if (!res.redirect_link) {
-      alert("something went wrong");
+      toastError("something went wrong");
       console.error(res);
       throw Error(res);
     }

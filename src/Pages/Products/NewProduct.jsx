@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Loader from "../../component/Loader";
 import { useTranslation } from "react-i18next";
+import { toastError } from "../../utils/toast";
 
 const UNPAGINATE = null;
 
@@ -74,7 +75,7 @@ const NewProduct = () => {
       if (!codebase) {
         const first_codebase = data.codebases[0];
         if (!first_codebase) {
-          alert("please add codes to continue");
+          toastError("please add codes to continue");
           return;
         }
         codebase = first_codebase.id;
@@ -100,7 +101,7 @@ const NewProduct = () => {
         console.error(err);
       }
     } else {
-      alert("input all field");
+      toastError(t("all-required"));
     }
   };
 

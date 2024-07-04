@@ -37,7 +37,7 @@ const StorePaymentMethods = () => {
 
   const { data } = useQuery({
     queryKey: ["payment-methods", page],
-    queryFn: () => getPaymentMethods(page),
+    queryFn: () => getPaymentMethods({ page, setPage }),
   });
 
   console.log(data);

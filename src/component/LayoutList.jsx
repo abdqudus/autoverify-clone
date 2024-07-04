@@ -10,12 +10,14 @@ import Loader from "./Loader";
 import DeleteModal from "./DeleteModal";
 import EntriesCount from "./EntriesCount";
 import PaginatorBtn from "./PaginatorBtn";
+import { Paginator } from "../utils/pagination";
 
 const LayoutList = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [showModal, setShowModal] = useState(false);
   const [tobeDeleted, setTobeDeleted] = useState({ name: '', id: null });
+  const [page, setPage] = useState(0);
 
   const handleClickDelete = (name, id) => {
     setTobeDeleted({ name, id });
@@ -36,20 +38,25 @@ const LayoutList = () => {
     return access_token;
   }
 
-  const fetchLayoutList = async () => {
-    let limit, offset;
+  const fetchLayoutList = async (page) => {
     const access_token = await _checkLog();
 
     const endpoint = new base.LayoutEndpoint(access_token, {});
-    const res = await endpoint.list(limit, offset);
-    console.log('layout list', res);
-    return res;
+    const paginator = new Paginator(endpoint, page);
+    const res = (await paginator.current()).results;
+
+    return {
+      layouts: res,
+      paginator
+    }
   };
 
   const { data, isLoading } = useQuery({
-    queryKey: ["layout-list"],
-    queryFn: fetchLayoutList
+    queryKey: ["layout-list", page],
+    queryFn: () => fetchLayoutList({ page, setPage })
   });
+
+  console.log(data)
 
   return (
     <div className="mt-6 ">
@@ -82,7 +89,7 @@ const LayoutList = () => {
                 </tr>
               </thead>
               <tbody>
-                {data && data.results.map(d => (
+                {data && data?.layouts.map(d => (
                   <tr key={d.id} className="h-[48px]">
                     <td className="px-3">{d.id}</td>
                     <td className="px-3">
@@ -105,18 +112,18 @@ const LayoutList = () => {
               </tbody>
             </table>
             {isLoading && <Loader />}
-            {data && data.results.length === 0 && <p className="p-4">{t('layoutList.emptyList')}</p>}
+            {data && data?.layouts.length === 0 && <p className="p-4">{t('layoutList.emptyList')}</p>}
           </div>
           <div className="show-and-prev-next mt-4 font-poppins font-normal pb-3 flex flex-col md:flex-row md:justify-between md:items-center gap-3">
             <EntriesCount />
-            <PaginatorBtn />
+            <PaginatorBtn paginator={data?.paginator} />
           </div>
           <div className="btn mt-12">
             <button
 
               className="h-[34px] md:w-[230px] w-full border border-[#3276B1] bg-[#428BCA] rounded-[4px] text-sm leading-5 font-open-sans text-white"
             >
-              <Link to='/settings/layout?q=new'>{t('layoutList.newSettingsTemplate')}</Link>
+              <Link to='/settings/layout?q=new'>{t('layoutList.new-layout')}</Link>
             </button>
           </div>
           <DeleteModal showModal={showModal} tobeDeleted={tobeDeleted} onDelete={onDelete} setShowModal={setShowModal} />

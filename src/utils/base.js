@@ -17,16 +17,6 @@ const product_endpoints = {
   buy: "/api/v1/public_store/{product_id}/",
 };
 
-const auction_endpoints = {
-  list: "/api/v1/ebay_connector/{account_id}/auctions/",
-  create: "/api/v1/ebay_connector/{account_id}/auctions/",
-  read: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
-  update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
-  partial_update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
-  delete: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
-  sync: "/api/v1/ebay_connector/{account_id}/auctions/sync/",
-};
-
 const email_campaign_endpoints = {
   list: "/api/v1/campaigns/",
   create: "/api/v1/campaigns/",
@@ -91,6 +81,7 @@ const codebase_endpoints = {
   delete_sent_files_from_base:
     "/api/v1/codebases/{id}/delete_sent_files_from_base/",
   codes: "/api/v1/codebases/{id}/codes/",
+  export_codebases: "/api/v1/codebases/export_codebases/",
 };
 
 const code_endpoints = {
@@ -130,6 +121,16 @@ const ebay_account_endpoints = {
   partial_update: "/api/v1/ebay_connector/{account_id}/",
   delete: "/api/v1/ebay_connector/{account_id}/",
   activate: "/api/v1/ebay_connector/{account_id}/activate_account/",
+};
+
+const auction_endpoints = {
+  list: "/api/v1/ebay_connector/{account_id}/auctions/",
+  create: "/api/v1/ebay_connector/{account_id}/auctions/",
+  read: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  partial_update: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  delete: "/api/v1/ebay_connector/{account_id}/auctions/{id}/",
+  sync: "/api/v1/ebay_connector/{account_id}/auctions/sync/",
 };
 
 const payment_history_endpoints = {
@@ -491,6 +492,11 @@ export class CodebaseEndpoint extends ProductEndpoint {
   endpoints = codebase_endpoints;
   id_name = "id";
 
+  async export_codebases(payload) {
+    const endpoint = _join(this.endpoints.export_codebases);
+    this.post(endpoint, payload);
+  }
+
   async handle_text_file(text, codebase_id) {
     const endpoint = _join(this.endpoints.handle_text_file);
     return await this.post(endpoint, {
@@ -686,6 +692,11 @@ export class Auction extends ProductEndpoint {
   pre_render_url(endpoint) {
     // this is needed because auction endpoints usually have 2 ids `account_id` and `id`
     return endpoint.replace(`{${this.account_id_name}}`, this.account_id);
+  }
+
+  async sync() {
+    const endpoint = _join(this.endpoints.sync);
+    return this.post(endpoint, {});
   }
 }
 

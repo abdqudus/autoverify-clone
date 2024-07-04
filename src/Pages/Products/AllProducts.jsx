@@ -120,7 +120,7 @@ const AllProducts = () => {
                   <td>
                     <div className="flex px-4 items-center">
                       <button
-                        className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] w-[39.39px] font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]"
+                        className="bg-white h-[21px] rounded-[5px] border border-[#C9C9C9] max-w-max px-2 font-open-sans font-normal text-[.75rem] leading-[15px] text-[#4CA2C7]"
                       >
                         <Link to={p.product_id}>
                           {t('edit')}

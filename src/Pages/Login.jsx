@@ -11,22 +11,7 @@ const Login = () => {
           LOGO
         </h3>
         <LanguageSelect />
-        {/* <select onChange={e => console.log(e.target.value)}
-        >
-          <option className="w-[100px] bg-transparent" value={'English'}>
-            <div className="flex gap-2 items-center">
-              <img src="/united-kingdom.png" width="20" height="20" alt="" />
-              <p className="text-[1.2rem] text-[#323232]">EN</p>
-            </div>
-          </option>
-          <option className="w-[100px] bg-transparent" value={'Polish'}>
-            <div className="flex gap-2 items-center">
-              <img src="/united-kingdom.png" width="20" height="20" alt="" />
-              <p className="text-[1.2rem] text-[#323232]">PL</p>
-            </div>
-          </option> */}
-        {/* </select> */}
-        {/* </div> */}
+
       </header>
       <Intro />
     </div >

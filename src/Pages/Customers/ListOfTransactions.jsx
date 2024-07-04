@@ -51,7 +51,6 @@ const ListOfTransactions = () => {
     };
   }
 
-  //////////////////
 
   const { data, isLoading } = useQuery({
     queryKey: ['list-of-transaction', page],
@@ -65,9 +64,8 @@ const ListOfTransactions = () => {
 
   return (
     <DashBoardSubRoutesWrapper
-      header="Dashboard/Customers/
-  Transaction"
-      subheader="List of transactions"
+      header={t("l-of-transactions-header")}
+      subheader={t("l-of-transactions")}
     >
       <div className="mt-6">
 
