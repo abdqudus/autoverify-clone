@@ -12,7 +12,7 @@ import PaginatorBtn from "../../component/PaginatorBtn";
 import EntriesCount from "../../component/EntriesCount";
 
 const StorePaymentMethods = () => {
-  const { t } = useTranslation(); // Initialize useTranslation hook
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [page, setPage] = useState(0);
 
@@ -40,7 +40,6 @@ const StorePaymentMethods = () => {
     queryFn: () => getPaymentMethods({ page, setPage }),
   });
 
-  console.log(data);
   return (
     <DashBoardSubRoutesWrapper
       subheader={t("store-payment-methods.subheader")}

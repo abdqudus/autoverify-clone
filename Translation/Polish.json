@@ -1,5 +1,6 @@
 {
   "accounts": "konta",
+  "code": "kod",
   "account": "konto",
   "search": "szukaj",
   "add-auction": "dodaj aukcję",
@@ -64,6 +65,71 @@
 
   "not": "nie",
   "connect-new-acct": "podłącz nowe konto",
+  "add-many-codes": {
+    "header": "Dodaj wiele kodów",
+    "subheader": "Jeśli masz listę kodów, możesz je szybko wkleić i załadować do bazy. Jeden kod musi być w jednej linii.",
+    "code-limit": "Limit kodów: 0/100",
+    "add-codes-button": "Dodaj kody do bazy"
+  },
+  "codes-export": {
+    "header": "Eksport kodów",
+    "subheader": "Możesz wyeksportować wszystkie kody z tej bazy (używane i nieużywane) do pliku Excel.",
+    "base-name": "Nazwa bazy",
+    "total-codes": "Łączna liczba kodów",
+    "unused-codes": "Liczba nieużywanych kodów",
+    "used-codes": "Liczba używanych kodów",
+    "download-all-codes": "Pobierz wszystkie kody (CSV)",
+    "download-unused-codes": "Pobierz nieużywane kody (CSV)",
+    "download-sent-codes": "Pobierz używane kody (CSV)"
+  },
+  "edit-codebase": {
+    "header": "Edytuj Bazę Kodów",
+    "breadcrumb": "Dashboard/Bazy kodów/ Edytuj bazę {{id}}",
+    "add-codes-title": "Dodaj kody lub pliki",
+    "codes-info": "System wysyła kody od najstarszego do najnowszego. Najstarsze kody znajdują się na końcu tabeli. Aby przenieść kod na koniec listy, kliknij na ikonę w wierszu z wybranym kodem.",
+    "file-info": "Pliki dodane do bazy kodów będą przechowywane tam na zawsze. Maksymalna waga jednego pliku wynosi 200 MB. Jeśli Twój kod zawiera tag [NEWLINE], zostanie on zastąpiony nową linią w wiadomości z kodem, np.: Username: XXX[NEWLINE]Password: YYY.",
+    "duplicates-info": "Duplikaty kodów: brak duplikatów.",
+    "enter-code-placeholder": "Wprowadź kod i kliknij enter, aby dodać...",
+    "edit-save-button": "Zapisz",
+    "edit-title": "Edytuj",
+    "delete-title": "Usuń"
+  },
+  "codebase-nav": {
+    "base-config": "Konfiguracja bazy",
+    "add-codes-files": "Dodaj kody lub pliki",
+    "add-many-codes": "Dodaj wiele kodów",
+    "codes-export": "Eksport kodów",
+    "delete-sent-files": "Usuń wysłane pliki z bazy",
+    "activated-monitorings": "Aktywne monitorowania",
+    "no-monitoring": "Brak monitorowania przy użyciu tej bazy kodów",
+    "delete-codebase": "Usuń bazę kodów"
+  },
+  "config": {
+    "header": "Konfiguracja eBay",
+    "subheader": "Konfiguracja eBay",
+    "sendingMessages": "Wysyłanie wiadomości z zakupionymi produktami",
+    "messagesDescription": "Domyślnie wiadomości są wysyłane e-mailem na adres klienta podany w jego ustawieniach konta. Możesz włączyć dodatkowe wysyłanie wiadomości za pośrednictwem bezpośrednich wiadomości eBay.",
+    "messageOptionEmail": "Na adres e-mail klienta",
+    "messageOptionEmailEbay": "Na adres e-mail klienta i przez wiadomości eBay",
+    "markingOrders": "Oznaczanie zamówień jako wysłane na eBay",
+    "markingDescription": "Po wysłaniu wszystkich kodów do klienta zamówienie może zostać oznaczone jako wysłane na eBay. Dodatkowo zostaną uzupełnione dane wysyłki. Numer zamówienia Automater zostanie wpisany jako numer śledzenia.",
+    "markAsShippedOptionNotMarked": "Nie oznaczaj jako wysłane",
+    "markAsShippedOptionMarkedTracking": "Oznacz jako wysłane i dodaj adres śledzenia",
+    "markAsShippedOptionMarked": "Oznacz jako wysłane i nie dodawaj adresu śledzenia",
+    "leaveFeedback": "Zostaw pozytywną opinię po wysłaniu kodów",
+    "leaveFeedbackDescription": "Po wysłaniu wszystkich kodów do klienta system może automatycznie zostawić pozytywną opinię z określoną treścią.",
+    "currentStatus": "Aktualny status",
+    "leavePositiveComment": "Zostaw pozytywną opinię",
+    "leaveNoComment": "Nie zostawiaj komentarza",
+    "feedbackContent": "Treść opinii",
+    "blockingCodes": "Blokowanie wysyłania kodów do klientów",
+    "blockingDescription": "Możesz aktywować blokowanie wysyłania kodów do klientów, którzy nie spełnili określonych kryteriów. Wszelkie transakcje, które nie spełniają poniższych warunków, będą musiały zostać odblokowane w rejestrze transakcji. Dopiero wtedy zakupione produkty zostaną wysłane do klienta.",
+    "ebayAccountStatus": "Status konta eBay",
+    "saveSettings": "Zapisz ustawienia",
+    "saving": "Zapisywanie",
+    "configuration": "Konfiguracja",
+    "automaterDescription": "Automater zapewnia dodatkową funkcjonalność, która pozwala na kompleksową automatyzację procesów związanych z eBay."
+  },
   "login": {
     "line1": "Zaloguj się do Panelu",
     "line2": "Nazwa użytkownika",
@@ -83,6 +149,14 @@
     "line6": "Proszę podać swój adres e-mail",
     "line7": "Przetwarzanie",
     "line8": "Uzyskaj hasło tymczasowe"
+  },
+  "base-config": {
+    "header": "Konfiguracja bazy kodów",
+    "subheader": "Dashboard/Bazy kodów/ nazwa",
+    "base-config-header": "Konfiguracja bazy",
+    "base-name": "Nazwa bazy",
+    "base-type": "Typ bazy",
+    "save-changes": "Zapisz zmiany"
   },
   "sidebar": {
     "dashboard": "Panel",

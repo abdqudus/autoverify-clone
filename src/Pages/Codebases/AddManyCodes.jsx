@@ -6,13 +6,13 @@ import { useState } from "react";
 import * as tokenUtil from "../../utils/tokenUtil";
 import * as base from "../../utils/base";
 import { useNavigate } from "react-router-dom";
-
+import { useTranslation } from 'react-i18next';
 
 const AddManyCodes = () => {
-  const [textVal, setTextVal] = useState('')
+  const [textVal, setTextVal] = useState('');
   const { id } = useParams();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
 
   const _checkLog = async () => {
     const access_token = await tokenUtil.getToken();
@@ -21,7 +21,6 @@ const AddManyCodes = () => {
     }
     return access_token;
   }
-
 
   const addToCodeBase = async () => {
     console.log('useparam id', id);
@@ -33,17 +32,16 @@ const AddManyCodes = () => {
 
   return (
     <DashBoardSubRoutesWrapper
-      header="Edit Codebase"
-      subheader="Dashboard/Code bases/ name"
+      header={t('add-many-codes.header')}
+      subheader={`Dashboard/Code bases/${t('add-many-codes.header')}`}
     >
       <div className="mt-6">
         <CodebaseWrapper>
           <div>
             <div className="my-6">
-              <h3>Add many codes</h3>
+              <h3>{t('add-many-codes.header')}</h3>
               <p className="mt-2">
-                If you have codes list you can quickly paste and load them to
-                base. One code must be in one line.
+                {t('add-many-codes.subheader')}
               </p>
             </div>
             <textarea
@@ -52,10 +50,10 @@ const AddManyCodes = () => {
               value={textVal}
               onChange={e => setTextVal(e.target.value)}
             ></textarea>
-            <p className="my-4">Code limit: 0/100</p>
+            <p className="my-4">{t('add-many-codes.code-limit')}</p>
             <div className="flex justify-end">
               <button onClick={addToCodeBase} className="px-3 font-open-sans font-normal text-[.875rem] my-3 text-white leading-5 h-[34px] rounded-[4px] bg-[#5CB85C] border border-[#4CAE4C]">
-                Add codes to base
+                {t('add-many-codes.add-codes-button')}
               </button>
             </div>
           </div>

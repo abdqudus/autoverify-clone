@@ -10,13 +10,7 @@ import Loader from "../../component/Loader";
 import { toastError } from "../../utils/toast";
 import Spinner from "../../component/Spinner";
 
-const items = [
-  { key: 'boy', id: '0' },
-  { key: 'girl', id: '1' },
-  { key: 'school', id: '2' },
-  { key: 'fish', id: '3' },
-  { key: 'cat', id: '5' }
-]
+
 const ExportCode = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false)
@@ -65,13 +59,13 @@ const ExportCode = () => {
   }
 
   const { data, isLoading } = useQuery({ queryKey: ['export-code'], queryFn: getData })
-  const { mutate, isPending } = useMutation({ mutationFn: upload })
+  const { mutate,isPending } = useMutation({ mutationFn: upload })
   useEffect(() => {
     setCodes(data)
   }, [data])
   useEffect(() => {
-    
-   }, [])
+
+  }, [])
 
   if (isLoading) return <Loader />
 
@@ -81,7 +75,6 @@ const ExportCode = () => {
       subheader={t("codeBaseExport.subheader")}
     >
       <div className="mt-6" onClick={(e) => {
-        console.log(e.target)
         if (show && e.target.id !== 'input') {
           setShow(false)
         }

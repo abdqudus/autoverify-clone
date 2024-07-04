@@ -9,16 +9,16 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { Paginator } from "../../utils/pagination";
 import EntriesCount from "../../component/EntriesCount";
 import PaginatorBtn from "../../component/PaginatorBtn";
-
-
+import { useTranslation } from 'react-i18next';
 
 const EditCodeBase = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [inputVal, setInputVal] = useState('');
-  const [codeDeleted, setCodeDeleted] = useState(null)
-  const [editText, setEditText] = useState('')
-  const [codeToEdit, setCodeToEdit] = useState(null)
-  const [checkAll, setCheckAll] = useState(false)
+  const [codeDeleted, setCodeDeleted] = useState(null);
+  const [editText, setEditText] = useState('');
+  const [codeToEdit, setCodeToEdit] = useState(null);
+  const [checkAll, setCheckAll] = useState(false);
   const [isFocused, setIsFocused] = useState(false);
   const { id } = useParams();
 
@@ -30,7 +30,7 @@ const EditCodeBase = () => {
         offset,
         this.reverseWhat,
         this.toReverse,
-      )
+      );
     }
   }
 
@@ -69,11 +69,10 @@ const EditCodeBase = () => {
     const paginator = new CodebasePaginator(endpoint, page);
     paginator.codebase_id = id;
     const res = (await paginator.current()).results;
-    // window.paginator = paginator;
     return {
       data: res,
       paginator: paginator
-    }
+    };
   }
 
   const [page, setPage] = useState(0);
@@ -84,7 +83,6 @@ const EditCodeBase = () => {
     placeholderData: keepPreviousData,
   });
 
-
   const handleSave = () => {
     if (inputVal.trim()) {
       setInputVal('');
@@ -92,9 +90,7 @@ const EditCodeBase = () => {
         refetch();
       });
     }
-
   };
-
 
   const handleReplace = async (i, editedCode) => {
     const newArr = [...codes.data];
@@ -113,25 +109,26 @@ const EditCodeBase = () => {
   const handleRemove = async (codeId, removedCode) => {
     const endpoint = new base.CodeEndpoint(await _checkLog(), {});
     console.log(await endpoint.delete(codeId));
-    setCodeDeleted(removedCode)
+    setCodeDeleted(removedCode);
     return await codes.paginator.current().results;
   }
 
   const tobeEdited = async (id) => {
     const { code, codebase } = codes.data.find((c) => c.id === id);
-    setEditText(code)
-    setCodeToEdit(code)
+    setEditText(code);
+    setCodeToEdit(code);
   }
+
   return (
-    <DashBoardSubRoutesWrapper header='Edit Codebase' additionalHeader={`Dashboard/Code bases/ Edit base  ${id}`}>
+    <DashBoardSubRoutesWrapper header={t('edit-codebase.header')} additionalHeader={t('edit-codebase.breadcrumb', { id })}>
       <div className="mt-6">
         <CodebaseWrapper>
           <div>
-            <h3>Add codes or files</h3>
+            <h3>{t('edit-codebase.add-codes-title')}</h3>
             <div className="mt-6">
-              <p>System sending codes from oldest to newest. The oldest codes are at the end of table. To move the code to the end of the list click on the  in the row with selected code.</p>
-              <p className="my-6">Files added to the code database will be stored there indefinitely. The maximum weight of one file is 200 MB. If your code contains tag [NEWLINE] it will be replaced with a new line in a message with code, e.g.: Username: XXX[NEWLINE]Password: YYY.</p>
-              <p>Codes duplicates: not found any duplicates.</p>
+              <p>{t('edit-codebase.codes-info')}</p>
+              <p className="my-6">{t('edit-codebase.file-info')}</p>
+              {/* <p>{t('edit-codebase.duplicates-info')}</p> */}
               <EntriesCount />
 
               <div className="mt-4 max-w-full sm:overflow-hidden overflow-x-scroll ">
@@ -144,15 +141,15 @@ const EditCodeBase = () => {
                           <img width='20' src="/check-edit.png" alt="" className="peer-checked:block hidden" />
                         </label>
                       </th>
-                      <th className=" text-white text-sm font-semibold p-2 ">Code</th>
+                      <th className="text-white text-sm font-semibold p-2">{t('code')}</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="grid bg-[#EEEEEE] border-b-2 border-gray-400 grid-cols-[40px_1fr] ">
-                      <td className=" h-[40px]  py-2"></td>
-                      <td className="flex  py-2 px-2 border-l-2 border-gray-300 items-center text-left">
+                      <td className="h-[40px] py-2"></td>
+                      <td className="flex py-2 px-2 border-l-2 border-gray-300 items-center text-left">
                         <div className="flex flex-grow justify-center items-center">
-                          <input onBlur={() => setIsFocused(false)} onFocus={() => setIsFocused(true)} value={inputVal} onChange={e => setInputVal(e.target.value)} type="text" placeholder="enter the code and  click enter to add..." className="w-[40px] border rounded-[4px] px-2 rounded-r-none placeholder:text-[12px] min-h-[34px] flex-grow" />
+                          <input onBlur={() => setIsFocused(false)} onFocus={() => setIsFocused(true)} value={inputVal} onChange={e => setInputVal(e.target.value)} type="text" placeholder={t('edit-codebase.enter-code-placeholder')} className="w-[40px] border rounded-[4px] px-2 rounded-r-none placeholder:text-[12px] min-h-[34px] flex-grow" />
                         </div>
                       </td>
                     </tr>
@@ -164,23 +161,18 @@ const EditCodeBase = () => {
                             <img width='20' src="/check-edit.png" alt="" className="peer-checked:block hidden" />
                           </label>
                         </td>
-                        <td className=" border-l-2 grid grid-cols-[1fr_80px] pl-2 border-gray-300 text-sm font-normal">
-                          {codeToEdit != c.code && < p className=" py-2 border-r"> {c.code}</p>}
+                        <td className="border-l-2 grid grid-cols-[1fr_80px] pl-2 border-gray-300 text-sm font-normal">
+                          {codeToEdit != c.code && <p className="py-2 border-r">{c.code}</p>}
                           {codeToEdit == c.code && <div className="flex items-center gap-2">
-
                             <input value={editText} onChange={(e) => setEditText(e.target.value)} className="border px-2 h-[30px] border-red-400  flex-grow w-[20px] rounded" type="text" />
-                            <button onClick={() => handleReplace(i, editText)} className="p-2 h-[30px] bg-red-300 rounded-[4px] flex justify-center items-center">Save</button>
+                            <button onClick={() => handleReplace(i, editText)} className="p-2 h-[30px] bg-red-300 rounded-[4px] flex justify-center items-center">{t('edit-codebase.edit-save-button')}</button>
                           </div>}
-
-                          <div className="flex px-2 w-[80px] justify-between  gap-[1px]">
-                            {/* <p onClick={() => setCodes(moveToEnd(i))} className="flex justify-center cursor-pointer items-center">
-                              <img width='16px' src="/code-arrow-down.png" alt="Download" />
-                            </p> */}
+                          <div className="flex px-2 w-[80px] justify-between gap-[1px]">
                             <p onClick={() => { tobeEdited(c.id) }} className="flex px-2 border-x justify-center cursor-pointer items-center">
-                              <img width='16px' src="/editing.png" alt="Edit" />
+                              <img width='16px' src="/editing.png" alt={t('edit-codebase.edit-title')} />
                             </p>
                             <p onClick={() => handleRemove(c.id, c.code)} className="flex justify-center cursor-pointer items-center">
-                              <img width='16px' src="/code-close-icon.png" alt="" />
+                              <img width='16px' src="/code-close-icon.png" alt={t('edit-codebase.delete-title')} />
                             </p>
                           </div>
                         </td>
@@ -188,8 +180,7 @@ const EditCodeBase = () => {
                     ))}
                   </tbody>
                 </table>
-                <div className="mt-4 flex  justify-end">
-
+                <div className="mt-4 flex justify-end">
                   <PaginatorBtn paginator={codes?.paginator} />
                 </div>
               </div>
@@ -197,7 +188,6 @@ const EditCodeBase = () => {
           </div>
           <CodebaseNavigations id={id} />
         </CodebaseWrapper>
-
       </div >
     </DashBoardSubRoutesWrapper >
   );

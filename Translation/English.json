@@ -1,5 +1,6 @@
 {
   "accounts": "Accounts",
+  "code": "Code",
   "account": "Account",
   "search": "search",
   "auction-name": "Auction Name",
@@ -7,7 +8,7 @@
   "add-auction": "Add auction",
   "syncing": "Synchronizing",
   "sync-with-server": "Synchronise with server",
-  "choose-acct": "choose account",
+  "choose-acct": "Choose account",
   "monitored": "monitored",
   "not-monitored": "not monitored",
   "select-an-ebay-acct": "Select an eBay account",
@@ -61,6 +62,31 @@
   "connection": "Connection",
   "connected": "connected",
   "not": "not",
+  "add-many-codes": {
+    "header": "Add many codes",
+    "subheader": "If you have codes list you can quickly paste and load them to base. One code must be in one line.",
+    "code-limit": "Code limit: 0/100",
+    "add-codes-button": "Add codes to base"
+  },
+  "codes-export": {
+    "header": "Codes Export",
+    "subheader": "You can export all codes from this base (used and unused) to Excel file.",
+    "base-name": "Base name",
+    "total-codes": "Total Codes",
+    "unused-codes": "Amount of unused codes",
+    "used-codes": "Amount of used codes",
+    "download-all-codes": "Download all codes (CSV)",
+    "download-unused-codes": "Download unused codes (CSV)",
+    "download-sent-codes": "Download used codes (CSV)"
+  },
+  "base-config": {
+    "header": "Configure Codebase",
+    "subheader": "Dashboard/Code bases/ name",
+    "base-config-header": "Base configuration",
+    "base-name": "Base name",
+    "base-type": "Base type",
+    "save-changes": "Save Changes"
+  },
   "login": {
     "line1": "Login to Dashboard",
     "line2": "Username",
@@ -70,6 +96,56 @@
     "line6": "Forgot your password",
     "line7": "Start Your Journey Here",
     "line8": "just a couple of clicks and we start"
+  },
+
+  "edit-codebase": {
+    "header": "Edit Codebase",
+    "breadcrumb": "Dashboard/Code bases/ Edit base {{id}}",
+    "add-codes-title": "Add codes or files",
+    "codes-info": "System sending codes from oldest to newest. The oldest codes are at the end of table. To move the code to the end of the list click on the  in the row with selected code.",
+    "file-info": "Files added to the code database will be stored there indefinitely. The maximum weight of one file is 200 MB. If your code contains tag [NEWLINE] it will be replaced with a new line in a message with code, e.g.: Username: XXX[NEWLINE]Password: YYY.",
+    "duplicates-info": "Codes duplicates: not found any duplicates.",
+    "enter-code-placeholder": "Enter the code and click enter to add...",
+    "edit-save-button": "Save",
+    "edit-title": "Edit",
+    "delete-title": "Delete"
+  },
+
+  "codebase-nav": {
+    "base-config": "Base configuration",
+    "add-codes-files": "Add codes or files",
+    "add-many-codes": "Add many codes",
+    "codes-export": "Codes export",
+    "delete-sent-files": "Delete sent files from base",
+    "activated-monitorings": "Activated monitorings",
+    "no-monitoring": "No monitoring using this codebase",
+    "delete-codebase": "Delete codebase"
+  },
+  "config": {
+    "header": "Ebay/Configuration",
+    "subheader": "Ebay Configuration",
+    "sendingMessages": "Sending messages with purchased products",
+    "messagesDescription": "By default, messages are sent by email to the Client's address entered in his account settings. You can activate an additional dispatch of messages via eBay direct messages.",
+    "messageOptionEmail": "To email address of your client",
+    "messageOptionEmailEbay": "To email address of your client and through Ebay messages",
+    "markingOrders": "Marking orders as shipped on eBay",
+    "markingDescription": "After sending all codes to the Customer, order can be marked as shipped on eBay. Additionally the shipment details will be completed. The order number of Automater will be entered as the tracking number.",
+    "markAsShippedOptionNotMarked": "Do not mark as shipped",
+    "markAsShippedOptionMarkedTracking": "Mark as shipped and add tracking address",
+    "markAsShippedOptionMarked": "Mark as shipped and do not add tracking address",
+    "leaveFeedback": "Leave a positive feedback after sending the codes",
+    "leaveFeedbackDescription": "After sending all codes to the customer, system can automatically leave a positive feedback with specified content.",
+    "currentStatus": "Current status",
+    "leavePositiveComment": "Leave a positive comment",
+    "leaveNoComment": "Do not leave a comment",
+    "feedbackContent": "Feedback content",
+    "blockingCodes": "Blocking of codes sending to Customers",
+    "blockingDescription": "You can activate the blocking of code sending to clients who did not meet certain criteria. Any transactions that do not meet the following conditions will have to be unlocked in the transaction registry. Only then will the purchased products be sent to the customer.",
+    "ebayAccountStatus": "eBay account status",
+    "saveSettings": "Save settings",
+    "saving": "Saving",
+    "configuration": "Configuration",
+    "automaterDescription": "Automater provides additional functionality that allows for comprehensive automation of the processes associated with eBay."
   },
   "forgetpwd": {
     "line1": "A temporary password has been sent to your email.",
